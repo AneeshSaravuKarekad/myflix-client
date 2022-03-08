@@ -32090,7 +32090,32 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"./..\\public\\baseBackground.jpg":[["baseBackground.7eed6fc9.jpg","../public/baseBackground.jpg"],"../public/baseBackground.jpg"],"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"App.jsx":[function(require,module,exports) {
+},{"./..\\public\\baseBackground.jpg":[["baseBackground.7eed6fc9.jpg","../public/baseBackground.jpg"],"../public/baseBackground.jpg"],"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/movies/movies.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/movies/Movies.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+require("./movies.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Movies = function Movies() {
+  return /*#__PURE__*/_react.default.createElement("div", null, "Movies Page");
+};
+
+var _default = Movies;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","./movies.scss":"pages/movies/movies.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32104,6 +32129,8 @@ var _reactRouterDom = require("react-router-dom");
 
 require("./app.scss");
 
+var _Movies = _interopRequireDefault(require("./pages/movies/Movies"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -32111,13 +32138,13 @@ var App = function App() {
     className: "base-container"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/movies",
-    element: /*#__PURE__*/_react.default.createElement("h1", null, "AppComponent")
+    element: /*#__PURE__*/_react.default.createElement(_Movies.default, null)
   })));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./app.scss":"app.scss"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./app.scss":"app.scss","./pages/movies/Movies":"pages/movies/Movies.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
