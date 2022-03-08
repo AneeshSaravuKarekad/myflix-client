@@ -22,3 +22,12 @@
   --clr-text-heading: hsla(0, 0%, 100%, 0.87);
   --clr-text-body: hsla(0, 0%, 100%, 0.6);
 }
+
+.base-container {
+  background: linear-gradient(rgba(30, 27, 38, 0.95), rgba(30, 27, 38, 0.95)),
+    url('../public/baseBackground.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: repeat;
+  height: 100vh;
+}

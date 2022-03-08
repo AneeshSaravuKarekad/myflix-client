@@ -5,8 +5,10 @@ import './app.scss';
 
 const App = () => {
   return (
-    <div>
-      <h1>App component</h1>
+    <div className="base-container">
+      <Routes>
+        <Route path="/movies" element={<h1>AppComponent</h1>} />
+      </Routes>
     </div>
   );
 };

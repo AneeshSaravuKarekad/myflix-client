@@ -10,7 +10,6 @@ export default class MyFlixApplication extends Component {
   render() {
     return (
       <BrowserRouter>
-        <h1>MyFlix application</h1>
         <App />
       </BrowserRouter>
     );

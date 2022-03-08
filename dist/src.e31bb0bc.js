@@ -32090,7 +32090,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"App.jsx":[function(require,module,exports) {
+},{"./..\\public\\baseBackground.jpg":[["baseBackground.7eed6fc9.jpg","../public/baseBackground.jpg"],"../public/baseBackground.jpg"],"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32107,7 +32107,12 @@ require("./app.scss");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h1", null, "App component"));
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "base-container"
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/movies",
+    element: /*#__PURE__*/_react.default.createElement("h1", null, "AppComponent")
+  })));
 };
 
 var _default = App;
@@ -32177,7 +32182,7 @@ var MyFlixApplication = /*#__PURE__*/function (_Component) {
   _createClass(MyFlixApplication, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement("h1", null, "MyFlix application"), /*#__PURE__*/_react.default.createElement(_App.default, null));
+      return /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement(_App.default, null));
     }
   }]);
 
