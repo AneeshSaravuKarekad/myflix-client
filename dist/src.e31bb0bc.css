@@ -1,3 +1,25 @@
+:root {
+  --clr-primary-100: hsla(272, 100%, 85%, 1);
+  --clr-primary-200: hsla(267, 95%, 76%, 1);
+  --clr-primary-300: hsla(262, 100%, 68%, 1);
+  --clr-primary-400: hsla(262, 96%, 60%, 1);
+  --clr-primary-500: hsla(265, 100%, 47%, 1);
+  --clr-primary-600: hsla(262, 100%, 45%, 1);
+  --clr-primary-700: hsla(258, 100%, 35%, 1);
+  --clr-primary-800: hsla(258, 100%, 31%, 1);
+  --clr-primary-900: hsla(259, 94%, 21%, 1);
+  --clr-secondary-100: hsla(172, 80%, 69%, 1);
+  --clr-secondary-200: hsla(174, 97%, 43%, 1);
+  --clr-secondary-300: hsla(175, 100%, 38%, 1);
+  --clr-secondary-400: hsla(176, 100%, 35%, 1);
+  --clr-secondary-500: hsla(177, 99%, 32%, 1);
+  --clr-secondary-600: hsla(179, 99%, 29%, 1);
+  --clr-secondary-700: hsla(180, 99%, 27%, 1);
+  --clr-secondary-800: hsla(181, 98%, 23%, 1);
+  --clr-secondary-900: hsla(182, 100%, 17%, 1);
+  --clr-text-heading: hsla(0, 0%, 100%, 0.87);
+  --clr-text-body: hsla(0, 0%, 100%, 0.6);
+}
 /* Box sizing rules */
 *,
 *::before,
