@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchMovies } from '../../actions/movieAction';
-import MovieCard from '../../components/movieCard/movieCard';
+import MovieCard from '../../components/movieCard/MovieCard';
 
 import './movies.scss';
 
@@ -17,11 +17,10 @@ const Movies = () => {
   }, [dispatch]);
 
   return (
-    <Row>
-      <h1> Movies Page</h1>
+    <Row className="justify-content-center movies-page-row">
       {!isLoading ? (
-        result.map((movie) => {
-          <MovieCard movie={movie} />;
+        result.map((movie, idx) => {
+          return <MovieCard key={idx} movie={movie} />;
         })
       ) : (
         <h1>Loading...</h1>

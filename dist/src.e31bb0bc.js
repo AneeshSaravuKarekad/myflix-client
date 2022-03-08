@@ -56399,7 +56399,16 @@ const clearErrors = () => async dispatch => {
 };
 
 exports.clearErrors = clearErrors;
-},{"../api":"api/index.js","../constants/movieConstants":"constants/movieConstants.js"}],"components/movieCard/movieCard.jsx":[function(require,module,exports) {
+},{"../api":"api/index.js","../constants/movieConstants":"constants/movieConstants.js"}],"../public/favIcon.svg":[function(require,module,exports) {
+module.exports = "/favIcon.877438c9.svg";
+},{}],"../public/unFavIcon.svg":[function(require,module,exports) {
+module.exports = "/unFavIcon.055f354b.svg";
+},{}],"components/movieCard/movieCard.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/movieCard/MovieCard.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56407,17 +56416,77 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _favIcon = _interopRequireDefault(require("../../../public/favIcon.svg"));
+
+var _unFavIcon = _interopRequireDefault(require("../../../public/unFavIcon.svg"));
+
+require("./movieCard.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const MovieCard = () => {
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h1", null, "Movie Card"));
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const MovieCard = _ref => {
+  let {
+    movie
+  } = _ref;
+  const [favState, setFavState] = (0, _react.useState)(_unFavIcon.default);
+
+  const handleClick = () => {
+    if (favState === _favIcon.default) {
+      setFavState(_unFavIcon.default);
+    } else {
+      setFavState(_favIcon.default);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
+    className: "movie-card"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "movie-card__header",
+    style: {
+      backgroundImage: `url(${movie.imagePath})`
+    }
+  }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, {
+    className: "movie-card__body"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "movie-card-header-contianer"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, {
+    className: "movie-card__body-title"
+  }, movie.title), /*#__PURE__*/_react.default.createElement("div", {
+    className: "movie-card__body-subtitle"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "movie-card__body-subtitle-rating"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "rating",
+    style: {
+      opacity: '1'
+    }
+  }, movie.rating, ' '), ' ', "/10", ' '), ' ', /*#__PURE__*/_react.default.createElement("span", {
+    className: "movie-card__body-subtitle-release"
+  }, ' ', movie.releaseYear, ' '))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, {
+    className: "movie-card__body-description"
+  }, ' ', movie.description.substr(0, 150), "..."), /*#__PURE__*/_react.default.createElement("div", {
+    className: "movie-card__footer"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    className: "view-movie-btn"
+  }, " View "), /*#__PURE__*/_react.default.createElement("img", {
+    className: "fav-icon",
+    src: favState,
+    onClick: handleClick,
+    alt: "favourite unfavourite icon"
+  }))));
 };
 
 var _default = MovieCard;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"pages/movies/movies.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","./movieCard.scss":"components/movieCard/movieCard.scss"}],"pages/movies/movies.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56438,7 +56507,7 @@ var _reactRedux = require("react-redux");
 
 var _movieAction = require("../../actions/movieAction");
 
-var _movieCard = _interopRequireDefault(require("../../components/movieCard/movieCard"));
+var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
 
 require("./movies.scss");
 
@@ -56461,9 +56530,11 @@ const Movies = () => {
   (0, _react.useEffect)(() => {
     dispatch((0, _movieAction.fetchMovies)(''));
   }, [dispatch]);
-  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/_react.default.createElement("h1", null, " Movies Page"), !isLoading ? result.map(movie => {
-    /*#__PURE__*/
-    _react.default.createElement(_movieCard.default, {
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center movies-page-row"
+  }, !isLoading ? result.map((movie, idx) => {
+    return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
+      key: idx,
       movie: movie
     });
   }) : /*#__PURE__*/_react.default.createElement("h1", null, "Loading..."));
@@ -56471,7 +56542,7 @@ const Movies = () => {
 
 var _default = Movies;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/movieCard":"components/movieCard/movieCard.jsx","./movies.scss":"pages/movies/movies.scss"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","./movies.scss":"pages/movies/movies.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56574,7 +56645,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58210" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62619" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
