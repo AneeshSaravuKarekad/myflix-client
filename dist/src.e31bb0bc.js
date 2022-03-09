@@ -37080,7 +37080,7 @@ var _userConstants = require("../constants/userConstants");
 
 const userReducer = function () {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    user: null
+    details: null
   };
   let action = arguments.length > 1 ? arguments[1] : undefined;
 
@@ -37150,12 +37150,70 @@ var _appReducer = _interopRequireDefault(require("./reducers/appReducer"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const middleware = [_reduxThunk.default];
-const initialState = {};
-const store = (0, _redux.createStore)(_appReducer.default, initialState, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(...middleware)));
+const store = (0, _redux.createStore)(_appReducer.default, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(...middleware)));
 exports.store = store;
 const persister = (0, _persistStore.default)(store);
 exports.persister = persister;
-},{"redux":"../node_modules/redux/es/redux.js","redux-thunk":"../node_modules/redux-thunk/es/index.js","redux-devtools-extension":"../node_modules/redux-devtools-extension/index.js","redux-persist/es/persistStore":"../node_modules/redux-persist/es/persistStore.js","./reducers/appReducer":"reducers/appReducer.js"}],"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+},{"redux":"../node_modules/redux/es/redux.js","redux-thunk":"../node_modules/redux-thunk/es/index.js","redux-devtools-extension":"../node_modules/redux-devtools-extension/index.js","redux-persist/es/persistStore":"../node_modules/redux-persist/es/persistStore.js","./reducers/appReducer":"reducers/appReducer.js"}],"routes/routesCheck.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PrivateRoute = PrivateRoute;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+var _store = require("../store");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import LOGIN_PATH from '../pages/auth/login';
+// export const PublicRoute = ({
+//   loggedInPath,
+//   component: Component,
+//   ...rest
+// }) => {
+//   const state = store.getState();
+//   const details = state.user.details;
+//   let token = details?.token;
+//   const navigate = useNavigate;
+//   return (
+//     <Route
+//       {...rest}
+//       element={() => {
+//         return !token ? <Component /> : navigate(loggedInPath);
+//       }}
+//     />
+//   );
+// };
+function PrivateRoute(_ref) {
+  let {
+    children
+  } = _ref;
+
+  const state = _store.store.getState();
+
+  const details = state.user.details;
+  let token = details?.token;
+  return token ? children : /*#__PURE__*/_react.default.createElement(_reactRouterDom.Navigate, {
+    to: "/"
+  });
+}
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../store":"store.js"}],"routes/routesPath.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.MOVIES_PATH = exports.LOGIN_PATH = void 0;
+const LOGIN_PATH = '/';
+exports.LOGIN_PATH = LOGIN_PATH;
+const MOVIES_PATH = '/movies';
+exports.MOVIES_PATH = MOVIES_PATH;
+},{}],"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -72234,7 +72292,9 @@ var _reactRedux = require("react-redux");
 
 var _reactRouterDom = require("react-router-dom");
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
+var _routesCheck = require("./routes/routesCheck");
+
+var _routesPath = require("./routes/routesPath");
 
 require("./app.scss");
 
@@ -72252,25 +72312,27 @@ const App = _ref => {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "base-container"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-    path: "/",
+    path: _routesPath.LOGIN_PATH,
     element: /*#__PURE__*/_react.default.createElement(_Welcome.default, null),
+    loggedInPath: _routesPath.MOVIES_PATH,
     exact: true
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-    path: "/movies",
-    element: /*#__PURE__*/_react.default.createElement(_Movies.default, null)
+    path: _routesPath.MOVIES_PATH,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
+    exact: true
   })));
 };
 
-const mapStatetoProps = state => {
+const mapStateToProps = state => {
   return {
     user: state.user
   };
 };
 
-var _default = (0, _reactRedux.connect)(mapStatetoProps)(App);
+var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","prop-types":"../node_modules/prop-types/index.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);

@@ -6,11 +6,9 @@ import persistStore from 'redux-persist/es/persistStore';
 import appReducer from './reducers/appReducer';
 
 const middleware = [thunk];
-const initialState = {};
 
 const store = createStore(
   appReducer,
-  initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { PrivateRoute } from './routes/routesCheck';
+import { LOGIN_PATH, MOVIES_PATH } from './routes/routesPath';
 
 import './app.scss';
 import Welcome from './pages/auth/Welcome';
@@ -12,15 +13,29 @@ const App = ({ user }) => {
   return (
     <div className="base-container">
       <Routes>
-        <Route path="/" element={<Welcome />} exact />
-        <Route path="/movies" element={<Movies />} />
+        {/* TODO: change logged in path to home path */}
+        <Route
+          path={LOGIN_PATH}
+          element={<Welcome />}
+          loggedInPath={MOVIES_PATH}
+          exact
+        />
+        <Route
+          path={MOVIES_PATH}
+          element={
+            <PrivateRoute>
+              <Movies />
+            </PrivateRoute>
+          }
+          exact
+        />
       </Routes>
     </div>
   );
 };
 
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
   return { user: state.user };
 };
 
-export default connect(mapStatetoProps)(App);
+export default connect(mapStateToProps)(App);
