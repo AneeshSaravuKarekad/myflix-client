@@ -19,6 +19,7 @@
   --clr-secondary-900: hsla(182, 100%, 17%, 1);
   --clr-text-heading: hsla(0, 0%, 100%, 0.87);
   --clr-text-body: hsla(0, 0%, 100%, 0.6);
+  --clr-body-dark: hsl(0, 0%, 0%);
 }
 
 .base-container {
@@ -27,6 +28,79 @@
   background-size: cover;
   background-repeat: repeat;
   min-height: 100vh;
+}
+.auth-form {
+  width: 50%;
+  position: relative;
+}
+.auth-form .form-header {
+  display: flex;
+  justify-content: center;
+  margin-inline: auto;
+  color: var(--clr-text-heading);
+  margin-bottom: 1rem;
+}
+.auth-form .form-label {
+  color: var(--clr-primary-200);
+}
+.auth-form .input-group {
+  margin-bottom: 1rem;
+}
+.auth-form .input-group .form-control {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: white;
+  border-color: transparent;
+  box-shadow: none;
+}
+.auth-form .input-group .form-control:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  position: relative;
+  border-color: var(--clr-primary-200) !important;
+}
+.auth-form .password-input-group {
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+.auth-form .password-input-group .eye-icon {
+  position: absolute;
+  z-index: 10;
+  width: 30px;
+  right: 7px;
+  top: 4px;
+  cursor: pointer;
+}
+.auth-form .submit-button {
+  position: absolute;
+  right: 0;
+}
+
+.register-login-link {
+  color: var(--clr-primary-200);
+}
+.welcome-page-container {
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), #121212;
+  min-height: 100vh;
+}
+.welcome-page-container .banner {
+  background: url("/joker-poster.f38cda54.png");
+  background-size: contain;
+  height: 500px;
+  display: flex;
+  text-align: center;
+  justify-content: flex-start;
+  color: white;
+  max-width: 100vw;
+}
+.welcome-page-container .banner::after {
+  content: "";
+  width: 100vw;
+  height: 500px;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), #121212;
+  position: absolute;
+  max-width: 100%;
+  top: 0;
+  left: 0;
+  clip-path: polygon(100% 65%, 0% 100%, 100% 100%);
 }
 .movie-card {
   width: 18rem;
@@ -171,6 +245,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Roboto", sans-serif !important;
+  overflow-x: hidden;
 }
 
 /* A elements that don't have a class get default styles */

@@ -54224,7 +54224,131 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./Accordion":"../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionButton":"../node_modules/react-bootstrap/esm/AccordionButton.js","./Alert":"../node_modules/react-bootstrap/esm/Alert.js","./Anchor":"../node_modules/react-bootstrap/esm/Anchor.js","./Badge":"../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../node_modules/react-bootstrap/esm/Card.js","./CardImg":"../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../node_modules/react-bootstrap/esm/Fade.js","./Form":"../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../node_modules/react-bootstrap/esm/FormCheck.js","./FormFloating":"../node_modules/react-bootstrap/esm/FormFloating.js","./FloatingLabel":"../node_modules/react-bootstrap/esm/FloatingLabel.js","./FormGroup":"../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../node_modules/react-bootstrap/esm/FormText.js","./FormSelect":"../node_modules/react-bootstrap/esm/FormSelect.js","./Container":"../node_modules/react-bootstrap/esm/Container.js","./Image":"../node_modules/react-bootstrap/esm/Image.js","./Figure":"../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","./ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../node_modules/react-bootstrap/esm/ListGroupItem.js","./Modal":"../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalHeader":"../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalFooter":"../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../node_modules/react-bootstrap/esm/NavLink.js","./Offcanvas":"../node_modules/react-bootstrap/esm/Offcanvas.js","./OffcanvasHeader":"../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./OffcanvasBody":"../node_modules/react-bootstrap/esm/OffcanvasBody.js","./Overlay":"../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../node_modules/react-bootstrap/esm/Pagination.js","./Placeholder":"../node_modules/react-bootstrap/esm/Placeholder.js","./PlaceholderButton":"../node_modules/react-bootstrap/esm/PlaceholderButton.js","./Popover":"../node_modules/react-bootstrap/esm/Popover.js","./PopoverHeader":"../node_modules/react-bootstrap/esm/PopoverHeader.js","./PopoverBody":"../node_modules/react-bootstrap/esm/PopoverBody.js","./ProgressBar":"../node_modules/react-bootstrap/esm/ProgressBar.js","./Ratio":"../node_modules/react-bootstrap/esm/Ratio.js","./Row":"../node_modules/react-bootstrap/esm/Row.js","./Spinner":"../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../node_modules/react-bootstrap/esm/SplitButton.js","./SSRProvider":"../node_modules/react-bootstrap/esm/SSRProvider.js","./Stack":"../node_modules/react-bootstrap/esm/Stack.js","./Tab":"../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../node_modules/react-bootstrap/esm/ToastHeader.js","./ToastContainer":"../node_modules/react-bootstrap/esm/ToastContainer.js","./ToggleButton":"../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../node_modules/react-bootstrap/esm/Tooltip.js"}],"api/url.js":[function(require,module,exports) {
+},{"./Accordion":"../node_modules/react-bootstrap/esm/Accordion.js","./AccordionContext":"../node_modules/react-bootstrap/esm/AccordionContext.js","./AccordionCollapse":"../node_modules/react-bootstrap/esm/AccordionCollapse.js","./AccordionButton":"../node_modules/react-bootstrap/esm/AccordionButton.js","./Alert":"../node_modules/react-bootstrap/esm/Alert.js","./Anchor":"../node_modules/react-bootstrap/esm/Anchor.js","./Badge":"../node_modules/react-bootstrap/esm/Badge.js","./Breadcrumb":"../node_modules/react-bootstrap/esm/Breadcrumb.js","./BreadcrumbItem":"../node_modules/react-bootstrap/esm/BreadcrumbItem.js","./Button":"../node_modules/react-bootstrap/esm/Button.js","./ButtonGroup":"../node_modules/react-bootstrap/esm/ButtonGroup.js","./ButtonToolbar":"../node_modules/react-bootstrap/esm/ButtonToolbar.js","./Card":"../node_modules/react-bootstrap/esm/Card.js","./CardImg":"../node_modules/react-bootstrap/esm/CardImg.js","./CardGroup":"../node_modules/react-bootstrap/esm/CardGroup.js","./Carousel":"../node_modules/react-bootstrap/esm/Carousel.js","./CarouselItem":"../node_modules/react-bootstrap/esm/CarouselItem.js","./CloseButton":"../node_modules/react-bootstrap/esm/CloseButton.js","./Col":"../node_modules/react-bootstrap/esm/Col.js","./Collapse":"../node_modules/react-bootstrap/esm/Collapse.js","./Dropdown":"../node_modules/react-bootstrap/esm/Dropdown.js","./DropdownButton":"../node_modules/react-bootstrap/esm/DropdownButton.js","./Fade":"../node_modules/react-bootstrap/esm/Fade.js","./Form":"../node_modules/react-bootstrap/esm/Form.js","./FormControl":"../node_modules/react-bootstrap/esm/FormControl.js","./FormCheck":"../node_modules/react-bootstrap/esm/FormCheck.js","./FormFloating":"../node_modules/react-bootstrap/esm/FormFloating.js","./FloatingLabel":"../node_modules/react-bootstrap/esm/FloatingLabel.js","./FormGroup":"../node_modules/react-bootstrap/esm/FormGroup.js","./FormLabel":"../node_modules/react-bootstrap/esm/FormLabel.js","./FormText":"../node_modules/react-bootstrap/esm/FormText.js","./FormSelect":"../node_modules/react-bootstrap/esm/FormSelect.js","./Container":"../node_modules/react-bootstrap/esm/Container.js","./Image":"../node_modules/react-bootstrap/esm/Image.js","./Figure":"../node_modules/react-bootstrap/esm/Figure.js","./InputGroup":"../node_modules/react-bootstrap/esm/InputGroup.js","./ListGroup":"../node_modules/react-bootstrap/esm/ListGroup.js","./ListGroupItem":"../node_modules/react-bootstrap/esm/ListGroupItem.js","./Modal":"../node_modules/react-bootstrap/esm/Modal.js","./ModalBody":"../node_modules/react-bootstrap/esm/ModalBody.js","./ModalDialog":"../node_modules/react-bootstrap/esm/ModalDialog.js","./ModalHeader":"../node_modules/react-bootstrap/esm/ModalHeader.js","./ModalFooter":"../node_modules/react-bootstrap/esm/ModalFooter.js","./ModalTitle":"../node_modules/react-bootstrap/esm/ModalTitle.js","./Nav":"../node_modules/react-bootstrap/esm/Nav.js","./Navbar":"../node_modules/react-bootstrap/esm/Navbar.js","./NavbarBrand":"../node_modules/react-bootstrap/esm/NavbarBrand.js","./NavDropdown":"../node_modules/react-bootstrap/esm/NavDropdown.js","./NavItem":"../node_modules/react-bootstrap/esm/NavItem.js","./NavLink":"../node_modules/react-bootstrap/esm/NavLink.js","./Offcanvas":"../node_modules/react-bootstrap/esm/Offcanvas.js","./OffcanvasHeader":"../node_modules/react-bootstrap/esm/OffcanvasHeader.js","./OffcanvasTitle":"../node_modules/react-bootstrap/esm/OffcanvasTitle.js","./OffcanvasBody":"../node_modules/react-bootstrap/esm/OffcanvasBody.js","./Overlay":"../node_modules/react-bootstrap/esm/Overlay.js","./OverlayTrigger":"../node_modules/react-bootstrap/esm/OverlayTrigger.js","./PageItem":"../node_modules/react-bootstrap/esm/PageItem.js","./Pagination":"../node_modules/react-bootstrap/esm/Pagination.js","./Placeholder":"../node_modules/react-bootstrap/esm/Placeholder.js","./PlaceholderButton":"../node_modules/react-bootstrap/esm/PlaceholderButton.js","./Popover":"../node_modules/react-bootstrap/esm/Popover.js","./PopoverHeader":"../node_modules/react-bootstrap/esm/PopoverHeader.js","./PopoverBody":"../node_modules/react-bootstrap/esm/PopoverBody.js","./ProgressBar":"../node_modules/react-bootstrap/esm/ProgressBar.js","./Ratio":"../node_modules/react-bootstrap/esm/Ratio.js","./Row":"../node_modules/react-bootstrap/esm/Row.js","./Spinner":"../node_modules/react-bootstrap/esm/Spinner.js","./SplitButton":"../node_modules/react-bootstrap/esm/SplitButton.js","./SSRProvider":"../node_modules/react-bootstrap/esm/SSRProvider.js","./Stack":"../node_modules/react-bootstrap/esm/Stack.js","./Tab":"../node_modules/react-bootstrap/esm/Tab.js","./TabContainer":"../node_modules/react-bootstrap/esm/TabContainer.js","./TabContent":"../node_modules/react-bootstrap/esm/TabContent.js","./Table":"../node_modules/react-bootstrap/esm/Table.js","./TabPane":"../node_modules/react-bootstrap/esm/TabPane.js","./Tabs":"../node_modules/react-bootstrap/esm/Tabs.js","./ThemeProvider":"../node_modules/react-bootstrap/esm/ThemeProvider.js","./Toast":"../node_modules/react-bootstrap/esm/Toast.js","./ToastBody":"../node_modules/react-bootstrap/esm/ToastBody.js","./ToastHeader":"../node_modules/react-bootstrap/esm/ToastHeader.js","./ToastContainer":"../node_modules/react-bootstrap/esm/ToastContainer.js","./ToggleButton":"../node_modules/react-bootstrap/esm/ToggleButton.js","./ToggleButtonGroup":"../node_modules/react-bootstrap/esm/ToggleButtonGroup.js","./Tooltip":"../node_modules/react-bootstrap/esm/Tooltip.js"}],"../public/myFlixLogo.png":[function(require,module,exports) {
+module.exports = "/myFlixLogo.2aafe5b5.png";
+},{}],"../public/showIcon.png":[function(require,module,exports) {
+module.exports = "/showIcon.f691f2f2.png";
+},{}],"../public/hideIcon.png":[function(require,module,exports) {
+module.exports = "/hideIcon.a1d82e35.png";
+},{}],"pages/auth/auth.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/auth/login.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _showIcon = _interopRequireDefault(require("../../../public/showIcon.png"));
+
+var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
+
+require("./auth.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Login = () => {
+  const [type, setType] = (0, _react.useState)('password');
+  const [icon, setIcon] = (0, _react.useState)(_showIcon.default);
+
+  const toggleEye = () => {
+    if (type === 'password') {
+      setType('text');
+      setIcon(_showIcon.default);
+    } else {
+      setType('password');
+      setIcon(_hideIcon.default);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+    className: "auth-form"
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    className: "form-header"
+  }, "Login"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+    placeholder: "Enter Email",
+    "aria-label": "email",
+    type: "email"
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
+    className: "password-input-group"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+    placeholder: "Enter password",
+    "aria-label": "password",
+    type: type
+  }), /*#__PURE__*/_react.default.createElement("img", {
+    className: "eye-icon",
+    src: icon,
+    alt: "show/hide password",
+    onClick: toggleEye
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Text, {
+    className: "text-muted"
+  }, "Don't have an account yet?", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "#",
+    className: "register-login-link",
+    onClick: () => newUser()
+  }, "Register"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    className: "submit-button",
+    variant: "warning"
+  }, "Login"));
+};
+
+var _default = Login;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss"}],"pages/auth/welcome.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"./..\\..\\..\\public\\joker-poster.png":[["joker-poster.f38cda54.png","../public/joker-poster.png"],"../public/joker-poster.png"],"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/auth/Welcome.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _myFlixLogo = _interopRequireDefault(require("../../../public/myFlixLogo.png"));
+
+var _login = _interopRequireDefault(require("./login"));
+
+require("./welcome.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Welcome = () => {
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "welcome-page-container"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "banner"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _myFlixLogo.default,
+    alt: "myFlix logo"
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "form-row justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement(_login.default, null)));
+};
+
+var _default = Welcome;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/myFlixLogo.png":"../public/myFlixLogo.png","./login":"pages/auth/login.jsx","./welcome.scss":"pages/auth/welcome.scss"}],"api/url.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56556,6 +56680,8 @@ var _reactRouterDom = require("react-router-dom");
 
 require("./app.scss");
 
+var _Welcome = _interopRequireDefault(require("./pages/auth/Welcome"));
+
 var _Movies = _interopRequireDefault(require("./pages/movies/Movies"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -56564,6 +56690,9 @@ const App = () => {
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "base-container"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: "/auth",
+    element: /*#__PURE__*/_react.default.createElement(_Welcome.default, null)
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: "/movies",
     element: /*#__PURE__*/_react.default.createElement(_Movies.default, null)
   })));
@@ -56571,7 +56700,7 @@ const App = () => {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./app.scss":"app.scss","./pages/movies/Movies":"pages/movies/Movies.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -56645,7 +56774,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62619" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55605" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

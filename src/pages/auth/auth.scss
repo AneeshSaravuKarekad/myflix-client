@@ -1,0 +1,53 @@
+.auth-form {
+  width: 50%;
+
+  .form-header {
+    display: flex;
+    justify-content: center;
+    margin-inline: auto;
+
+    color: var(--clr-text-heading);
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    color: var(--clr-primary-200);
+  }
+  .input-group {
+    margin-bottom: 1rem;
+    .form-control {
+      background-color: hsla(0, 0%, 100%, 0.15);
+      color: white;
+      border-color: transparent;
+      box-shadow: none;
+      &:focus {
+        background-color: hsla(0, 0%, 100%, 0.15);
+        position: relative;
+        border-color: var(--clr-primary-200) !important;
+      }
+    }
+  }
+
+  .password-input-group {
+    position: relative;
+    margin-bottom: 0.5rem;
+    .eye-icon {
+      position: absolute;
+      z-index: 10;
+      width: 30px;
+      right: 7px;
+      top: 4px;
+      cursor: pointer;
+    }
+  }
+  position: relative;
+
+  .submit-button {
+    position: absolute;
+    right: 0;
+  }
+}
+
+.register-login-link {
+  color: var(--clr-primary-200);
+}
