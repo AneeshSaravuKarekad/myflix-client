@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="base-container">
       <Routes>
-        <Route path="/auth" element={<Welcome />} />
+        <Route path="/" element={<Welcome />} exact />
         <Route path="/movies" element={<Movies />} />
       </Routes>
     </div>
