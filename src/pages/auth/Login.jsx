@@ -3,15 +3,28 @@ import { Button, Form, FormControl, InputGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch, connect, useSelector } from 'react-redux';
 
 import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
 
 import './auth.scss';
+import { login, setUserDetails } from '../../actions/userAction';
+import { store } from '../../store';
 
-const Login = ({ toggle }) => {
+const Login = ({ toggle, dispatchUserLogin }) => {
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(showIcon);
+  const [customError, setCustomError] = useState('');
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    console.log(error);
+    if (error === 'Unauthorized') {
+      setCustomError('Invalid Credentials');
+    }
+  }, [dispatch, error]);
 
   const toggleEye = () => {
     if (type === 'password') {
@@ -27,8 +40,11 @@ const Login = ({ toggle }) => {
     <Formik
       initialValues={{ email: '', password: '' }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log('values: ', values);
-        console.log('Submitting');
+        const { email, password } = values;
+        dispatchUserLogin({
+          email,
+          password,
+        });
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -51,6 +67,14 @@ const Login = ({ toggle }) => {
         return (
           <div className="form-container">
             <h2 className="form-header">Login</h2>
+            {customError && (
+              <div
+                className="input-feedback"
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                {customError}
+              </div>
+            )}
             <Form className="auth-form" onSubmit={handleSubmit}>
               <div
                 style={{
@@ -135,4 +159,8 @@ const Login = ({ toggle }) => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUserLogin: (email, password) => dispatch(login(email, password)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

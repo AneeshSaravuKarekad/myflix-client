@@ -89,7 +89,9 @@
 }
 .welcome-page-container .banner {
   background: url("/joker-poster.f38cda54.png");
-  background-size: contain;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 500px;
   display: flex;
   text-align: center;
@@ -106,7 +108,7 @@
   max-width: 100%;
   top: 0;
   left: 0;
-  clip-path: polygon(100% 65%, 0% 100%, 100% 100%);
+  clip-path: polygon(100% 82%, 0% 100%, 100% 100%);
 }
 .movie-card {
   width: 18rem;

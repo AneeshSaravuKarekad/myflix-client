@@ -37065,9 +37065,13 @@ exports.movieReducer = movieReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LOAD_USER_DETAILS = void 0;
-const LOAD_USER_DETAILS = 'LOAD_USER_DETAILS';
-exports.LOAD_USER_DETAILS = LOAD_USER_DETAILS;
+exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = void 0;
+const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
+exports.USER_LOGIN_REQUEST = USER_LOGIN_REQUEST;
+const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+exports.USER_LOGIN_SUCCESS = USER_LOGIN_SUCCESS;
+const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
+exports.USER_LOGIN_FAIL = USER_LOGIN_FAIL;
 },{}],"reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37085,9 +37089,25 @@ const userReducer = function () {
   let action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
-    case _userConstants.LOAD_USER_DETAILS:
+    case _userConstants.USER_LOGIN_REQUEST:
       return { ...state,
-        details: action.payload
+        isAuthenticated: false,
+        details: {
+          token: action.payload
+        }
+      };
+
+    case _userConstants.USER_LOGIN_SUCCESS:
+      return {
+        isAuthenticated: true,
+        details: {
+          token: action.payload.token
+        }
+      };
+
+    case _userConstants.USER_LOGIN_FAIL:
+      return {
+        error: action.payload
       };
 
     default:
@@ -37161,6 +37181,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.PrivateRoute = PrivateRoute;
+exports.PublicRoute = PublicRoute;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -37170,36 +37191,33 @@ var _store = require("../store");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import LOGIN_PATH from '../pages/auth/login';
-// export const PublicRoute = ({
-//   loggedInPath,
-//   component: Component,
-//   ...rest
-// }) => {
-//   const state = store.getState();
-//   const details = state.user.details;
-//   let token = details?.token;
-//   const navigate = useNavigate;
-//   return (
-//     <Route
-//       {...rest}
-//       element={() => {
-//         return !token ? <Component /> : navigate(loggedInPath);
-//       }}
-//     />
-//   );
-// };
 function PrivateRoute(_ref) {
   let {
     children
   } = _ref;
 
-  const state = _store.store.getState();
+  const state = _store.store.getState(); // console.log('state: ', state);
+
 
   const details = state.user.details;
   let token = details?.token;
   return token ? children : /*#__PURE__*/_react.default.createElement(_reactRouterDom.Navigate, {
     to: "/"
+  });
+}
+
+function PublicRoute(_ref2) {
+  let {
+    children
+  } = _ref2;
+
+  const state = _store.store.getState(); // console.log('state: ', state);
+
+
+  const details = state.user.details;
+  let token = details?.token;
+  return !token ? children : /*#__PURE__*/_react.default.createElement(_reactRouterDom.Navigate, {
+    to: "/movies"
   });
 }
 },{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../store":"store.js"}],"routes/routesPath.js":[function(require,module,exports) {
@@ -69560,407 +69578,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/auth/login.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _reactRouterDom = require("react-router-dom");
-
-var _formik = require("formik");
-
-var Yup = _interopRequireWildcard(require("yup"));
-
-var _showIcon = _interopRequireDefault(require("../../../public/showIcon.png"));
-
-var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
-
-require("./auth.scss");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const Login = _ref => {
-  let {
-    toggle
-  } = _ref;
-  const [type, setType] = (0, _react.useState)('password');
-  const [icon, setIcon] = (0, _react.useState)(_showIcon.default);
-
-  const toggleEye = () => {
-    if (type === 'password') {
-      setType('text');
-      setIcon(_showIcon.default);
-    } else {
-      setType('password');
-      setIcon(_hideIcon.default);
-    }
-  };
-
-  return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
-    initialValues: {
-      email: '',
-      password: ''
-    },
-    onSubmit: (values, _ref2) => {
-      let {
-        setSubmitting
-      } = _ref2;
-      console.log('values: ', values);
-      console.log('Submitting');
-    },
-    validationSchema: Yup.object().shape({
-      email: Yup.string().email('Invalid Email').required('Email is required'),
-      password: Yup.string().required('Password is required')
-    })
-  }, props => {
-    const {
-      values,
-      touched,
-      isValid,
-      errors,
-      isSubmitting,
-      handleChange,
-      handleBlur,
-      handleSubmit
-    } = props;
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "form-container"
-    }, /*#__PURE__*/_react.default.createElement("h2", {
-      className: "form-header"
-    }, "Login"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
-      className: "auth-form",
-      onSubmit: handleSubmit
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), errors.email && touched.email && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.email)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "email",
-      placeholder: "Enter Email",
-      "aria-label": "email",
-      type: "email",
-      value: values.email,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.email && touched.email && 'error'
-    })), /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), errors.password && touched.password && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.password)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
-      className: "password-input-group"
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "password",
-      placeholder: "Enter password",
-      "aria-label": "password",
-      type: type,
-      value: values.password,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.password && touched.password && 'error'
-    }), /*#__PURE__*/_react.default.createElement("img", {
-      className: "eye-icon",
-      src: icon,
-      alt: "show/hide password",
-      onClick: toggleEye
-    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Text, {
-      className: "text-muted"
-    }, "Don't have an account yet?", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-      to: "#",
-      className: "register-login-link",
-      onClick: () => toggle()
-    }, "Register"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-      type: "submit",
-      className: "submit-button",
-      variant: "warning",
-      disabled: !isValid || isSubmitting
-    }, "Login")));
-  });
-};
-
-var _default = Login;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss"}],"pages/auth/register.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _reactRouterDom = require("react-router-dom");
-
-var _formik = require("formik");
-
-var Yup = _interopRequireWildcard(require("yup"));
-
-var _showIcon = _interopRequireDefault(require("../../../public/showIcon.png"));
-
-var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
-
-require("./auth.scss");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const Register = _ref => {
-  let {
-    toggle
-  } = _ref;
-  const [type, setType] = (0, _react.useState)('password');
-  const [icon, setIcon] = (0, _react.useState)(_showIcon.default);
-
-  const toggleEye = () => {
-    if (type === 'password') {
-      setType('text');
-      setIcon(_showIcon.default);
-    } else {
-      setType('password');
-      setIcon(_hideIcon.default);
-    }
-  };
-
-  return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
-    initialValues: {
-      email: '',
-      username: '',
-      password: '',
-      confirmPassword: '',
-      birthDate: ''
-    },
-    onSubmit: (values, _ref2) => {
-      let {
-        setSubmitting
-      } = _ref2;
-      console.log('values: ', values);
-      console.log('Submitting');
-    },
-    validationSchema: Yup.object().shape({
-      email: Yup.string().email('Invalid Email').required('Email is required'),
-      password: Yup.string().required('Password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'),
-      confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
-      birthDate: Yup.date().required('Date is required'),
-      username: Yup.string().required('Username is required').min(5, 'Username should be between 5 to 15 characters').max(15, 'Username should be between 5 to 15 characters')
-    })
-  }, props => {
-    const {
-      values,
-      touched,
-      isValid,
-      errors,
-      isSubmitting,
-      handleChange,
-      handleBlur,
-      handleSubmit
-    } = props;
-    return /*#__PURE__*/_react.default.createElement("div", {
-      className: "form-container"
-    }, /*#__PURE__*/_react.default.createElement("h2", {
-      className: "form-header"
-    }, "Register"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
-      className: "auth-form",
-      onSubmit: handleSubmit
-    }, /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), errors.email && touched.email && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.email)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "email",
-      placeholder: "Enter Email",
-      "aria-label": "email",
-      type: "email",
-      value: values.email,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.email && touched.email && 'error'
-    })), /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Username"), errors.username && touched.username && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.username)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "username",
-      placeholder: "Enter Email",
-      "aria-label": "email",
-      type: "text",
-      value: values.username,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.username && touched.username && 'error'
-    })), /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), errors.password && touched.password && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.password)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
-      className: "password-input-group"
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "password",
-      placeholder: "Enter password",
-      "aria-label": "password",
-      type: type,
-      value: values.password,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.password && touched.password && 'error'
-    }), /*#__PURE__*/_react.default.createElement("img", {
-      className: "eye-icon",
-      src: icon,
-      alt: "show/hide password",
-      onClick: toggleEye
-    })), /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Confirm Password"), errors.confirmPassword && touched.confirmPassword && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.confirmPassword)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
-      className: "password-input-group"
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "confirmPassword",
-      placeholder: "Enter password",
-      "aria-label": "confirm password",
-      type: type,
-      value: values.confirmPassword,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.confirmPassword && touched.confirmPassword && 'error'
-    }), /*#__PURE__*/_react.default.createElement("img", {
-      className: "eye-icon",
-      src: icon,
-      alt: "show/hide password",
-      onClick: toggleEye
-    })), /*#__PURE__*/_react.default.createElement("div", {
-      style: {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }
-    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Date of Birth"), errors.birthDate && touched.birthDate && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback"
-    }, errors.birthDate)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
-      name: "birthDate",
-      type: "Date",
-      value: values.birthDate,
-      onChange: handleChange,
-      onBlur: handleBlur,
-      className: errors.birthDate && touched.birthDate && 'error'
-    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Text, {
-      className: "text-muted"
-    }, "Already have an account yet", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-      to: "#",
-      className: "register-login-link",
-      onClick: () => toggle()
-    }, "register"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-      type: "submit",
-      className: "submit-button",
-      variant: "warning",
-      disabled: !isValid || isSubmitting
-    }, "Login")));
-  });
-};
-
-var _default = Register;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss"}],"pages/auth/welcome.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\..\\..\\public\\joker-poster.png":[["joker-poster.f38cda54.png","../public/joker-poster.png"],"../public/joker-poster.png"],"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/auth/Welcome.jsx":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _reactBootstrap = require("react-bootstrap");
-
-var _myFlixLogo = _interopRequireDefault(require("../../../public/myFlixLogo.png"));
-
-var _login = _interopRequireDefault(require("./login"));
-
-var _register = _interopRequireDefault(require("./register"));
-
-require("./welcome.scss");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const Welcome = () => {
-  const [form, setForm] = (0, _react.useState)('login');
-
-  const handleToggle = () => {
-    if (form === 'login') {
-      setForm('register');
-    } else {
-      setForm('login');
-    }
-  };
-
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "welcome-page-container"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
-    className: "banner"
-  }, /*#__PURE__*/_react.default.createElement("img", {
-    src: _myFlixLogo.default,
-    alt: "myFlix logo"
-  })), /*#__PURE__*/_react.default.createElement("div", {
-    className: "form-row justify-content-center"
-  }, form === 'login' ? /*#__PURE__*/_react.default.createElement(_login.default, {
-    toggle: handleToggle
-  }) : /*#__PURE__*/_react.default.createElement(_register.default, {
-    toggle: handleToggle
-  })));
-};
-
-var _default = Welcome;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/myFlixLogo.png":"../public/myFlixLogo.png","./login":"pages/auth/login.jsx","./register":"pages/auth/register.jsx","./welcome.scss":"pages/auth/welcome.scss"}],"api/url.js":[function(require,module,exports) {
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"api/url.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -69970,7 +69588,8 @@ exports.default = void 0;
 const DEPLOYED_URL = 'http://localhost:8000/api';
 var _default = {
   base: `${DEPLOYED_URL}`,
-  movies: `${DEPLOYED_URL}/movies`
+  movies: `${DEPLOYED_URL}/movies`,
+  users: `${DEPLOYED_URL}/users`
 };
 exports.default = _default;
 },{}],"../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
@@ -72077,7 +71696,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchAllMovies = void 0;
+exports.userLogin = exports.fetchAllMovies = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72090,7 +71709,493 @@ const fetchAllMovies = title => {
 };
 
 exports.fetchAllMovies = fetchAllMovies;
-},{"./url":"api/url.js","axios":"../node_modules/axios/index.js"}],"actions/movieAction.js":[function(require,module,exports) {
+
+const userLogin = userData => {
+  const {
+    email,
+    password
+  } = userData;
+  return _axios.default.post(`${_url.default.users}/login`, {
+    email,
+    password
+  });
+};
+
+exports.userLogin = userLogin;
+},{"./url":"api/url.js","axios":"../node_modules/axios/index.js"}],"actions/userAction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.login = void 0;
+
+var api = _interopRequireWildcard(require("../api"));
+
+var _userConstants = require("../constants/userConstants");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const login = userData => async dispatch => {
+  try {
+    dispatch({
+      type: _userConstants.USER_LOGIN_REQUEST
+    });
+    const {
+      data
+    } = await api.userLogin(userData);
+    dispatch({
+      type: _userConstants.USER_LOGIN_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _userConstants.USER_LOGIN_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.login = login;
+},{"../api":"api/index.js","../constants/userConstants":"constants/userConstants.js"}],"pages/auth/login.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _formik = require("formik");
+
+var Yup = _interopRequireWildcard(require("yup"));
+
+var _reactRedux = require("react-redux");
+
+var _showIcon = _interopRequireDefault(require("../../../public/showIcon.png"));
+
+var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
+
+require("./auth.scss");
+
+var _userAction = require("../../actions/userAction");
+
+var _store = require("../../store");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Login = _ref => {
+  let {
+    toggle,
+    dispatchUserLogin
+  } = _ref;
+  const [type, setType] = (0, _react.useState)('password');
+  const [icon, setIcon] = (0, _react.useState)(_showIcon.default);
+  const [customError, setCustomError] = (0, _react.useState)('');
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const {
+    error
+  } = (0, _reactRedux.useSelector)(state => state.user);
+  (0, _react.useEffect)(() => {
+    console.log(error);
+
+    if (error === 'Unauthorized') {
+      setCustomError('Invalid Credentials');
+    }
+  }, [dispatch, error]);
+
+  const toggleEye = () => {
+    if (type === 'password') {
+      setType('text');
+      setIcon(_showIcon.default);
+    } else {
+      setType('password');
+      setIcon(_hideIcon.default);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
+    initialValues: {
+      email: '',
+      password: ''
+    },
+    onSubmit: (values, _ref2) => {
+      let {
+        setSubmitting
+      } = _ref2;
+      const {
+        email,
+        password
+      } = values;
+      dispatchUserLogin({
+        email,
+        password
+      });
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email('Invalid Email').required('Email is required'),
+      password: Yup.string().required('Password is required')
+    })
+  }, props => {
+    const {
+      values,
+      touched,
+      isValid,
+      errors,
+      isSubmitting,
+      handleChange,
+      handleBlur,
+      handleSubmit
+    } = props;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-container"
+    }, /*#__PURE__*/_react.default.createElement("h2", {
+      className: "form-header"
+    }, "Login"), customError && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback",
+      style: {
+        display: 'flex',
+        justifyContent: 'center'
+      }
+    }, customError), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+      className: "auth-form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), errors.email && touched.email && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.email)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "email",
+      placeholder: "Enter Email",
+      "aria-label": "email",
+      type: "email",
+      value: values.email,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.email && touched.email && 'error'
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), errors.password && touched.password && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.password)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
+      className: "password-input-group"
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "password",
+      placeholder: "Enter password",
+      "aria-label": "password",
+      type: type,
+      value: values.password,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.password && touched.password && 'error'
+    }), /*#__PURE__*/_react.default.createElement("img", {
+      className: "eye-icon",
+      src: icon,
+      alt: "show/hide password",
+      onClick: toggleEye
+    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Text, {
+      className: "text-muted"
+    }, "Don't have an account yet?", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      to: "#",
+      className: "register-login-link",
+      onClick: () => toggle()
+    }, "Register"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      type: "submit",
+      className: "submit-button",
+      variant: "warning",
+      disabled: !isValid || isSubmitting
+    }, "Login")));
+  });
+};
+
+const mapDispatchToProps = dispatch => ({
+  dispatchUserLogin: (email, password) => dispatch((0, _userAction.login)(email, password))
+});
+
+var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Login);
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss","../../actions/userAction":"actions/userAction.js","../../store":"store.js"}],"pages/auth/register.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _formik = require("formik");
+
+var Yup = _interopRequireWildcard(require("yup"));
+
+var _showIcon = _interopRequireDefault(require("../../../public/showIcon.png"));
+
+var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
+
+require("./auth.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Register = _ref => {
+  let {
+    toggle
+  } = _ref;
+  const [type, setType] = (0, _react.useState)('password');
+  const [icon, setIcon] = (0, _react.useState)(_showIcon.default);
+
+  const toggleEye = () => {
+    if (type === 'password') {
+      setType('text');
+      setIcon(_showIcon.default);
+    } else {
+      setType('password');
+      setIcon(_hideIcon.default);
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
+    initialValues: {
+      email: '',
+      username: '',
+      password: '',
+      confirmPassword: '',
+      birthDate: ''
+    },
+    onSubmit: (values, _ref2) => {
+      let {
+        setSubmitting
+      } = _ref2;
+      console.log('values: ', values);
+      console.log('Submitting');
+    },
+    validationSchema: Yup.object().shape({
+      email: Yup.string().email('Invalid Email').required('Email is required'),
+      password: Yup.string().required('Password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'),
+      confirmPassword: Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match'),
+      birthDate: Yup.date().required('Date is required'),
+      username: Yup.string().required('Username is required').min(5, 'Username should be between 5 to 15 characters').max(15, 'Username should be between 5 to 15 characters')
+    })
+  }, props => {
+    const {
+      values,
+      touched,
+      isValid,
+      errors,
+      isSubmitting,
+      handleChange,
+      handleBlur,
+      handleSubmit
+    } = props;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-container"
+    }, /*#__PURE__*/_react.default.createElement("h2", {
+      className: "form-header"
+    }, "Register"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+      className: "auth-form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Email"), errors.email && touched.email && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.email)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "email",
+      placeholder: "Enter Email",
+      "aria-label": "email",
+      type: "email",
+      value: values.email,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.email && touched.email && 'error'
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Username"), errors.username && touched.username && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.username)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "username",
+      placeholder: "Enter Email",
+      "aria-label": "email",
+      type: "text",
+      value: values.username,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.username && touched.username && 'error'
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Password"), errors.password && touched.password && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.password)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
+      className: "password-input-group"
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "password",
+      placeholder: "Enter password",
+      "aria-label": "password",
+      type: type,
+      value: values.password,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.password && touched.password && 'error'
+    }), /*#__PURE__*/_react.default.createElement("img", {
+      className: "eye-icon",
+      src: icon,
+      alt: "show/hide password",
+      onClick: toggleEye
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Confirm Password"), errors.confirmPassword && touched.confirmPassword && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.confirmPassword)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
+      className: "password-input-group"
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "confirmPassword",
+      placeholder: "Enter password",
+      "aria-label": "confirm password",
+      type: type,
+      value: values.confirmPassword,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.confirmPassword && touched.confirmPassword && 'error'
+    }), /*#__PURE__*/_react.default.createElement("img", {
+      className: "eye-icon",
+      src: icon,
+      alt: "show/hide password",
+      onClick: toggleEye
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, null, "Date of Birth"), errors.birthDate && touched.birthDate && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.birthDate)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+      name: "birthDate",
+      type: "Date",
+      value: values.birthDate,
+      onChange: handleChange,
+      onBlur: handleBlur,
+      className: errors.birthDate && touched.birthDate && 'error'
+    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Text, {
+      className: "text-muted"
+    }, "Already have an account yet", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      to: "#",
+      className: "register-login-link",
+      onClick: () => toggle()
+    }, "register"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      type: "submit",
+      className: "submit-button",
+      variant: "warning",
+      disabled: !isValid || isSubmitting
+    }, "Login")));
+  });
+};
+
+var _default = Register;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss"}],"pages/auth/welcome.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"./..\\..\\..\\public\\joker-poster.png":[["joker-poster.f38cda54.png","../public/joker-poster.png"],"../public/joker-poster.png"],"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/auth/Welcome.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _myFlixLogo = _interopRequireDefault(require("../../../public/myFlixLogo.png"));
+
+var _login = _interopRequireDefault(require("./login"));
+
+var _register = _interopRequireDefault(require("./register"));
+
+require("./welcome.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Welcome = () => {
+  const [form, setForm] = (0, _react.useState)('login');
+
+  const handleToggle = () => {
+    if (form === 'login') {
+      setForm('register');
+    } else {
+      setForm('login');
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement("div", {
+    className: "welcome-page-container"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "banner"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _myFlixLogo.default,
+    alt: "myFlix logo"
+  })), /*#__PURE__*/_react.default.createElement("div", {
+    className: "form-row justify-content-center"
+  }, form === 'login' ? /*#__PURE__*/_react.default.createElement(_login.default, {
+    toggle: handleToggle
+  }) : /*#__PURE__*/_react.default.createElement(_register.default, {
+    toggle: handleToggle
+  })));
+};
+
+var _default = Welcome;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/myFlixLogo.png":"../public/myFlixLogo.png","./login":"pages/auth/login.jsx","./register":"pages/auth/register.jsx","./welcome.scss":"pages/auth/welcome.scss"}],"actions/movieAction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72308,12 +72413,11 @@ const App = _ref => {
   let {
     user
   } = _ref;
-  console.log(user);
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "base-container"
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: _routesPath.LOGIN_PATH,
-    element: /*#__PURE__*/_react.default.createElement(_Welcome.default, null),
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PublicRoute, null, /*#__PURE__*/_react.default.createElement(_Welcome.default, null)),
     loggedInPath: _routesPath.MOVIES_PATH,
     exact: true
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
@@ -72410,7 +72514,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55605" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57706" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
