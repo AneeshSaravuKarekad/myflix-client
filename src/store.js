@@ -1,20 +1,19 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import persistStore from 'redux-persist/es/persistStore';
 
-import { movieReducer } from './reducers/movieReducer';
+import appReducer from './reducers/appReducer';
 
-const reducer = combineReducers({
-  movies: movieReducer,
-});
-
-let initialState = {};
 const middleware = [thunk];
+const initialState = {};
 
 const store = createStore(
-  reducer,
+  appReducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
-export default store;
+const persister = persistStore(store);
+
+export { store, persister };
