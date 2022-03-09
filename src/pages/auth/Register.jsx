@@ -8,8 +8,10 @@ import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
 
 import './auth.scss';
+import { register } from '../../actions/userAction';
+import { connect } from 'react-redux';
 
-const Register = ({ toggle }) => {
+const Register = ({ toggle, dispatchUserRegister }) => {
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(showIcon);
 
@@ -35,6 +37,7 @@ const Register = ({ toggle }) => {
       onSubmit={(values, { setSubmitting }) => {
         console.log('values: ', values);
         console.log('Submitting');
+        dispatchUserRegister(values);
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
@@ -236,7 +239,7 @@ const Register = ({ toggle }) => {
                 variant="warning"
                 disabled={!isValid || isSubmitting}
               >
-                Login
+                Register
               </Button>
             </Form>
           </div>
@@ -246,4 +249,8 @@ const Register = ({ toggle }) => {
   );
 };
 
-export default Register;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchUserRegister: (userData) => dispatch(register(userData)),
+});
+
+export default connect(null, mapDispatchToProps)(Register);

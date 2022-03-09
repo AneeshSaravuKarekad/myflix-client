@@ -37065,13 +37065,19 @@ exports.movieReducer = movieReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = void 0;
+exports.USER_REGISTER_SUCCESS = exports.USER_REGISTER_REQUEST = exports.USER_REGISTER_FAIL = exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = void 0;
 const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 exports.USER_LOGIN_REQUEST = USER_LOGIN_REQUEST;
 const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 exports.USER_LOGIN_SUCCESS = USER_LOGIN_SUCCESS;
 const USER_LOGIN_FAIL = 'USER_LOGIN_FAIL';
 exports.USER_LOGIN_FAIL = USER_LOGIN_FAIL;
+const USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST';
+exports.USER_REGISTER_REQUEST = USER_REGISTER_REQUEST;
+const USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS';
+exports.USER_REGISTER_SUCCESS = USER_REGISTER_SUCCESS;
+const USER_REGISTER_FAIL = 'USER_REGISTER_FAIL';
+exports.USER_REGISTER_FAIL = USER_REGISTER_FAIL;
 },{}],"reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37106,6 +37112,28 @@ const userReducer = function () {
       };
 
     case _userConstants.USER_LOGIN_FAIL:
+      return {
+        error: action.payload
+      };
+    // REGISTER
+
+    case _userConstants.USER_REGISTER_REQUEST:
+      return { ...state,
+        isAuthenticated: false,
+        details: {
+          token: action.payload
+        }
+      };
+
+    case _userConstants.USER_REGISTER_SUCCESS:
+      return {
+        isAuthenticated: true,
+        details: {
+          token: action.payload.token
+        }
+      };
+
+    case _userConstants.USER_REGISTER_FAIL:
       return {
         error: action.payload
       };
@@ -71696,7 +71724,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userLogin = exports.fetchAllMovies = void 0;
+exports.userRegister = exports.userLogin = exports.fetchAllMovies = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -71722,13 +71750,30 @@ const userLogin = userData => {
 };
 
 exports.userLogin = userLogin;
+
+const userRegister = userData => {
+  const {
+    email,
+    password,
+    birthDate,
+    username
+  } = userData;
+  return _axios.default.post(`${_url.default.users}/register`, {
+    email,
+    password,
+    birthDate,
+    username
+  });
+};
+
+exports.userRegister = userRegister;
 },{"./url":"api/url.js","axios":"../node_modules/axios/index.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.login = void 0;
+exports.register = exports.login = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -71759,6 +71804,28 @@ const login = userData => async dispatch => {
 };
 
 exports.login = login;
+
+const register = userData => async dispatch => {
+  try {
+    dispatch({
+      type: _userConstants.USER_REGISTER_REQUEST
+    });
+    const {
+      data
+    } = await api.userRegister(userData);
+    dispatch({
+      type: _userConstants.USER_REGISTER_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _userConstants.USER_REGISTER_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.register = register;
 },{"../api":"api/index.js","../constants/userConstants":"constants/userConstants.js"}],"pages/auth/login.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -71958,6 +72025,10 @@ var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
 
 require("./auth.scss");
 
+var _userAction = require("../../actions/userAction");
+
+var _reactRedux = require("react-redux");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -71966,7 +72037,8 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 const Register = _ref => {
   let {
-    toggle
+    toggle,
+    dispatchUserRegister
   } = _ref;
   const [type, setType] = (0, _react.useState)('password');
   const [icon, setIcon] = (0, _react.useState)(_showIcon.default);
@@ -71995,6 +72067,7 @@ const Register = _ref => {
       } = _ref2;
       console.log('values: ', values);
       console.log('Submitting');
+      dispatchUserRegister(values);
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email('Invalid Email').required('Email is required'),
@@ -72129,13 +72202,18 @@ const Register = _ref => {
       className: "submit-button",
       variant: "warning",
       disabled: !isValid || isSubmitting
-    }, "Login")));
+    }, "Register")));
   });
 };
 
-var _default = Register;
+const mapDispatchToProps = dispatch => ({
+  dispatchUserRegister: userData => dispatch((0, _userAction.register)(userData))
+});
+
+var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Register);
+
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss"}],"pages/auth/welcome.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss","../../actions/userAction":"actions/userAction.js","react-redux":"../node_modules/react-redux/es/index.js"}],"pages/auth/welcome.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
