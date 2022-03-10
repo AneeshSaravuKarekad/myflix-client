@@ -15,7 +15,6 @@ export const fetchMovies =
       const { data } = await api.fetchAllMovies(title, page);
       dispatch({ type: ALL_MOVIES_SUCCESS, payload: data });
     } catch (error) {
-      console.log(error.response);
       dispatch({
         type: ALL_MOVIES_FAIL,
         payload: error.response?.data.message,

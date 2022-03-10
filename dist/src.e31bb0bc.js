@@ -37254,7 +37254,6 @@ const favouritesReducer = function () {
       };
 
     case _favouritesConstants.REMOVE_FAVOURITES_SUCCESS:
-      console.log(action.payload);
       return {
         isLoading: false,
         count: action.payload.favourites.length,
@@ -72498,7 +72497,6 @@ const fetchMovies = function () {
         payload: data
       });
     } catch (error) {
-      console.log(error.response);
       dispatch({
         type: _movieConstants.ALL_MOVIES_FAIL,
         payload: error.response?.data.message
@@ -72589,7 +72587,6 @@ const removeFavourites = movieId => async dispatch => {
       payload: data
     });
   } catch (error) {
-    console.log('error ', error);
     dispatch({
       type: _favouritesConstants.REMOVE_FAVOURITES_FAIL,
       payload: error.response?.data

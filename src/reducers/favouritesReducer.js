@@ -63,7 +63,6 @@ export const favouritesReducer = (state = { favourites: [] }, action) => {
       };
 
     case REMOVE_FAVOURITES_SUCCESS:
-      console.log(action.payload);
       return {
         isLoading: false,
         count: action.payload.favourites.length,

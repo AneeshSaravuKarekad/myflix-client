@@ -40,7 +40,6 @@ export const removeFavourites = (movieId) => async (dispatch) => {
     const { data } = await api.removeFavourites(movieId);
     dispatch({ type: REMOVE_FAVOURITES_SUCCESS, payload: data });
   } catch (error) {
-    console.log('error ', error);
     dispatch({ type: REMOVE_FAVOURITES_FAIL, payload: error.response?.data });
   }
 };
