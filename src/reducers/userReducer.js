@@ -1,5 +1,8 @@
 import {
   LOAD_USER_DETAILS,
+  USER_FAVOURITES_FAIL,
+  USER_FAVOURITES_REQUEST,
+  USER_FAVOURITES_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -44,6 +47,27 @@ export const userReducer = (state = { details: null }, action) => {
 
     case USER_REGISTER_FAIL:
       return {
+        error: action.payload,
+      };
+
+    // FAVOURITES - GET
+
+    case USER_FAVOURITES_REQUEST:
+      return {
+        isLoading: true,
+        favourites: [],
+      };
+
+    case USER_FAVOURITES_SUCCESS:
+      return {
+        isLoading: false,
+        count: action.payload.favourites.length,
+        favourites: action.payload.favourites,
+      };
+
+    case USER_FAVOURITES_FAIL:
+      return {
+        isloading: false,
         error: action.payload,
       };
 

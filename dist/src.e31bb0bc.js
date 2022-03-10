@@ -37137,6 +37137,26 @@ const userReducer = function () {
       return {
         error: action.payload
       };
+    // FAVOURITES - GET
+
+    case _userConstants.USER_FAVOURITES_REQUEST:
+      return {
+        isLoading: true,
+        favourites: []
+      };
+
+    case _userConstants.USER_FAVOURITES_SUCCESS:
+      return {
+        isLoading: false,
+        count: action.payload.favourites.length,
+        favourites: action.payload.favourites
+      };
+
+    case _userConstants.USER_FAVOURITES_FAIL:
+      return {
+        isloading: false,
+        error: action.payload
+      };
 
     default:
       return state;
@@ -37144,7 +37164,64 @@ const userReducer = function () {
 };
 
 exports.userReducer = userReducer;
-},{"../constants/userConstants":"constants/userConstants.js"}],"reducers/appReducer.js":[function(require,module,exports) {
+},{"../constants/userConstants":"constants/userConstants.js"}],"constants/favouritesConstants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.GET_FAVOURITES_SUCCESS = exports.GET_FAVOURITES_REQUEST = exports.GET_FAVOURITES_FAIL = void 0;
+const GET_FAVOURITES_REQUEST = 'USER_FAVOURITES_REQUEST';
+exports.GET_FAVOURITES_REQUEST = GET_FAVOURITES_REQUEST;
+const GET_FAVOURITES_SUCCESS = 'USER_FAVOURITES_SUCCESS';
+exports.GET_FAVOURITES_SUCCESS = GET_FAVOURITES_SUCCESS;
+const GET_FAVOURITES_FAIL = 'USER_FAVOURITES_FAIL';
+exports.GET_FAVOURITES_FAIL = GET_FAVOURITES_FAIL;
+},{}],"reducers/favouritesReducer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.favouritesReducer = void 0;
+
+var _favouritesConstants = require("../constants/favouritesConstants.js");
+
+const favouritesReducer = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    favourites: []
+  };
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    // FAVOURITES - GET
+    case _favouritesConstants.GET_FAVOURITES_REQUEST:
+      return {
+        isLoading: true,
+        result: []
+      };
+
+    case _favouritesConstants.GET_FAVOURITES_SUCCESS:
+      return {
+        isLoading: false,
+        count: action.payload.favourites.length,
+        result: action.payload.favourites
+      };
+
+    case _favouritesConstants.GET_FAVOURITES_FAIL:
+      console.log(action.payload);
+      return {
+        isloading: false,
+        error: action.payload
+      };
+
+    default:
+      return state;
+  }
+};
+
+exports.favouritesReducer = favouritesReducer;
+},{"../constants/favouritesConstants.js":"constants/favouritesConstants.js"}],"reducers/appReducer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37162,6 +37239,8 @@ var _movieReducer = require("./movieReducer");
 
 var _userReducer = require("./userReducer");
 
+var _favouritesReducer = require("./favouritesReducer");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const persistConfig = {
@@ -37171,13 +37250,14 @@ const persistConfig = {
 };
 const appReducer = (0, _redux.combineReducers)({
   user: _userReducer.userReducer,
-  movies: _movieReducer.movieReducer
+  movies: _movieReducer.movieReducer,
+  favourites: _favouritesReducer.favouritesReducer
 });
 
 var _default = (0, _persistReducer.default)(persistConfig, appReducer);
 
 exports.default = _default;
-},{"redux":"../node_modules/redux/es/redux.js","redux-persist/es/persistReducer":"../node_modules/redux-persist/es/persistReducer.js","redux-persist/lib/storage":"../node_modules/redux-persist/lib/storage/index.js","./movieReducer":"reducers/movieReducer.js","./userReducer":"reducers/userReducer.js"}],"store.js":[function(require,module,exports) {
+},{"redux":"../node_modules/redux/es/redux.js","redux-persist/es/persistReducer":"../node_modules/redux-persist/es/persistReducer.js","redux-persist/lib/storage":"../node_modules/redux-persist/lib/storage/index.js","./movieReducer":"reducers/movieReducer.js","./userReducer":"reducers/userReducer.js","./favouritesReducer":"reducers/favouritesReducer.js"}],"store.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37252,11 +37332,13 @@ function PublicRoute(_ref2) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MOVIES_PATH = exports.LOGIN_PATH = void 0;
+exports.MOVIES_PATH = exports.LOGIN_PATH = exports.FAVOURITES_PATH = void 0;
 const LOGIN_PATH = '/';
 exports.LOGIN_PATH = LOGIN_PATH;
 const MOVIES_PATH = '/movies';
 exports.MOVIES_PATH = MOVIES_PATH;
+const FAVOURITES_PATH = '/favourites';
+exports.FAVOURITES_PATH = FAVOURITES_PATH;
 },{}],"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -71722,7 +71804,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.fetchAllMovies = void 0;
+exports.userRegister = exports.userLogin = exports.fetchFavourites = exports.fetchAllMovies = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -71779,6 +71861,17 @@ const userRegister = userData => {
 };
 
 exports.userRegister = userRegister;
+
+const fetchFavourites = () => {
+  const token = getToken();
+  return _axios.default.get(`${_url.default.users}/favourites`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.fetchFavourites = fetchFavourites;
 },{"./url":"api/url.js","axios":"../node_modules/axios/index.js","../store":"store.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
@@ -72638,7 +72731,10 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Movies = () => {
+const Movies = _ref => {
+  let {
+    user
+  } = _ref;
   const {
     isLoading,
     page,
@@ -72691,7 +72787,15 @@ const Movies = () => {
   })));
 };
 
-var _default = Movies;
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(Movies); // export default Movies;
+
+
 exports.default = _default;
 },{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/topBar/TopBar":"components/topBar/TopBar.jsx","./movies.scss":"pages/movies/movies.scss","../../components/pagination/Pagination":"components/pagination/Pagination.jsx"}],"../public/profileIcon.png":[function(require,module,exports) {
 module.exports = "/profileIcon.b9b8d8d3.png";
@@ -72791,7 +72895,109 @@ const Header = () => {
 
 var _default = Header;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/profileIcon.png":"../public/profileIcon.png","./header.scss":"components/header/header.scss"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/profileIcon.png":"../public/profileIcon.png","./header.scss":"components/header/header.scss"}],"actions/favouritesAction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.favourites = void 0;
+
+var api = _interopRequireWildcard(require("../api"));
+
+var _favouritesConstants = require("../constants/favouritesConstants.js");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const favourites = () => async dispatch => {
+  try {
+    dispatch({
+      type: _favouritesConstants.GET_FAVOURITES_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchFavourites();
+    dispatch({
+      type: _favouritesConstants.GET_FAVOURITES_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _favouritesConstants.GET_FAVOURITES_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.favourites = favourites;
+},{"../api":"api/index.js","../constants/favouritesConstants.js":"constants/favouritesConstants.js"}],"pages/favourites/Favourites.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _favouritesAction = require("../../actions/favouritesAction");
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Favourites = _ref => {
+  let {
+    dispatchFetchFavourites
+  } = _ref;
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const {
+    count,
+    result,
+    isLoading
+  } = (0, _reactRedux.useSelector)(state => state.favourites);
+  (0, _react.useEffect)(() => {
+    dispatchFetchFavourites();
+  }, [dispatch]);
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement("h1", {
+    style: {
+      color: 'var(--clr-primary-200)',
+      marginBlock: '2rem'
+    }
+  }, "Favourites")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center movies-page-row"
+  }, !isLoading && result ? result.map((movie, idx) => {
+    return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
+      key: idx,
+      movie: movie
+    });
+  }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  })));
+};
+
+const mapDispatchToProps = dispatch => ({
+  dispatchFetchFavourites: () => dispatch((0, _favouritesAction.favourites)())
+});
+
+var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Favourites); // export default Favourites;
+
+
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72816,6 +73022,8 @@ var _Welcome = _interopRequireDefault(require("./pages/auth/Welcome"));
 var _Movies = _interopRequireDefault(require("./pages/movies/Movies"));
 
 var _Header = _interopRequireDefault(require("./components/header/Header"));
+
+var _Favourites = _interopRequireDefault(require("./pages/favourites/Favourites"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72842,6 +73050,9 @@ const App = _ref => {
     path: `${_routesPath.MOVIES_PATH}/search/:title/page/:pageNumber`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
     exact: true
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.FAVOURITES_PATH}`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Favourites.default, null))
   })));
 };
 
@@ -72854,7 +73065,7 @@ const mapStateToProps = state => {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);

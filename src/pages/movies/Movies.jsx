@@ -9,7 +9,7 @@ import TopBar from '../../components/topBar/TopBar';
 import './movies.scss';
 import Pagination from '../../components/pagination/Pagination';
 
-const Movies = () => {
+const Movies = ({ user }) => {
   const { isLoading, page, pages, count, total, result } = useSelector(
     (state) => state.movies
   );
@@ -61,4 +61,10 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+const mapStateToProps = (state) => {
+  return { user: state.user };
+};
+
+export default connect(mapStateToProps)(Movies);
+
+// export default Movies;

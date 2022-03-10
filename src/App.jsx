@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
 import { PrivateRoute, PublicRoute } from './routes/routesCheck';
-import { LOGIN_PATH, MOVIES_PATH } from './routes/routesPath';
+import { FAVOURITES_PATH, LOGIN_PATH, MOVIES_PATH } from './routes/routesPath';
 
 import './app.scss';
 import Welcome from './pages/auth/Welcome';
 import Movies from './pages/movies/Movies';
 import Header from './components/header/Header';
+import Favourites from './pages/favourites/Favourites';
 
 const App = ({ user }) => {
   return (
@@ -52,6 +53,16 @@ const App = ({ user }) => {
           }
           exact
         />
+
+        <Route
+          path={`${FAVOURITES_PATH}`}
+          element={
+            <PrivateRoute>
+              <Favourites />
+            </PrivateRoute>
+          }
+        />
+
         {/* <Route
           path={`${MOVIES_PATH}/search/:title`}
           element={

@@ -29,3 +29,10 @@ export const userRegister = (userData) => {
     username,
   });
 };
+
+export const fetchFavourites = () => {
+  const token = getToken();
+  return axios.get(`${URL.users}/favourites`, {
+    headers: { Authorization: `${token}` },
+  });
+};
