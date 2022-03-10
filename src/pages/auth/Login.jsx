@@ -20,7 +20,6 @@ const Login = ({ toggle, dispatchUserLogin }) => {
   const { error } = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log(error);
     if (error === 'Unauthorized') {
       setCustomError('Invalid Credentials');
     }

@@ -20,6 +20,7 @@
   --clr-text-heading: hsla(0, 0%, 100%, 0.87);
   --clr-text-body: hsla(0, 0%, 100%, 0.6);
   --clr-body-dark: hsl(0, 0%, 0%);
+  --clr-navbar-dark: hsl(0, 0%, 10%);
 }
 
 .base-container {
@@ -214,6 +215,45 @@
 }
 .movies-page-row {
   gap: 1rem;
+}
+.navbar {
+  background-color: var(--clr-navbar-dark);
+}
+.navbar .navbar-brand {
+  color: var(--warning) !important;
+  font-size: 3rem;
+  margin-right: 0;
+}
+.navbar .nav-link {
+  color: var(--clr-text-body) !important;
+  font-size: 1.25rem;
+}
+.navbar .active {
+  position: relative;
+  color: var(--warning) !important;
+}
+.navbar .active::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -25px;
+  left: 0;
+  background-color: var(--warning);
+}
+
+#collasible-nav-dropdown {
+  position: relative;
+}
+#collasible-nav-dropdown .profile-icon-container {
+  width: 40px;
+}
+#collasible-nav-dropdown::after {
+  float: right;
+  margin-left: 3rem;
+  position: absolute;
+  bottom: 50%;
+  transform: translateY(50%);
 }
 /* Box sizing rules */
 *,

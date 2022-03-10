@@ -9,11 +9,21 @@ import hideIcon from '../../../public/hideIcon.png';
 
 import './auth.scss';
 import { register } from '../../actions/userAction';
-import { connect } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 
 const Register = ({ toggle, dispatchUserRegister }) => {
   const [type, setType] = useState('password');
   const [icon, setIcon] = useState(showIcon);
+  const [customError, setCustomError] = useState('');
+  const dispatch = useDispatch();
+
+  const { error } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (error) {
+      setCustomError(error.message);
+    }
+  }, [dispatch, error]);
 
   const toggleEye = () => {
     if (type === 'password') {
@@ -35,8 +45,6 @@ const Register = ({ toggle, dispatchUserRegister }) => {
         birthDate: '',
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log('values: ', values);
-        console.log('Submitting');
         dispatchUserRegister(values);
       }}
       validationSchema={Yup.object().shape({
@@ -78,6 +86,14 @@ const Register = ({ toggle, dispatchUserRegister }) => {
         return (
           <div className="form-container">
             <h2 className="form-header">Register</h2>
+            {customError && (
+              <div
+                className="input-feedback"
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                {customError}
+              </div>
+            )}
             <Form className="auth-form" onSubmit={handleSubmit}>
               {/* Email */}
               <div
@@ -237,7 +253,7 @@ const Register = ({ toggle, dispatchUserRegister }) => {
                 type="submit"
                 className="submit-button"
                 variant="warning"
-                disabled={!isValid || isSubmitting}
+                disabled={isSubmitting}
               >
                 Register
               </Button>
