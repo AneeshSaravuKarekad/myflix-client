@@ -256,7 +256,26 @@
 .pagination {
   margin-block: 2rem;
 }
-
+@media screen and (max-width: 600px) {
+  .pagination {
+    transform: scale(0.95);
+  }
+}
+@media screen and (max-width: 550px) {
+  .pagination {
+    transform: scale(0.85);
+  }
+}
+@media screen and (max-width: 450px) {
+  .pagination {
+    transform: scale(0.75);
+  }
+}
+@media screen and (max-width: 400px) {
+  .pagination {
+    transform: scale(0.65);
+  }
+}
 .pagination button:focus {
   outline: none;
 }
