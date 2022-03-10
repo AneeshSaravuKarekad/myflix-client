@@ -22,11 +22,11 @@ const App = ({ user }) => {
               <Welcome />
             </PublicRoute>
           }
-          loggedInPath={MOVIES_PATH}
+          loggedInPath={`${MOVIES_PATH}/page/:pageNumber`}
           exact
         />
         <Route
-          path={MOVIES_PATH}
+          path={`${MOVIES_PATH}/page/:pageNumber`}
           element={
             <PrivateRoute>
               <Movies />
@@ -35,6 +35,24 @@ const App = ({ user }) => {
           exact
         />
         <Route
+          path={`${MOVIES_PATH}`}
+          element={
+            <PrivateRoute>
+              <Movies />
+            </PrivateRoute>
+          }
+          exact
+        />
+        <Route
+          path={`${MOVIES_PATH}/search/:title/page/:pageNumber`}
+          element={
+            <PrivateRoute>
+              <Movies />
+            </PrivateRoute>
+          }
+          exact
+        />
+        {/* <Route
           path={`${MOVIES_PATH}/search/:title`}
           element={
             <PrivateRoute>
@@ -42,7 +60,7 @@ const App = ({ user }) => {
             </PrivateRoute>
           }
           exact
-        />
+        /> */}
       </Routes>
     </div>
   );

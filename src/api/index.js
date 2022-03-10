@@ -1,15 +1,16 @@
 import URL from './url';
 import axios from 'axios';
+import { store } from '../store';
 
 function getToken() {
-  const userObject = JSON.parse(localStorage.getItem('persist:auth')).user;
-  const token = JSON.parse(userObject).details.token;
+  const state = store.getState();
+  const token = state.user.details.token;
   return token;
 }
 
-export const fetchAllMovies = (title) => {
+export const fetchAllMovies = (title, page) => {
   const token = getToken();
-  return axios.get(`${URL.movies}?title=${title}`, {
+  return axios.get(`${URL.movies}?title=${title}&page=${page}`, {
     headers: { Authorization: `${token}` },
   });
 };

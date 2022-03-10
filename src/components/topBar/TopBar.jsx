@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './topBar.scss';
 
-const TopBar = ({ query, onTitleChange }) => {
+const TopBar = ({ query }) => {
   const [title, setTitle] = useState(query);
   const navigate = useNavigate();
 
@@ -19,11 +19,14 @@ const TopBar = ({ query, onTitleChange }) => {
     e.preventDefault();
 
     if (title.trim()) {
-      navigate(`/movies/search/${title}`);
+      navigate(`/movies/search/${title}/page/1`);
     } else {
       navigate(`/movies`);
     }
-    onTitleChange(title);
+  };
+
+  const handleChange = (e) => {
+    setTitle(e.target.value);
   };
   return (
     <Container>
@@ -35,8 +38,8 @@ const TopBar = ({ query, onTitleChange }) => {
                 placeholder="Search..."
                 aria-label="Search for movies"
                 aria-describedby="basic-addon2"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={title ?? ''}
+                onChange={handleChange}
               />
               <input
                 className="btn btn-outline-warning"

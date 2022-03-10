@@ -4,7 +4,6 @@ import { store } from '../store';
 
 export function PrivateRoute({ children }) {
   const state = store.getState();
-  // console.log('state: ', state);
   const details = state.user.details;
   let token = details?.token;
 
@@ -12,9 +11,7 @@ export function PrivateRoute({ children }) {
 }
 export function PublicRoute({ children }) {
   const state = store.getState();
-  // console.log('state: ', state);
   const details = state.user.details;
   let token = details?.token;
-
-  return !token ? children : <Navigate to="/movies" />;
+  return !token ? children : <Navigate to="/movies/page/1" />;
 }

@@ -37224,8 +37224,7 @@ function PrivateRoute(_ref) {
     children
   } = _ref;
 
-  const state = _store.store.getState(); // console.log('state: ', state);
-
+  const state = _store.store.getState();
 
   const details = state.user.details;
   let token = details?.token;
@@ -37239,13 +37238,12 @@ function PublicRoute(_ref2) {
     children
   } = _ref2;
 
-  const state = _store.store.getState(); // console.log('state: ', state);
-
+  const state = _store.store.getState();
 
   const details = state.user.details;
   let token = details?.token;
   return !token ? children : /*#__PURE__*/_react.default.createElement(_reactRouterDom.Navigate, {
-    to: "/movies"
+    to: "/movies/page/1"
   });
 }
 },{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../store":"store.js"}],"routes/routesPath.js":[function(require,module,exports) {
@@ -71730,17 +71728,20 @@ var _url = _interopRequireDefault(require("./url"));
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _store = require("../store");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function getToken() {
-  const userObject = JSON.parse(localStorage.getItem('persist:auth')).user;
-  const token = JSON.parse(userObject).details.token;
+  const state = _store.store.getState();
+
+  const token = state.user.details.token;
   return token;
 }
 
-const fetchAllMovies = title => {
+const fetchAllMovies = (title, page) => {
   const token = getToken();
-  return _axios.default.get(`${_url.default.movies}?title=${title}`, {
+  return _axios.default.get(`${_url.default.movies}?title=${title}&page=${page}`, {
     headers: {
       Authorization: `${token}`
     }
@@ -71778,7 +71779,7 @@ const userRegister = userData => {
 };
 
 exports.userRegister = userRegister;
-},{"./url":"api/url.js","axios":"../node_modules/axios/index.js"}],"actions/userAction.js":[function(require,module,exports) {
+},{"./url":"api/url.js","axios":"../node_modules/axios/index.js","../store":"store.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72312,24 +72313,29 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const fetchMovies = title => async dispatch => {
-  try {
-    dispatch({
-      type: _movieConstants.ALL_MOVIES_REQUEST
-    });
-    const {
-      data
-    } = await api.fetchAllMovies(title);
-    dispatch({
-      type: _movieConstants.ALL_MOVIES_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: _movieConstants.ALL_MOVIES_FAIL,
-      payload: error.response?.data.message
-    });
-  }
+const fetchMovies = function () {
+  let title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  let page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  return async dispatch => {
+    try {
+      dispatch({
+        type: _movieConstants.ALL_MOVIES_REQUEST
+      });
+      const {
+        data
+      } = await api.fetchAllMovies(title, page);
+      dispatch({
+        type: _movieConstants.ALL_MOVIES_SUCCESS,
+        payload: data
+      });
+    } catch (error) {
+      console.log(error.response);
+      dispatch({
+        type: _movieConstants.ALL_MOVIES_FAIL,
+        payload: error.response?.data.message
+      });
+    }
+  };
 };
 
 exports.fetchMovies = fetchMovies;
@@ -72455,8 +72461,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 const TopBar = _ref => {
   let {
-    query,
-    onTitleChange
+    query
   } = _ref;
   const [title, setTitle] = (0, _react.useState)(query);
   const navigate = (0, _reactRouterDom.useNavigate)();
@@ -72465,12 +72470,14 @@ const TopBar = _ref => {
     e.preventDefault();
 
     if (title.trim()) {
-      navigate(`/movies/search/${title}`);
+      navigate(`/movies/search/${title}/page/1`);
     } else {
       navigate(`/movies`);
     }
+  };
 
-    onTitleChange(title);
+  const handleChange = e => {
+    setTitle(e.target.value);
   };
 
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
@@ -72483,8 +72490,8 @@ const TopBar = _ref => {
     placeholder: "Search...",
     "aria-label": "Search for movies",
     "aria-describedby": "basic-addon2",
-    value: title,
-    onChange: e => setTitle(e.target.value)
+    value: title ?? '',
+    onChange: handleChange
   }), /*#__PURE__*/_react.default.createElement("input", {
     className: "btn btn-outline-warning",
     type: "submit",
@@ -72499,7 +72506,107 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/movies/Movies.jsx":[function(require,module,exports) {
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/pagination/pagination.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/pagination/Pagination.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRouterDom = require("react-router-dom");
+
+require("./pagination.scss");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Pagination = _ref => {
+  let {
+    page,
+    pages,
+    changePage
+  } = _ref;
+  let middlePagination;
+  const navigate = (0, _reactRouterDom.useNavigate)();
+  const {
+    title
+  } = (0, _reactRouterDom.useParams)();
+  (0, _react.useEffect)(() => {
+    const navPage = page > pages ? pages : page;
+    title ? navigate(`/movies/search/${title}/page/${navPage}`) : navigate(`/movies/page/${navPage}`);
+  }, [changePage, page]);
+
+  if (pages <= 5) {
+    middlePagination = [...Array(pages)].map((_, idx) => /*#__PURE__*/_react.default.createElement("button", {
+      key: idx + 1,
+      onClick: () => changePage(idx + 1),
+      disabled: page === idx + 1
+    }, ' ', idx + 1));
+  } else {
+    const startValue = Math.floor((page - 1) / 5) * 5;
+    middlePagination = /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, [...Array(5)].map((_, idx) => /*#__PURE__*/_react.default.createElement("button", {
+      key: startValue + idx + 1,
+      disabled: page === startValue + idx + 1,
+      onClick: () => changePage(startValue + idx + 1)
+    }, startValue + idx + 1)), /*#__PURE__*/_react.default.createElement("button", null, "..."), /*#__PURE__*/_react.default.createElement("button", {
+      onClick: () => changePage(pages)
+    }, pages));
+
+    if (page > 5) {
+      if (pages - page >= 5) {
+        middlePagination = /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
+          onClick: () => changePage(1)
+        }, "1"), /*#__PURE__*/_react.default.createElement("button", null, "..."), /*#__PURE__*/_react.default.createElement("button", {
+          onClick: () => changePage(startValue + idx + 1)
+        }), [...Array(5)].map((_, idx) => /*#__PURE__*/_react.default.createElement("button", {
+          key: startValue + idx + 1,
+          disabled: page === startValue + idx + 1,
+          onClick: () => changePage(startValue + idx + 1)
+        }, startValue + idx + 1)), /*#__PURE__*/_react.default.createElement("button", null, "..."), /*#__PURE__*/_react.default.createElement("button", {
+          onClick: () => changePage(pages)
+        }, pages));
+      } else {
+        middlePagination = /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
+          onClick: () => changePage(1)
+        }, "1"), /*#__PURE__*/_react.default.createElement("button", null, "..."), /*#__PURE__*/_react.default.createElement("button", {
+          onClick: () => changePage(startValue)
+        }, startValue), [...Array(5)].map((_, idx) => /*#__PURE__*/_react.default.createElement("button", {
+          key: startValue + idx + 1,
+          style: pages < startValue + idx + 1 ? {
+            display: 'none'
+          } : null,
+          disabled: page === startValue + idx + 1,
+          onClick: () => changePage(startValue + idx + 1)
+        }, startValue + idx + 1)));
+      }
+    }
+  }
+
+  return pages > 1 && /*#__PURE__*/_react.default.createElement("div", {
+    className: "pagination"
+  }, /*#__PURE__*/_react.default.createElement("button", {
+    className: "pagination__prev",
+    onClick: () => changePage(page => page - 1),
+    disabled: page === 1
+  }, "\xAB"), middlePagination, /*#__PURE__*/_react.default.createElement("button", {
+    className: "pagination__next",
+    onClick: () => changePage(page => page + 1),
+    disabled: page === pages
+  }, "\xBB"));
+};
+
+var _default = Pagination;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./pagination.scss":"components/pagination/pagination.scss"}],"pages/movies/Movies.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72513,6 +72620,8 @@ var _reactBootstrap = require("react-bootstrap");
 
 var _reactRedux = require("react-redux");
 
+var _reactRouterDom = require("react-router-dom");
+
 var _movieAction = require("../../actions/movieAction");
 
 var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
@@ -72520,6 +72629,8 @@ var _MovieCard = _interopRequireDefault(require("../../components/movieCard/Movi
 var _TopBar = _interopRequireDefault(require("../../components/topBar/TopBar"));
 
 require("./movies.scss");
+
+var _Pagination = _interopRequireDefault(require("../../components/pagination/Pagination"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72537,10 +72648,14 @@ const Movies = () => {
     result
   } = (0, _reactRedux.useSelector)(state => state.movies);
   const dispatch = (0, _reactRedux.useDispatch)();
-  const [title, setTitle] = (0, _react.useState)('');
+  const {
+    title,
+    pageNumber
+  } = (0, _reactRouterDom.useParams)();
+  const [currentPage, setCurrentPage] = (0, _react.useState)(pageNumber || 1);
   (0, _react.useEffect)(() => {
-    dispatch((0, _movieAction.fetchMovies)(title));
-  }, [dispatch, title]);
+    dispatch((0, _movieAction.fetchMovies)(title, pageNumber));
+  }, [dispatch, title, currentPage, pageNumber]);
 
   const handleChange = val => {
     setTitle(val);
@@ -72552,6 +72667,12 @@ const Movies = () => {
     query: title,
     onTitleChange: val => handleChange(val)
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
+    page: currentPage,
+    pages: pages,
+    changePage: setCurrentPage
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"
   }, !isLoading && result ? result.map((movie, idx) => {
     return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
@@ -72561,12 +72682,18 @@ const Movies = () => {
   }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",
     variant: "warning"
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
+    page: currentPage,
+    pages: pages,
+    changePage: setCurrentPage
   })));
 };
 
 var _default = Movies;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/topBar/TopBar":"components/topBar/TopBar.jsx","./movies.scss":"pages/movies/movies.scss"}],"../public/profileIcon.png":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/topBar/TopBar":"components/topBar/TopBar.jsx","./movies.scss":"pages/movies/movies.scss","../../components/pagination/Pagination":"components/pagination/Pagination.jsx"}],"../public/profileIcon.png":[function(require,module,exports) {
 module.exports = "/profileIcon.b9b8d8d3.png";
 },{}],"components/header/header.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -72701,14 +72828,18 @@ const App = _ref => {
   }, user.isAuthenticated && /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Routes, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: _routesPath.LOGIN_PATH,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PublicRoute, null, /*#__PURE__*/_react.default.createElement(_Welcome.default, null)),
-    loggedInPath: _routesPath.MOVIES_PATH,
+    loggedInPath: `${_routesPath.MOVIES_PATH}/page/:pageNumber`,
     exact: true
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-    path: _routesPath.MOVIES_PATH,
+    path: `${_routesPath.MOVIES_PATH}/page/:pageNumber`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
     exact: true
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-    path: `${_routesPath.MOVIES_PATH}/search/:title`,
+    path: `${_routesPath.MOVIES_PATH}`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
+    exact: true
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.MOVIES_PATH}/search/:title/page/:pageNumber`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
     exact: true
   })));
