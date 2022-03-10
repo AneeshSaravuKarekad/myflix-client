@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import ProfileIcon from '../../../public/profileIcon.png';
 
@@ -9,6 +9,7 @@ import './header.scss';
 const Header = () => {
   const [activePage, setActivePage] = useState('');
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     switch (location.pathname) {
@@ -29,8 +30,13 @@ const Header = () => {
     }
   }, [location]);
 
+  const handleLogout = () => {
+    localStorage.removeItem('persist:auth');
+    window.location.reload(false);
+  };
+
   return (
-    <Navbar collapseOnSelect expand="lg">
+    <Navbar collapseOnSelect expand="lg" variant="dark">
       <Container>
         <Navbar.Brand href="/">myFlix</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -68,14 +74,11 @@ const Header = () => {
               }
               id="collasible-nav-dropdown"
             >
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
+              <NavDropdown.Item href="#" onClick={handleLogout}>
+                Logout
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>

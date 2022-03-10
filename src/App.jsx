@@ -34,6 +34,15 @@ const App = ({ user }) => {
           }
           exact
         />
+        <Route
+          path={`${MOVIES_PATH}/search/:title`}
+          element={
+            <PrivateRoute>
+              <Movies />
+            </PrivateRoute>
+          }
+          exact
+        />
       </Routes>
     </div>
   );

@@ -23,6 +23,9 @@
       bottom: -25px;
       left: 0;
       background-color: var(--warning);
+      @media screen and (max-width: 992px) {
+        display: none;
+      }
     }
   }
 }

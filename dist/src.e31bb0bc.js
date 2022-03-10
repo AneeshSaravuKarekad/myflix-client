@@ -71732,8 +71732,19 @@ var _axios = _interopRequireDefault(require("axios"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function getToken() {
+  const userObject = JSON.parse(localStorage.getItem('persist:auth')).user;
+  const token = JSON.parse(userObject).details.token;
+  return token;
+}
+
 const fetchAllMovies = title => {
-  return _axios.default.get(`${_url.default.movies}?title=${title}`);
+  const token = getToken();
+  return _axios.default.get(`${_url.default.movies}?title=${title}`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
 };
 
 exports.fetchAllMovies = fetchAllMovies;
@@ -72417,7 +72428,73 @@ const MovieCard = _ref => {
 
 var _default = MovieCard;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","./movieCard.scss":"components/movieCard/movieCard.scss"}],"pages/movies/movies.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","./movieCard.scss":"components/movieCard/movieCard.scss"}],"components/topBar/topBar.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/topBar/TopBar.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _reactRouterDom = require("react-router-dom");
+
+require("./topBar.scss");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const TopBar = _ref => {
+  let {
+    query,
+    onTitleChange
+  } = _ref;
+  const [title, setTitle] = (0, _react.useState)(query);
+  const navigate = (0, _reactRouterDom.useNavigate)();
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (title.trim()) {
+      navigate(`/movies/search/${title}`);
+    } else {
+      navigate(`/movies`);
+    }
+
+    onTitleChange(title);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "search-bar-row"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "search-col"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.FormControl, {
+    placeholder: "Search...",
+    "aria-label": "Search for movies",
+    "aria-describedby": "basic-addon2",
+    value: title,
+    onChange: e => setTitle(e.target.value)
+  }), /*#__PURE__*/_react.default.createElement("input", {
+    className: "btn btn-outline-warning",
+    type: "submit",
+    value: "Search"
+  })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement("h2", null, "Pagination"))));
+};
+
+var _default = TopBar;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./topBar.scss":"components/topBar/topBar.scss"}],"pages/movies/movies.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -72440,6 +72517,8 @@ var _movieAction = require("../../actions/movieAction");
 
 var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
 
+var _TopBar = _interopRequireDefault(require("../../components/topBar/TopBar"));
+
 require("./movies.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -72458,22 +72537,36 @@ const Movies = () => {
     result
   } = (0, _reactRedux.useSelector)(state => state.movies);
   const dispatch = (0, _reactRedux.useDispatch)();
+  const [title, setTitle] = (0, _react.useState)('');
   (0, _react.useEffect)(() => {
-    dispatch((0, _movieAction.fetchMovies)(''));
-  }, [dispatch]);
-  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    dispatch((0, _movieAction.fetchMovies)(title));
+  }, [dispatch, title]);
+
+  const handleChange = val => {
+    setTitle(val);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement(_TopBar.default, {
+    query: title,
+    onTitleChange: val => handleChange(val)
+  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"
-  }, !isLoading ? result.map((movie, idx) => {
+  }, !isLoading && result ? result.map((movie, idx) => {
     return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
       key: idx,
       movie: movie
     });
-  }) : /*#__PURE__*/_react.default.createElement("h1", null, "Loading..."));
+  }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  })));
 };
 
 var _default = Movies;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","./movies.scss":"pages/movies/movies.scss"}],"../public/profileIcon.png":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/topBar/TopBar":"components/topBar/TopBar.jsx","./movies.scss":"pages/movies/movies.scss"}],"../public/profileIcon.png":[function(require,module,exports) {
 module.exports = "/profileIcon.b9b8d8d3.png";
 },{}],"components/header/header.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -72507,6 +72600,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 const Header = () => {
   const [activePage, setActivePage] = (0, _react.useState)('');
   const location = (0, _reactRouterDom.useLocation)();
+  const navigate = (0, _reactRouterDom.useNavigate)();
   (0, _react.useEffect)(() => {
     switch (location.pathname) {
       case '/movies':
@@ -72525,9 +72619,16 @@ const Header = () => {
         break;
     }
   }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('persist:auth');
+    window.location.reload(false);
+  };
+
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar, {
     collapseOnSelect: true,
-    expand: "lg"
+    expand: "lg",
+    variant: "dark"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
     href: "/"
   }, "myFlix"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, {
@@ -72555,13 +72656,10 @@ const Header = () => {
     id: "collasible-nav-dropdown"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
     href: "#action/3.1"
-  }, "Action"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-    href: "#action/3.2"
-  }, "Another action"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-    href: "#action/3.3"
-  }, "Something"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Divider, null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-    href: "#action/3.4"
-  }, "Separated link"))))));
+  }, "Profile"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Divider, null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
+    href: "#",
+    onClick: handleLogout
+  }, "Logout"))))));
 };
 
 var _default = Header;
@@ -72607,6 +72705,10 @@ const App = _ref => {
     exact: true
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: _routesPath.MOVIES_PATH,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
+    exact: true
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.MOVIES_PATH}/search/:title`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Movies.default, null)),
     exact: true
   })));

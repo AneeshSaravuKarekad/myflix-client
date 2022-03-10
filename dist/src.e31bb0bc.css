@@ -213,8 +213,45 @@
   filter: blur(1px);
   transform: scale(1.1);
 }
+.search-bar-row {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 25px;
+  padding-inline: 1rem;
+  align-items: center;
+}
+@media screen and (max-width: 575px) {
+  .search-bar-row {
+    flex-direction: column;
+  }
+}
+.search-bar-row .search-col .input-group {
+  padding-block: 1rem;
+  border-radius: 10px;
+  position: relative;
+}
+.search-bar-row .search-col .input-group .form-control {
+  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #1a1a1a;
+  background: transparent;
+  color: white;
+}
+.search-bar-row .search-col .input-group .form-control:focus {
+  border: 1px solid var(--clr-primary-200);
+}
+.search-bar-row .search-col .input-group button {
+  position: absolute;
+  right: 0;
+  z-index: 20;
+}
 .movies-page-row {
   gap: 1rem;
+}
+.movies-page-row .spinner-border {
+  width: 100px;
+  height: 100px;
+  margin-top: 10rem;
 }
 .navbar {
   background-color: var(--clr-navbar-dark);
@@ -240,6 +277,11 @@
   bottom: -25px;
   left: 0;
   background-color: var(--warning);
+}
+@media screen and (max-width: 992px) {
+  .navbar .active::after {
+    display: none;
+  }
 }
 
 #collasible-nav-dropdown {
