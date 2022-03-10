@@ -3,16 +3,16 @@ import { Row, Spinner } from 'react-bootstrap';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchMovies } from '../../actions/movieAction';
+import { favourites } from '../../actions/favouritesAction';
 import MovieCard from '../../components/movieCard/MovieCard';
 import TopBar from '../../components/topBar/TopBar';
 
 import './movies.scss';
 import Pagination from '../../components/pagination/Pagination';
 
-const Movies = ({ user }) => {
-  const { isLoading, page, pages, count, total, result } = useSelector(
-    (state) => state.movies
-  );
+const Movies = () => {
+  const { isLoading, pages, result } = useSelector((state) => state.movies);
+  const favouritesState = useSelector((state) => state.favourites);
   const dispatch = useDispatch();
   const { title, pageNumber } = useParams();
 
@@ -20,6 +20,7 @@ const Movies = ({ user }) => {
 
   useEffect(() => {
     dispatch(fetchMovies(title, pageNumber));
+    dispatch(favourites());
   }, [dispatch, title, currentPage, pageNumber]);
 
   const handleChange = (val) => {
@@ -41,12 +42,21 @@ const Movies = ({ user }) => {
       </Row>
 
       <Row className="justify-content-center movies-page-row">
-        {!isLoading && result ? (
+        {!isLoading && result && favouritesState.result ? (
           result.map((movie, idx) => {
-            return <MovieCard key={idx} movie={movie} />;
+            let isFav = false;
+
+            favouritesState.result.map((res) => {
+              if (res._id === movie._id) {
+                isFav = true;
+              }
+            });
+            return <MovieCard key={idx} movie={movie} isFav={isFav} />;
           })
         ) : (
-          <Spinner animation="border" variant="warning" />
+          <>
+            <Spinner animation="border" variant="warning" />
+          </>
         )}
       </Row>
 
@@ -61,10 +71,4 @@ const Movies = ({ user }) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return { user: state.user };
-};
-
-export default connect(mapStateToProps)(Movies);
-
-// export default Movies;
+export default Movies;

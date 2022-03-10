@@ -37170,13 +37170,25 @@ exports.userReducer = userReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GET_FAVOURITES_SUCCESS = exports.GET_FAVOURITES_REQUEST = exports.GET_FAVOURITES_FAIL = void 0;
+exports.REMOVE_FAVOURITES_SUCCESS = exports.REMOVE_FAVOURITES_REQUEST = exports.REMOVE_FAVOURITES_FAIL = exports.GET_FAVOURITES_SUCCESS = exports.GET_FAVOURITES_REQUEST = exports.GET_FAVOURITES_FAIL = exports.ADD_FAVOURITES_SUCCESS = exports.ADD_FAVOURITES_REQUEST = exports.ADD_FAVOURITES_FAIL = void 0;
 const GET_FAVOURITES_REQUEST = 'USER_FAVOURITES_REQUEST';
 exports.GET_FAVOURITES_REQUEST = GET_FAVOURITES_REQUEST;
 const GET_FAVOURITES_SUCCESS = 'USER_FAVOURITES_SUCCESS';
 exports.GET_FAVOURITES_SUCCESS = GET_FAVOURITES_SUCCESS;
 const GET_FAVOURITES_FAIL = 'USER_FAVOURITES_FAIL';
 exports.GET_FAVOURITES_FAIL = GET_FAVOURITES_FAIL;
+const ADD_FAVOURITES_REQUEST = 'ADD_FAVOURITES_REQUEST';
+exports.ADD_FAVOURITES_REQUEST = ADD_FAVOURITES_REQUEST;
+const ADD_FAVOURITES_SUCCESS = 'ADD_FAVOURITES_SUCCESS';
+exports.ADD_FAVOURITES_SUCCESS = ADD_FAVOURITES_SUCCESS;
+const ADD_FAVOURITES_FAIL = 'ADD_FAVOURITES_FAIL';
+exports.ADD_FAVOURITES_FAIL = ADD_FAVOURITES_FAIL;
+const REMOVE_FAVOURITES_REQUEST = 'REMOVE_FAVOURITES_REQUEST';
+exports.REMOVE_FAVOURITES_REQUEST = REMOVE_FAVOURITES_REQUEST;
+const REMOVE_FAVOURITES_SUCCESS = 'REMOVE_FAVOURITES_SUCCESS';
+exports.REMOVE_FAVOURITES_SUCCESS = REMOVE_FAVOURITES_SUCCESS;
+const REMOVE_FAVOURITES_FAIL = 'REMOVE_FAVOURITES_FAIL';
+exports.REMOVE_FAVOURITES_FAIL = REMOVE_FAVOURITES_FAIL;
 },{}],"reducers/favouritesReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37209,9 +37221,49 @@ const favouritesReducer = function () {
       };
 
     case _favouritesConstants.GET_FAVOURITES_FAIL:
-      console.log(action.payload);
       return {
         isloading: false,
+        error: action.payload
+      };
+    // FAVOURITES - ADD
+
+    case _favouritesConstants.ADD_FAVOURITES_REQUEST:
+      return {
+        isLoading: true,
+        result: []
+      };
+
+    case _favouritesConstants.ADD_FAVOURITES_SUCCESS:
+      return {
+        isLoading: false,
+        count: action.payload.favourites.length,
+        result: action.payload.favourites
+      };
+
+    case _favouritesConstants.ADD_FAVOURITES_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
+      };
+    // FAVOURITES - REMOVE
+
+    case _favouritesConstants.REMOVE_FAVOURITES_REQUEST:
+      return {
+        isLoading: true,
+        result: []
+      };
+
+    case _favouritesConstants.REMOVE_FAVOURITES_SUCCESS:
+      console.log(action.payload);
+      return {
+        isLoading: false,
+        count: action.payload.favourites.length,
+        result: action.payload.favourites
+      };
+
+    case _favouritesConstants.REMOVE_FAVOURITES_FAIL:
+      return {
+        isLoading: false,
         error: action.payload
       };
 
@@ -71804,7 +71856,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.fetchFavourites = exports.fetchAllMovies = void 0;
+exports.userRegister = exports.userLogin = exports.removeFavourites = exports.fetchFavourites = exports.fetchAllMovies = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -71872,6 +71924,30 @@ const fetchFavourites = () => {
 };
 
 exports.fetchFavourites = fetchFavourites;
+
+const addFavourites = movieId => {
+  const token = getToken();
+  return _axios.default.put(`${_url.default.users}/favourites`, {
+    movieId
+  }, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.addFavourites = addFavourites;
+
+const removeFavourites = movieId => {
+  const token = getToken();
+  return _axios.default.delete(`${_url.default.users}/favourites/${movieId}`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.removeFavourites = removeFavourites;
 },{"./url":"api/url.js","axios":"../node_modules/axios/index.js","../store":"store.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
@@ -72440,7 +72516,89 @@ const clearErrors = () => async dispatch => {
 };
 
 exports.clearErrors = clearErrors;
-},{"../api":"api/index.js","../constants/movieConstants":"constants/movieConstants.js"}],"../public/favIcon.svg":[function(require,module,exports) {
+},{"../api":"api/index.js","../constants/movieConstants":"constants/movieConstants.js"}],"actions/favouritesAction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.removeFavourites = exports.favourites = exports.addFavourites = void 0;
+
+var api = _interopRequireWildcard(require("../api"));
+
+var _favouritesConstants = require("../constants/favouritesConstants.js");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const favourites = () => async dispatch => {
+  try {
+    dispatch({
+      type: _favouritesConstants.GET_FAVOURITES_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchFavourites();
+    dispatch({
+      type: _favouritesConstants.GET_FAVOURITES_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _favouritesConstants.GET_FAVOURITES_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.favourites = favourites;
+
+const addFavourites = movieId => async dispatch => {
+  try {
+    dispatch({
+      type: _favouritesConstants.ADD_FAVOURITES_REQUEST
+    });
+    const {
+      data
+    } = await api.addFavourites(movieId);
+    dispatch({
+      type: _favouritesConstants.ADD_FAVOURITES_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _favouritesConstants.ADD_FAVOURITES_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.addFavourites = addFavourites;
+
+const removeFavourites = movieId => async dispatch => {
+  try {
+    dispatch({
+      type: _favouritesConstants.REMOVE_FAVOURITES_REQUEST
+    });
+    const {
+      data
+    } = await api.removeFavourites(movieId);
+    dispatch({
+      type: _favouritesConstants.REMOVE_FAVOURITES_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    console.log('error ', error);
+    dispatch({
+      type: _favouritesConstants.REMOVE_FAVOURITES_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.removeFavourites = removeFavourites;
+},{"../api":"api/index.js","../constants/favouritesConstants.js":"constants/favouritesConstants.js"}],"../public/favIcon.svg":[function(require,module,exports) {
 module.exports = "/favIcon.877438c9.svg";
 },{}],"../public/unFavIcon.svg":[function(require,module,exports) {
 module.exports = "/unFavIcon.055f354b.svg";
@@ -72461,9 +72619,13 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactBootstrap = require("react-bootstrap");
 
+var _reactRedux = require("react-redux");
+
 var _favIcon = _interopRequireDefault(require("../../../public/favIcon.svg"));
 
 var _unFavIcon = _interopRequireDefault(require("../../../public/unFavIcon.svg"));
+
+var _favouritesAction = require("../../actions/favouritesAction");
 
 require("./movieCard.scss");
 
@@ -72475,15 +72637,24 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 const MovieCard = _ref => {
   let {
-    movie
+    movie,
+    isFav
   } = _ref;
   const [favState, setFavState] = (0, _react.useState)(_unFavIcon.default);
+  const dispatch = (0, _reactRedux.useDispatch)();
+  (0, _react.useEffect)(() => {
+    if (isFav) {
+      setFavState(_favIcon.default);
+    }
+  }, [dispatch, favState]);
 
   const handleClick = () => {
     if (favState === _favIcon.default) {
       setFavState(_unFavIcon.default);
+      dispatch((0, _favouritesAction.removeFavourites)(movie._id));
     } else {
       setFavState(_favIcon.default);
+      dispatch((0, _favouritesAction.addFavourites)(movie._id));
     }
   };
 
@@ -72527,7 +72698,7 @@ const MovieCard = _ref => {
 
 var _default = MovieCard;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","./movieCard.scss":"components/movieCard/movieCard.scss"}],"components/topBar/topBar.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","../../actions/favouritesAction":"actions/favouritesAction.js","./movieCard.scss":"components/movieCard/movieCard.scss"}],"components/topBar/topBar.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -72717,6 +72888,8 @@ var _reactRouterDom = require("react-router-dom");
 
 var _movieAction = require("../../actions/movieAction");
 
+var _favouritesAction = require("../../actions/favouritesAction");
+
 var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
 
 var _TopBar = _interopRequireDefault(require("../../components/topBar/TopBar"));
@@ -72731,18 +72904,13 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-const Movies = _ref => {
-  let {
-    user
-  } = _ref;
+const Movies = () => {
   const {
     isLoading,
-    page,
     pages,
-    count,
-    total,
     result
   } = (0, _reactRedux.useSelector)(state => state.movies);
+  const favouritesState = (0, _reactRedux.useSelector)(state => state.favourites);
   const dispatch = (0, _reactRedux.useDispatch)();
   const {
     title,
@@ -72751,6 +72919,7 @@ const Movies = _ref => {
   const [currentPage, setCurrentPage] = (0, _react.useState)(pageNumber || 1);
   (0, _react.useEffect)(() => {
     dispatch((0, _movieAction.fetchMovies)(title, pageNumber));
+    dispatch((0, _favouritesAction.favourites)());
   }, [dispatch, title, currentPage, pageNumber]);
 
   const handleChange = val => {
@@ -72770,15 +72939,22 @@ const Movies = _ref => {
     changePage: setCurrentPage
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"
-  }, !isLoading && result ? result.map((movie, idx) => {
+  }, !isLoading && result && favouritesState.result ? result.map((movie, idx) => {
+    let isFav = false;
+    favouritesState.result.map(res => {
+      if (res._id === movie._id) {
+        isFav = true;
+      }
+    });
     return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
       key: idx,
-      movie: movie
+      movie: movie,
+      isFav: isFav
     });
-  }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+  }) : /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",
     variant: "warning"
-  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
     page: currentPage,
@@ -72787,17 +72963,9 @@ const Movies = _ref => {
   })));
 };
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
-};
-
-var _default = (0, _reactRedux.connect)(mapStateToProps)(Movies); // export default Movies;
-
-
+var _default = Movies;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/topBar/TopBar":"components/topBar/TopBar.jsx","./movies.scss":"pages/movies/movies.scss","../../components/pagination/Pagination":"components/pagination/Pagination.jsx"}],"../public/profileIcon.png":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/movieAction":"actions/movieAction.js","../../actions/favouritesAction":"actions/favouritesAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/topBar/TopBar":"components/topBar/TopBar.jsx","./movies.scss":"pages/movies/movies.scss","../../components/pagination/Pagination":"components/pagination/Pagination.jsx"}],"../public/profileIcon.png":[function(require,module,exports) {
 module.exports = "/profileIcon.b9b8d8d3.png";
 },{}],"components/header/header.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -72895,44 +73063,7 @@ const Header = () => {
 
 var _default = Header;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/profileIcon.png":"../public/profileIcon.png","./header.scss":"components/header/header.scss"}],"actions/favouritesAction.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.favourites = void 0;
-
-var api = _interopRequireWildcard(require("../api"));
-
-var _favouritesConstants = require("../constants/favouritesConstants.js");
-
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-const favourites = () => async dispatch => {
-  try {
-    dispatch({
-      type: _favouritesConstants.GET_FAVOURITES_REQUEST
-    });
-    const {
-      data
-    } = await api.fetchFavourites();
-    dispatch({
-      type: _favouritesConstants.GET_FAVOURITES_SUCCESS,
-      payload: data
-    });
-  } catch (error) {
-    dispatch({
-      type: _favouritesConstants.GET_FAVOURITES_FAIL,
-      payload: error.response?.data
-    });
-  }
-};
-
-exports.favourites = favourites;
-},{"../api":"api/index.js","../constants/favouritesConstants.js":"constants/favouritesConstants.js"}],"pages/favourites/Favourites.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/profileIcon.png":"../public/profileIcon.png","./header.scss":"components/header/header.scss"}],"pages/favourites/Favourites.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72979,9 +73110,16 @@ const Favourites = _ref => {
   }, "Favourites")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"
   }, !isLoading && result ? result.map((movie, idx) => {
+    let isFav = false;
+    result.map(res => {
+      if (res._id === movie._id) {
+        isFav = true;
+      }
+    });
     return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
       key: idx,
-      movie: movie
+      movie: movie,
+      isFav: isFav
     });
   }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",

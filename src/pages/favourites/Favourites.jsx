@@ -21,7 +21,13 @@ const Favourites = ({ dispatchFetchFavourites }) => {
       <Row className="justify-content-center movies-page-row">
         {!isLoading && result ? (
           result.map((movie, idx) => {
-            return <MovieCard key={idx} movie={movie} />;
+            let isFav = false;
+            result.map((res) => {
+              if (res._id === movie._id) {
+                isFav = true;
+              }
+            });
+            return <MovieCard key={idx} movie={movie} isFav={isFav} />;
           })
         ) : (
           <Spinner animation="border" variant="warning" />

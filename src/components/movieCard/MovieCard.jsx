@@ -1,19 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
 import FavIcon from '../../../public/favIcon.svg';
 import UnFavIcon from '../../../public/unFavIcon.svg';
+import {
+  addFavourites,
+  removeFavourites,
+} from '../../actions/favouritesAction';
 
 import './movieCard.scss';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, isFav }) => {
   const [favState, setFavState] = useState(UnFavIcon);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isFav) {
+      setFavState(FavIcon);
+    }
+  }, [dispatch, favState]);
 
   const handleClick = () => {
     if (favState === FavIcon) {
       setFavState(UnFavIcon);
+      dispatch(removeFavourites(movie._id));
     } else {
       setFavState(FavIcon);
+      dispatch(addFavourites(movie._id));
     }
   };
 

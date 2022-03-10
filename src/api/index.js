@@ -36,3 +36,21 @@ export const fetchFavourites = () => {
     headers: { Authorization: `${token}` },
   });
 };
+
+export const addFavourites = (movieId) => {
+  const token = getToken();
+  return axios.put(
+    `${URL.users}/favourites`,
+    { movieId },
+    {
+      headers: { Authorization: `${token}` },
+    }
+  );
+};
+export const removeFavourites = (movieId) => {
+  const token = getToken();
+
+  return axios.delete(`${URL.users}/favourites/${movieId}`, {
+    headers: { Authorization: `${token}` },
+  });
+};
