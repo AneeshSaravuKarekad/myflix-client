@@ -73153,25 +73153,24 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 const Header = () => {
   const [activePage, setActivePage] = (0, _react.useState)('');
   const location = (0, _reactRouterDom.useLocation)();
-  const navigate = (0, _reactRouterDom.useNavigate)();
   (0, _react.useEffect)(() => {
-    switch (location.pathname) {
-      case '/movies':
+    switch (true) {
+      case location.pathname.includes('/movies'):
         setActivePage('Movies');
         break;
 
-      case '/home':
+      case location.pathname.includes('/home'):
         setActivePage('Home');
         break;
 
-      case '/favourites':
+      case location.pathname.includes('/favourites'):
         setActivePage('Favourites');
         break;
 
       default:
-        break;
+        setActivePage('');
     }
-  }, [location]);
+  }, [location, activePage]);
 
   const handleLogout = () => {
     localStorage.removeItem('persist:auth');
@@ -73194,7 +73193,7 @@ const Header = () => {
     to: "/home",
     className: activePage === 'Home' ? 'nav-link active' : 'nav-link'
   }, "Home"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
-    to: "/movies",
+    to: "/movies/page/1",
     className: activePage === 'Movies' ? 'nav-link active' : 'nav-link'
   }, "Movies"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/favourites",

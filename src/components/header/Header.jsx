@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import ProfileIcon from '../../../public/profileIcon.png';
 
@@ -9,26 +9,25 @@ import './header.scss';
 const Header = () => {
   const [activePage, setActivePage] = useState('');
   const location = useLocation();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    switch (location.pathname) {
-      case '/movies':
+    switch (true) {
+      case location.pathname.includes('/movies'):
         setActivePage('Movies');
         break;
 
-      case '/home':
+      case location.pathname.includes('/home'):
         setActivePage('Home');
         break;
 
-      case '/favourites':
+      case location.pathname.includes('/favourites'):
         setActivePage('Favourites');
         break;
 
       default:
-        break;
+        setActivePage('');
     }
-  }, [location]);
+  }, [location, activePage]);
 
   const handleLogout = () => {
     localStorage.removeItem('persist:auth');
@@ -49,7 +48,7 @@ const Header = () => {
               Home
             </Link>
             <Link
-              to="/movies"
+              to="/movies/page/1"
               className={
                 activePage === 'Movies' ? 'nav-link active' : 'nav-link'
               }
