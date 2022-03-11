@@ -1,0 +1,10 @@
+.favourites-heading {
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff,
+    0 0 20px var(--clr-primary-200), 0 0 30px var(--clr-primary-200),
+    0 0 40px var(--clr-primary-200), 0 0 55px var(--clr-primary-200),
+    0 0 75px var(--clr-primary-200);
+
+  color: var(--clr-primary-300);
+  margin-block: 2rem;
+  margin-inline: 1rem;
+}

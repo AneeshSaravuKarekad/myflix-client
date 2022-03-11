@@ -16,10 +16,10 @@ const Movies = () => {
   const dispatch = useDispatch();
   const { title, pageNumber } = useParams();
 
-  const [currentPage, setCurrentPage] = useState(pageNumber || 1);
+  const [currentPage, setCurrentPage] = useState(parseInt(pageNumber) || 1);
 
   useEffect(() => {
-    dispatch(fetchMovies(title, pageNumber));
+    dispatch(fetchMovies(title, currentPage));
     dispatch(favourites());
   }, [dispatch, title, currentPage, pageNumber]);
 
@@ -62,8 +62,8 @@ const Movies = () => {
 
       <Row className="justify-content-center">
         <Pagination
-          page={currentPage}
-          pages={pages}
+          page={parseInt(pageNumber)}
+          pages={parseInt(pages)}
           changePage={setCurrentPage}
         />
       </Row>

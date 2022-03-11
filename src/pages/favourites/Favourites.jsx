@@ -3,6 +3,9 @@ import { useDispatch, useSelector, connect } from 'react-redux';
 import { favourites } from '../../actions/favouritesAction';
 import { Row, Spinner } from 'react-bootstrap';
 import MovieCard from '../../components/movieCard/MovieCard';
+import StarIcon from '../../../public/star-icon.png';
+
+import './favourites.scss';
 
 const Favourites = ({ dispatchFetchFavourites }) => {
   const dispatch = useDispatch();
@@ -14,9 +17,11 @@ const Favourites = ({ dispatchFetchFavourites }) => {
   return (
     <>
       <Row className="justify-content-center">
-        <h1 style={{ color: 'var(--clr-primary-200)', marginBlock: '2rem' }}>
-          Favourites
-        </h1>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={StarIcon} style={{ width: '20px', height: '20px' }} />
+          <h1 className="favourites-heading">Favourites</h1>
+          <img src={StarIcon} style={{ width: '20px', height: '20px' }} />
+        </div>
       </Row>
       <Row className="justify-content-center movies-page-row">
         {!isLoading && result ? (

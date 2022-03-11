@@ -8,7 +8,8 @@ const Pagination = ({ page, pages, changePage }) => {
   const navigate = useNavigate();
   const { title } = useParams();
   useEffect(() => {
-    const navPage = page > pages ? pages : page;
+    const navPage = page > pages ? parseInt(pages) : parseInt(page);
+
     title
       ? navigate(`/movies/search/${title}/page/${navPage}`)
       : navigate(`/movies/page/${navPage}`);
@@ -48,7 +49,9 @@ const Pagination = ({ page, pages, changePage }) => {
       if (pages - page >= 5) {
         middlePagination = (
           <>
-            <button onClick={() => changePage(1)}>1</button>
+            <button onClick={() => changePage(1)} disabled={page === 1}>
+              1
+            </button>
             <button>...</button>
             <button onClick={() => changePage(startValue + idx + 1)}></button>
             {[...Array(5)].map((_, idx) => (
@@ -67,7 +70,9 @@ const Pagination = ({ page, pages, changePage }) => {
       } else {
         middlePagination = (
           <>
-            <button onClick={() => changePage(1)}>1</button>
+            <button onClick={() => changePage(1)} disabled={page === 1}>
+              1
+            </button>
             <button>...</button>
             <button onClick={() => changePage(startValue)}>{startValue}</button>
             {[...Array(5)].map((_, idx) => (

@@ -72802,7 +72802,7 @@ const Pagination = _ref => {
     title
   } = (0, _reactRouterDom.useParams)();
   (0, _react.useEffect)(() => {
-    const navPage = page > pages ? pages : page;
+    const navPage = page > pages ? parseInt(pages) : parseInt(page);
     title ? navigate(`/movies/search/${title}/page/${navPage}`) : navigate(`/movies/page/${navPage}`);
   }, [changePage, page]);
 
@@ -72825,7 +72825,8 @@ const Pagination = _ref => {
     if (page > 5) {
       if (pages - page >= 5) {
         middlePagination = /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
-          onClick: () => changePage(1)
+          onClick: () => changePage(1),
+          disabled: page === 1
         }, "1"), /*#__PURE__*/_react.default.createElement("button", null, "..."), /*#__PURE__*/_react.default.createElement("button", {
           onClick: () => changePage(startValue + idx + 1)
         }), [...Array(5)].map((_, idx) => /*#__PURE__*/_react.default.createElement("button", {
@@ -72837,7 +72838,8 @@ const Pagination = _ref => {
         }, pages));
       } else {
         middlePagination = /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("button", {
-          onClick: () => changePage(1)
+          onClick: () => changePage(1),
+          disabled: page === 1
         }, "1"), /*#__PURE__*/_react.default.createElement("button", null, "..."), /*#__PURE__*/_react.default.createElement("button", {
           onClick: () => changePage(startValue)
         }, startValue), [...Array(5)].map((_, idx) => /*#__PURE__*/_react.default.createElement("button", {
@@ -72913,9 +72915,9 @@ const Movies = () => {
     title,
     pageNumber
   } = (0, _reactRouterDom.useParams)();
-  const [currentPage, setCurrentPage] = (0, _react.useState)(pageNumber || 1);
+  const [currentPage, setCurrentPage] = (0, _react.useState)(parseInt(pageNumber) || 1);
   (0, _react.useEffect)(() => {
-    dispatch((0, _movieAction.fetchMovies)(title, pageNumber));
+    dispatch((0, _movieAction.fetchMovies)(title, currentPage));
     dispatch((0, _favouritesAction.favourites)());
   }, [dispatch, title, currentPage, pageNumber]);
 
@@ -72954,8 +72956,8 @@ const Movies = () => {
   }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
-    page: currentPage,
-    pages: pages,
+    page: parseInt(pageNumber),
+    pages: parseInt(pages),
     changePage: setCurrentPage
   })));
 };
@@ -73060,7 +73062,14 @@ const Header = () => {
 
 var _default = Header;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/profileIcon.png":"../public/profileIcon.png","./header.scss":"components/header/header.scss"}],"pages/favourites/Favourites.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/profileIcon.png":"../public/profileIcon.png","./header.scss":"components/header/header.scss"}],"../public/star-icon.png":[function(require,module,exports) {
+module.exports = "/star-icon.58f03972.png";
+},{}],"pages/favourites/favourites.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/favourites/Favourites.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73077,6 +73086,10 @@ var _favouritesAction = require("../../actions/favouritesAction");
 var _reactBootstrap = require("react-bootstrap");
 
 var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
+
+var _starIcon = _interopRequireDefault(require("../../../public/star-icon.png"));
+
+require("./favourites.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73099,12 +73112,26 @@ const Favourites = _ref => {
   }, [dispatch]);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
-  }, /*#__PURE__*/_react.default.createElement("h1", {
+  }, /*#__PURE__*/_react.default.createElement("div", {
     style: {
-      color: 'var(--clr-primary-200)',
-      marginBlock: '2rem'
+      display: 'flex',
+      alignItems: 'center'
     }
-  }, "Favourites")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: _starIcon.default,
+    style: {
+      width: '20px',
+      height: '20px'
+    }
+  }), /*#__PURE__*/_react.default.createElement("h1", {
+    className: "favourites-heading"
+  }, "Favourites"), /*#__PURE__*/_react.default.createElement("img", {
+    src: _starIcon.default,
+    style: {
+      width: '20px',
+      height: '20px'
+    }
+  }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"
   }, !isLoading && result ? result.map((movie, idx) => {
     let isFav = false;
@@ -73132,7 +73159,7 @@ var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Favourites); /
 
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../../public/star-icon.png":"../public/star-icon.png","./favourites.scss":"pages/favourites/favourites.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
