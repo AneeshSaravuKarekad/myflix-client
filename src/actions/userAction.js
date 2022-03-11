@@ -9,6 +9,9 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_FAIL,
   LOAD_USER_SUCCESS,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
 } from '../constants/userConstants';
 
 export const login = (userData) => async (dispatch) => {
@@ -44,5 +47,15 @@ export const loadProfile = () => async (dispatch) => {
     dispatch({ type: LOAD_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: LOAD_USER_FAIL, payload: error.response?.data });
+  }
+};
+
+export const updateProfile = (userData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_USER_REQUEST });
+    const { data } = await api.updateProfile(userData);
+    dispatch({ type: UPDATE_USER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: UPDATE_USER_FAIL, payload: error.response?.data });
   }
 };

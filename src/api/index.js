@@ -62,3 +62,18 @@ export const loadProfile = () => {
     headers: { Authorization: `${token}` },
   });
 };
+
+export const updateProfile = (userData) => {
+  const token = getToken();
+  const { username, password, birthDate, email } = userData;
+  return axios.post(
+    `${URL.users}/profile`,
+    {
+      username,
+      password,
+      email,
+      birthDate,
+    },
+    { headers: { Authorization: `${token}` } }
+  );
+};

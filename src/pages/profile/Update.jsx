@@ -6,6 +6,7 @@ import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 
 import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
+import { updateProfile } from '../../actions/userAction';
 
 const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
   const [type, setType] = useState('password');
@@ -35,7 +36,7 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
       }}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
-        // dispatchUserRegister(values);
+        dispatch(updateProfile(values));
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()

@@ -37065,7 +37065,7 @@ exports.movieReducer = movieReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.USER_REGISTER_SUCCESS = exports.USER_REGISTER_REQUEST = exports.USER_REGISTER_FAIL = exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = exports.LOAD_USER_SUCCESS = exports.LOAD_USER_REQUEST = exports.LOAD_USER_FAIL = void 0;
+exports.USER_REGISTER_SUCCESS = exports.USER_REGISTER_REQUEST = exports.USER_REGISTER_FAIL = exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = exports.UPDATE_USER_SUCCESS = exports.UPDATE_USER_REQUEST = exports.UPDATE_USER_FAIL = exports.LOAD_USER_SUCCESS = exports.LOAD_USER_REQUEST = exports.LOAD_USER_FAIL = void 0;
 const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 exports.USER_LOGIN_REQUEST = USER_LOGIN_REQUEST;
 const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
@@ -37084,6 +37084,12 @@ const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
 exports.LOAD_USER_SUCCESS = LOAD_USER_SUCCESS;
 const LOAD_USER_FAIL = 'LOAD_USER_FAIL';
 exports.LOAD_USER_FAIL = LOAD_USER_FAIL;
+const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
+exports.UPDATE_USER_REQUEST = UPDATE_USER_REQUEST;
+const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+exports.UPDATE_USER_SUCCESS = UPDATE_USER_SUCCESS;
+const UPDATE_USER_FAIL = 'UPDATE_USER_FAIL';
+exports.UPDATE_USER_FAIL = UPDATE_USER_FAIL;
 },{}],"reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37313,6 +37319,24 @@ const profileReducer = function () {
       return {
         isLoading: false,
         error: action.payload.error
+      };
+
+    case _userConstants.UPDATE_USER_REQUEST:
+      return {
+        isLoading: true,
+        user: {}
+      };
+
+    case _userConstants.UPDATE_USER_SUCCESS:
+      return {
+        isLoading: false,
+        user: action.payload.user
+      };
+
+    case _userConstants.UPDATE_USER_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
       };
 
     default:
@@ -71909,7 +71933,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.removeFavourites = exports.loadProfile = exports.fetchFavourites = exports.fetchAllMovies = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchFavourites = exports.fetchAllMovies = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72012,13 +72036,35 @@ const loadProfile = () => {
 };
 
 exports.loadProfile = loadProfile;
+
+const updateProfile = userData => {
+  const token = getToken();
+  const {
+    username,
+    password,
+    birthDate,
+    email
+  } = userData;
+  return _axios.default.post(`${_url.default.users}/profile`, {
+    username,
+    password,
+    email,
+    birthDate
+  }, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.updateProfile = updateProfile;
 },{"./url":"api/url.js","axios":"../node_modules/axios/index.js","../store":"store.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.register = exports.login = exports.loadProfile = void 0;
+exports.updateProfile = exports.register = exports.login = exports.loadProfile = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -72093,6 +72139,28 @@ const loadProfile = () => async dispatch => {
 };
 
 exports.loadProfile = loadProfile;
+
+const updateProfile = userData => async dispatch => {
+  try {
+    dispatch({
+      type: _userConstants.UPDATE_USER_REQUEST
+    });
+    const {
+      data
+    } = await api.updateProfile(userData);
+    dispatch({
+      type: _userConstants.UPDATE_USER_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _userConstants.UPDATE_USER_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.updateProfile = updateProfile;
 },{"../api":"api/index.js","../constants/userConstants":"constants/userConstants.js"}],"pages/auth/login.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -78948,6 +79016,8 @@ var _showIcon = _interopRequireDefault(require("../../../public/showIcon.png"));
 
 var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
 
+var _userAction = require("../../actions/userAction");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -78990,7 +79060,8 @@ const Update = _ref => {
       let {
         setSubmitting
       } = _ref2;
-      console.log(values); // dispatchUserRegister(values);
+      console.log(values);
+      dispatch((0, _userAction.updateProfile)(values));
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email('Invalid Email').required('Email is required'),
@@ -79126,7 +79197,7 @@ const Update = _ref => {
 
 var _default = Update;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png"}],"pages/profile/Profile.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","../../actions/userAction":"actions/userAction.js"}],"pages/profile/Profile.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
