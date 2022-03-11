@@ -35,8 +35,8 @@ const Movies = () => {
 
       <Row className="justify-content-center">
         <Pagination
-          page={currentPage}
-          pages={pages}
+          page={parseInt(currentPage)}
+          pages={parseInt(pages)}
           changePage={setCurrentPage}
         />
       </Row>

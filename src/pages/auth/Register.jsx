@@ -238,13 +238,13 @@ const Register = ({ toggle, dispatchUserRegister }) => {
               </InputGroup>
 
               <Form.Text className="text-muted">
-                Already have an account yet{' '}
+                Already have an account?{' '}
                 <Link
                   to="#"
                   className="register-login-link"
                   onClick={() => toggle()}
                 >
-                  register
+                  Login
                 </Link>{' '}
                 instead
               </Form.Text>

@@ -72385,11 +72385,11 @@ const Register = _ref => {
       className: errors.birthDate && touched.birthDate && 'error'
     })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Text, {
       className: "text-muted"
-    }, "Already have an account yet", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    }, "Already have an account?", ' ', /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       to: "#",
       className: "register-login-link",
       onClick: () => toggle()
-    }, "register"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    }, "Login"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
       type: "submit",
       className: "submit-button",
       variant: "warning",
@@ -72933,8 +72933,8 @@ const Movies = () => {
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
-    page: currentPage,
-    pages: pages,
+    page: parseInt(currentPage),
+    pages: parseInt(pages),
     changePage: setCurrentPage
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"

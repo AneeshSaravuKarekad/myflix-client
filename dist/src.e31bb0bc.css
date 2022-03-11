@@ -254,7 +254,7 @@
   margin-top: 10rem;
 }
 .pagination {
-  margin-block: 2rem;
+  margin-bottom: 2rem;
 }
 @media screen and (max-width: 600px) {
   .pagination {
