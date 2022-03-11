@@ -79115,8 +79115,11 @@ const Update = _ref => {
     })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
       type: "submit",
       className: "update-button",
-      variant: "warning",
-      disabled: isSubmitting
+      variant: "outline-warning",
+      disabled: isSubmitting,
+      style: {
+        marginBottom: '2rem'
+      }
     }, "Update")));
   });
 };

@@ -216,8 +216,9 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
               <Button
                 type="submit"
                 className="update-button"
-                variant="warning"
+                variant="outline-warning"
                 disabled={isSubmitting}
+                style={{ marginBottom: '2rem' }}
               >
                 Update
               </Button>
