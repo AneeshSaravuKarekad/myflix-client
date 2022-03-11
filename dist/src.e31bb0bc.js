@@ -79082,7 +79082,10 @@ const Update = _ref => {
       handleSubmit
     } = props;
     return /*#__PURE__*/_react.default.createElement("div", {
-      className: "form-container"
+      className: "form-container",
+      style: {
+        width: '100%'
+      }
     }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
       className: "auth-form",
       onSubmit: handleSubmit
@@ -79187,10 +79190,7 @@ const Update = _ref => {
       type: "submit",
       className: "update-button",
       variant: "outline-warning",
-      disabled: isSubmitting,
-      style: {
-        marginBottom: '2rem'
-      }
+      disabled: isSubmitting
     }, "Update")));
   });
 };
@@ -79238,33 +79238,40 @@ const Profile = () => {
     className: "profile-container"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "profile-header justify-content-center"
-  }, /*#__PURE__*/_react.default.createElement("h1", null, " Profile")), /*#__PURE__*/_react.default.createElement("hr", null), !isLoading && user ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("h1", null, " Profile")), /*#__PURE__*/_react.default.createElement("hr", null), !isLoading && user ? /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    fluid: true
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    style: {
+      gap: '14rem',
+      alignItems: 'center'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "profile-body"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-label"
-  }, /*#__PURE__*/_react.default.createElement("h3", null, "Email")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+  }, /*#__PURE__*/_react.default.createElement("h4", null, "Email")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-detail"
   }, user.email)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-label"
-  }, /*#__PURE__*/_react.default.createElement("h3", null, "Name")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+  }, /*#__PURE__*/_react.default.createElement("h4", null, "Name")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-detail"
   }, user.username)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-label"
-  }, /*#__PURE__*/_react.default.createElement("h3", null, "Birth Date"), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+  }, /*#__PURE__*/_react.default.createElement("h4", null, "Birth Date"), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-detail"
   }, user.birthDate)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-label"
-  }, /*#__PURE__*/_react.default.createElement("h3", null, "Member Since"), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+  }, /*#__PURE__*/_react.default.createElement("h4", null, "Member Since"), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     className: "profile-detail"
-  }, (0, _moment.default)(user.createdAt).startOf('day').fromNow()))), /*#__PURE__*/_react.default.createElement("div", {
+  }, (0, _moment.default)(user.createdAt).startOf('second').fromNow())))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "profile-form"
   }, /*#__PURE__*/_react.default.createElement("h2", {
     className: "profile-header",
@@ -79276,7 +79283,7 @@ const Profile = () => {
     prevBirthDate: user.birthDate,
     prevEmail: user.email,
     prevUsername: user.username
-  }))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+  }))))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",
     variant: "warning"
   }));

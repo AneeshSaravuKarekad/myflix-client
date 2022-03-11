@@ -24,49 +24,55 @@ const Profile = () => {
       <hr />
 
       {!isLoading && user ? (
-        <>
-          <div className="profile-body">
-            <Row className="justify-content-center">
-              <Col className="profile-label">
-                <h3>Email</h3>
-              </Col>
-              <Col className="profile-detail">{user.email}</Col>
-            </Row>
-            <Row className="justify-content-center">
-              <Col className="profile-label">
-                <h3>Name</h3>
-              </Col>
-              <Col className="profile-detail">{user.username}</Col>
-            </Row>
-            <Row className="justify-content-center">
-              <Col className="profile-label">
-                <h3>Birth Date</h3>{' '}
-              </Col>
-              <Col className="profile-detail">{user.birthDate}</Col>
-            </Row>
-            <Row className="justify-content-center">
-              <Col className="profile-label">
-                <h3>Member Since</h3>{' '}
-              </Col>
-              <Col className="profile-detail">
-                {moment(user.createdAt).startOf('day').fromNow()}
-              </Col>
-            </Row>
-          </div>
-          <div className="profile-form">
-            <h2
-              className="profile-header"
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              Update Profile
-            </h2>
-            <Update
-              prevBirthDate={user.birthDate}
-              prevEmail={user.email}
-              prevUsername={user.username}
-            />
-          </div>
-        </>
+        <Container fluid>
+          <Row style={{ gap: '14rem', alignItems: 'center' }}>
+            <Col>
+              <div className="profile-body">
+                <Row className="justify-content-center">
+                  <Col className="profile-label">
+                    <h4>Email</h4>
+                  </Col>
+                  <Col className="profile-detail">{user.email}</Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Col className="profile-label">
+                    <h4>Name</h4>
+                  </Col>
+                  <Col className="profile-detail">{user.username}</Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Col className="profile-label">
+                    <h4>Birth Date</h4>{' '}
+                  </Col>
+                  <Col className="profile-detail">{user.birthDate}</Col>
+                </Row>
+                <Row className="justify-content-center">
+                  <Col className="profile-label">
+                    <h4>Member Since</h4>{' '}
+                  </Col>
+                  <Col className="profile-detail">
+                    {moment(user.createdAt).startOf('second').fromNow()}
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+            <Col>
+              <div className="profile-form">
+                <h2
+                  className="profile-header"
+                  style={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  Update Profile
+                </h2>
+                <Update
+                  prevBirthDate={user.birthDate}
+                  prevEmail={user.email}
+                  prevUsername={user.username}
+                />
+              </div>
+            </Col>
+          </Row>
+        </Container>
       ) : (
         <Spinner animation="border" variant="warning" />
       )}

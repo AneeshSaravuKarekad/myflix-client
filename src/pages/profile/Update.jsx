@@ -75,7 +75,7 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
           handleSubmit,
         } = props;
         return (
-          <div className="form-container">
+          <div className="form-container" style={{ width: '100%' }}>
             <Form className="auth-form" onSubmit={handleSubmit}>
               {/* Email */}
               <div
@@ -219,7 +219,6 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
                 className="update-button"
                 variant="outline-warning"
                 disabled={isSubmitting}
-                style={{ marginBottom: '2rem' }}
               >
                 Update
               </Button>
