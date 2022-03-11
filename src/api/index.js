@@ -47,10 +47,18 @@ export const addFavourites = (movieId) => {
     }
   );
 };
+
 export const removeFavourites = (movieId) => {
   const token = getToken();
 
   return axios.delete(`${URL.users}/favourites/${movieId}`, {
+    headers: { Authorization: `${token}` },
+  });
+};
+
+export const loadProfile = () => {
+  const token = getToken();
+  return axios.get(`${URL.users}/profile`, {
     headers: { Authorization: `${token}` },
   });
 };

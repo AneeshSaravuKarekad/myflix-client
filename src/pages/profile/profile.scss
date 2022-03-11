@@ -3,4 +3,52 @@
   .profile-header {
     color: var(--clr-primary-200);
   }
+
+  .profile-body {
+    max-width: 50rem;
+    color: var(--clr-text-body);
+    margin-inline: auto;
+    .row {
+      position: relative;
+      margin-block: 1.5rem;
+      font-size: 1.25rem;
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        background-color: var(--clr-text-body);
+        // background-color: var(--clr-primary-400);
+        height: 1px;
+        bottom: -10px;
+        opacity: 0.4;
+        filter: blur(1px);
+        -webkit-box-shadow: 5px 5px 15px 5px #000000;
+        box-shadow: 5px 5px 15px 5px #000000;
+      }
+      .profile-label {
+        color: var(--warning);
+      }
+      .profile-detail {
+        position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          height: 100%;
+          width: 1px;
+          opacity: 0.4;
+          filter: blur(1px);
+          background-color: var(--clr-text-body);
+          // background-color: var(--clr-primary-400);
+          -webkit-box-shadow: 0px 2px 15px 5px #000000;
+          box-shadow: 0px 2px 15px 5px #000000;
+          left: 0;
+        }
+      }
+    }
+  }
+  .profile-form {
+    .form-container {
+      margin-inline: auto;
+    }
+  }
 }

@@ -25,6 +25,10 @@ ol[role='list'] {
   list-style: none;
 }
 
+html {
+  height: 100vh;
+}
+
 /* Set core root defaults */
 html:focus-within {
   scroll-behavior: smooth;
@@ -37,6 +41,7 @@ body {
   line-height: 1.5;
   font-family: 'Roboto', sans-serif !important;
   overflow-x: hidden;
+  // min-height: 100vh;
 }
 
 /* A elements that don't have a class get default styles */

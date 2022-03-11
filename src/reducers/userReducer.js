@@ -1,5 +1,4 @@
 import {
-  LOAD_USER_DETAILS,
   USER_FAVOURITES_FAIL,
   USER_FAVOURITES_REQUEST,
   USER_FAVOURITES_SUCCESS,
@@ -13,6 +12,8 @@ import {
 
 export const userReducer = (state = { details: null }, action) => {
   switch (action.type) {
+    // LOGIN
+
     case USER_LOGIN_REQUEST:
       return {
         ...state,
