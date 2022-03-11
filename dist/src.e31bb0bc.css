@@ -344,6 +344,12 @@
   margin-block: 2rem;
   margin-inline: 1rem;
 }
+.profile-container {
+  margin-top: 2rem;
+}
+.profile-container .profile-header {
+  color: var(--clr-primary-200);
+}
 /* Box sizing rules */
 *,
 *::before,

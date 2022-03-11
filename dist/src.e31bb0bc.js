@@ -37383,13 +37383,15 @@ function PublicRoute(_ref2) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MOVIES_PATH = exports.LOGIN_PATH = exports.FAVOURITES_PATH = void 0;
+exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.FAVOURITES_PATH = void 0;
 const LOGIN_PATH = '/';
 exports.LOGIN_PATH = LOGIN_PATH;
 const MOVIES_PATH = '/movies';
 exports.MOVIES_PATH = MOVIES_PATH;
 const FAVOURITES_PATH = '/favourites';
 exports.FAVOURITES_PATH = FAVOURITES_PATH;
+const PROFILE_PATH = '/profile';
+exports.PROFILE_PATH = PROFILE_PATH;
 },{}],"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -73052,8 +73054,9 @@ const Header = () => {
       alt: "dropdown"
     })),
     id: "collasible-nav-dropdown"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
-    href: "#action/3.1"
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: "/profile",
+    className: "dropdown-item"
   }, "Profile"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Divider, null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.NavDropdown.Item, {
     href: "#",
     onClick: handleLogout
@@ -73159,7 +73162,38 @@ var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Favourites); /
 
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../../public/star-icon.png":"../public/star-icon.png","./favourites.scss":"pages/favourites/favourites.scss"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../../public/star-icon.png":"../public/star-icon.png","./favourites.scss":"pages/favourites/favourites.scss"}],"pages/profile/profile.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/profile/Profile.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+require("./profile.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const Profile = () => {
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    className: "profile-container"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "profile-header justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement("h1", null, "Manage Profile")));
+};
+
+var _default = Profile;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./profile.scss":"pages/profile/profile.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -73186,6 +73220,8 @@ var _Movies = _interopRequireDefault(require("./pages/movies/Movies"));
 var _Header = _interopRequireDefault(require("./components/header/Header"));
 
 var _Favourites = _interopRequireDefault(require("./pages/favourites/Favourites"));
+
+var _Profile = _interopRequireDefault(require("./pages/profile/Profile"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -73215,6 +73251,9 @@ const App = _ref => {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: `${_routesPath.FAVOURITES_PATH}`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Favourites.default, null))
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.PROFILE_PATH}`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Profile.default, null))
   })));
 };
 
@@ -73227,7 +73266,7 @@ const mapStateToProps = state => {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
