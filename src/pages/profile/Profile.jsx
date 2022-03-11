@@ -18,7 +18,7 @@ const Profile = () => {
   return (
     <Container className="profile-container">
       <Row className="profile-header justify-content-center">
-        <h1>Manage Profile</h1>
+        <h1> Profile</h1>
       </Row>
 
       <hr />
@@ -54,6 +54,12 @@ const Profile = () => {
             </Row>
           </div>
           <div className="profile-form">
+            <h2
+              className="profile-header"
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              Update Profile
+            </h2>
             <Update
               prevBirthDate={user.birthDate}
               prevEmail={user.email}

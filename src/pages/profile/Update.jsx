@@ -75,15 +75,6 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
         } = props;
         return (
           <div className="form-container">
-            <h2 className="form-header">Update Profile</h2>
-            {customError && (
-              <div
-                className="input-feedback"
-                style={{ display: 'flex', justifyContent: 'center' }}
-              >
-                {customError}
-              </div>
-            )}
             <Form className="auth-form" onSubmit={handleSubmit}>
               {/* Email */}
               <div

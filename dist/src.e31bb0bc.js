@@ -79012,15 +79012,7 @@ const Update = _ref => {
     } = props;
     return /*#__PURE__*/_react.default.createElement("div", {
       className: "form-container"
-    }, /*#__PURE__*/_react.default.createElement("h2", {
-      className: "form-header"
-    }, "Update Profile"), customError && /*#__PURE__*/_react.default.createElement("div", {
-      className: "input-feedback",
-      style: {
-        display: 'flex',
-        justifyContent: 'center'
-      }
-    }, customError), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
       className: "auth-form",
       onSubmit: handleSubmit
     }, /*#__PURE__*/_react.default.createElement("div", {
@@ -79172,7 +79164,7 @@ const Profile = () => {
     className: "profile-container"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "profile-header justify-content-center"
-  }, /*#__PURE__*/_react.default.createElement("h1", null, "Manage Profile")), /*#__PURE__*/_react.default.createElement("hr", null), !isLoading && user ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("h1", null, " Profile")), /*#__PURE__*/_react.default.createElement("hr", null), !isLoading && user ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "profile-body"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"
@@ -79200,7 +79192,13 @@ const Profile = () => {
     className: "profile-detail"
   }, (0, _moment.default)(user.createdAt).startOf('day').fromNow()))), /*#__PURE__*/_react.default.createElement("div", {
     className: "profile-form"
-  }, /*#__PURE__*/_react.default.createElement(_Update.default, {
+  }, /*#__PURE__*/_react.default.createElement("h2", {
+    className: "profile-header",
+    style: {
+      display: 'flex',
+      justifyContent: 'center'
+    }
+  }, "Update Profile"), /*#__PURE__*/_react.default.createElement(_Update.default, {
     prevBirthDate: user.birthDate,
     prevEmail: user.email,
     prevUsername: user.username
