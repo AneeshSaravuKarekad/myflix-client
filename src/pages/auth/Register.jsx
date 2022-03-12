@@ -249,12 +249,7 @@ const Register = ({ toggle, dispatchUserRegister }) => {
                 instead
               </Form.Text>
 
-              <Button
-                type="submit"
-                className="submit-button"
-                variant="warning"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" className="submit-button" variant="warning">
                 Register
               </Button>
             </Form>

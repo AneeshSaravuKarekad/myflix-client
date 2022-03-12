@@ -9,8 +9,7 @@ import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
 
 import './auth.scss';
-import { login, setUserDetails } from '../../actions/userAction';
-import { store } from '../../store';
+import { login } from '../../actions/userAction';
 
 const Login = ({ toggle, dispatchUserLogin }) => {
   const [type, setType] = useState('password');
@@ -146,7 +145,7 @@ const Login = ({ toggle, dispatchUserLogin }) => {
                 type="submit"
                 className="submit-button"
                 variant="warning"
-                disabled={!isValid || isSubmitting}
+                disabled={isSubmitting}
               >
                 Login
               </Button>

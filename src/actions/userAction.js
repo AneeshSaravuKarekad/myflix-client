@@ -12,6 +12,9 @@ import {
   UPDATE_USER_REQUEST,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
+  DELETE_USER_FAIL,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
 } from '../constants/userConstants';
 
 export const login = (userData) => async (dispatch) => {
@@ -57,5 +60,14 @@ export const updateProfile = (userData) => async (dispatch) => {
     dispatch({ type: UPDATE_USER_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: UPDATE_USER_FAIL, payload: error.response?.data });
+  }
+};
+
+export const deleteProfile = () => async (dispatch) => {
+  try {
+    const { data } = await api.deleteProfile();
+    dispatch({ type: DELETE_USER_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: DELETE_USER_FAIL, payload: error.response?.data });
   }
 };

@@ -77,3 +77,10 @@ export const updateProfile = (userData) => {
     { headers: { Authorization: `${token}` } }
   );
 };
+
+export const deleteProfile = () => {
+  const token = getToken();
+  return axios.delete(`${URL.users}/profile`, {
+    headers: { Authorization: `${token}` },
+  });
+};

@@ -8,6 +8,9 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  DELETE_USER_REQUEST,
+  DELETE_USER_SUCCESS,
+  DELETE_USER_FAIL,
 } from '../constants/userConstants';
 
 export const userReducer = (state = { details: null }, action) => {
@@ -72,6 +75,18 @@ export const userReducer = (state = { details: null }, action) => {
         error: action.payload,
       };
 
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        message: 'Sorry to see you go!',
+      };
+
+    case DELETE_USER_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

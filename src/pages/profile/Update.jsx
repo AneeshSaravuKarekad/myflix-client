@@ -6,7 +6,7 @@ import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
 
 import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
-import { updateProfile } from '../../actions/userAction';
+import { deleteProfile, updateProfile } from '../../actions/userAction';
 
 const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
   const [type, setType] = useState('password');
@@ -22,6 +22,15 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
     } else {
       setType('password');
       setIcon(hideIcon);
+    }
+  };
+
+  const handleDeregister = () => {
+    const del = confirm('Are you sure you want to Deregister?');
+    if (del) {
+      dispatch(deleteProfile());
+      localStorage.clear();
+      window.location.reload(false);
     }
   };
 
@@ -214,14 +223,23 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
                   className={errors.birthDate && touched.birthDate && 'error'}
                 />
               </InputGroup>
-              <Button
-                type="submit"
-                className="update-button"
-                variant="outline-warning"
-                disabled={isSubmitting}
-              >
-                Update
-              </Button>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button
+                  type="submit"
+                  className="update-button"
+                  variant="outline-warning"
+                >
+                  Update
+                </Button>
+
+                <Button
+                  className="delete-button"
+                  variant="danger"
+                  onClick={handleDeregister}
+                >
+                  Deregister
+                </Button>
+              </div>
             </Form>
           </div>
         );

@@ -37065,7 +37065,7 @@ exports.movieReducer = movieReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.USER_REGISTER_SUCCESS = exports.USER_REGISTER_REQUEST = exports.USER_REGISTER_FAIL = exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = exports.UPDATE_USER_SUCCESS = exports.UPDATE_USER_REQUEST = exports.UPDATE_USER_FAIL = exports.LOAD_USER_SUCCESS = exports.LOAD_USER_REQUEST = exports.LOAD_USER_FAIL = void 0;
+exports.USER_REGISTER_SUCCESS = exports.USER_REGISTER_REQUEST = exports.USER_REGISTER_FAIL = exports.USER_LOGIN_SUCCESS = exports.USER_LOGIN_REQUEST = exports.USER_LOGIN_FAIL = exports.UPDATE_USER_SUCCESS = exports.UPDATE_USER_REQUEST = exports.UPDATE_USER_FAIL = exports.LOAD_USER_SUCCESS = exports.LOAD_USER_REQUEST = exports.LOAD_USER_FAIL = exports.DELETE_USER_SUCCESS = exports.DELETE_USER_REQUEST = exports.DELETE_USER_FAIL = void 0;
 const USER_LOGIN_REQUEST = 'USER_LOGIN_REQUEST';
 exports.USER_LOGIN_REQUEST = USER_LOGIN_REQUEST;
 const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
@@ -37090,6 +37090,12 @@ const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
 exports.UPDATE_USER_SUCCESS = UPDATE_USER_SUCCESS;
 const UPDATE_USER_FAIL = 'UPDATE_USER_FAIL';
 exports.UPDATE_USER_FAIL = UPDATE_USER_FAIL;
+const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
+exports.DELETE_USER_REQUEST = DELETE_USER_REQUEST;
+const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
+exports.DELETE_USER_SUCCESS = DELETE_USER_SUCCESS;
+const DELETE_USER_FAIL = 'DELETE_USER_FAIL';
+exports.DELETE_USER_FAIL = DELETE_USER_FAIL;
 },{}],"reducers/userReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37168,6 +37174,18 @@ const userReducer = function () {
     case _userConstants.USER_FAVOURITES_FAIL:
       return {
         isloading: false,
+        error: action.payload
+      };
+
+    case _userConstants.DELETE_USER_SUCCESS:
+      return { ...state,
+        isLoading: false,
+        message: 'Sorry to see you go!'
+      };
+
+    case _userConstants.DELETE_USER_FAIL:
+      return {
+        isLoading: false,
         error: action.payload
       };
 
@@ -71933,7 +71951,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchFavourites = exports.fetchAllMovies = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72058,13 +72076,24 @@ const updateProfile = userData => {
 };
 
 exports.updateProfile = updateProfile;
+
+const deleteProfile = () => {
+  const token = getToken();
+  return _axios.default.delete(`${_url.default.users}/profile`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.deleteProfile = deleteProfile;
 },{"./url":"api/url.js","axios":"../node_modules/axios/index.js","../store":"store.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateProfile = exports.register = exports.login = exports.loadProfile = void 0;
+exports.updateProfile = exports.register = exports.login = exports.loadProfile = exports.deleteProfile = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -72161,6 +72190,25 @@ const updateProfile = userData => async dispatch => {
 };
 
 exports.updateProfile = updateProfile;
+
+const deleteProfile = () => async dispatch => {
+  try {
+    const {
+      data
+    } = await api.deleteProfile();
+    dispatch({
+      type: _userConstants.DELETE_USER_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _userConstants.DELETE_USER_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.deleteProfile = deleteProfile;
 },{"../api":"api/index.js","../constants/userConstants":"constants/userConstants.js"}],"pages/auth/login.jsx":[function(require,module,exports) {
 "use strict";
 
@@ -72188,8 +72236,6 @@ var _hideIcon = _interopRequireDefault(require("../../../public/hideIcon.png"));
 require("./auth.scss");
 
 var _userAction = require("../../actions/userAction");
-
-var _store = require("../../store");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -72322,7 +72368,7 @@ const Login = _ref => {
       type: "submit",
       className: "submit-button",
       variant: "warning",
-      disabled: !isValid || isSubmitting
+      disabled: isSubmitting
     }, "Login")));
   });
 };
@@ -72334,7 +72380,7 @@ const mapDispatchToProps = dispatch => ({
 var _default = (0, _reactRedux.connect)(null, mapDispatchToProps)(Login);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss","../../actions/userAction":"actions/userAction.js","../../store":"store.js"}],"pages/auth/register.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../public/showIcon.png":"../public/showIcon.png","../../../public/hideIcon.png":"../public/hideIcon.png","./auth.scss":"pages/auth/auth.scss","../../actions/userAction":"actions/userAction.js"}],"pages/auth/register.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72547,8 +72593,7 @@ const Register = _ref => {
     }, "Login"), ' ', "instead"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
       type: "submit",
       className: "submit-button",
-      variant: "warning",
-      disabled: isSubmitting
+      variant: "warning"
     }, "Register")));
   });
 };
@@ -79047,6 +79092,16 @@ const Update = _ref => {
     }
   };
 
+  const handleDeregister = () => {
+    const del = confirm('Are you sure you want to Deregister?');
+
+    if (del) {
+      dispatch((0, _userAction.deleteProfile)());
+      localStorage.clear();
+      window.location.reload(false);
+    }
+  };
+
   return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
     initialValues: {
       email: prevEmail,
@@ -79185,12 +79240,20 @@ const Update = _ref => {
       onChange: handleChange,
       onBlur: handleBlur,
       className: errors.birthDate && touched.birthDate && 'error'
-    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    })), /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
       type: "submit",
       className: "update-button",
-      variant: "outline-warning",
-      disabled: isSubmitting
-    }, "Update")));
+      variant: "outline-warning"
+    }, "Update"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      className: "delete-button",
+      variant: "danger",
+      onClick: handleDeregister
+    }, "Deregister"))));
   });
 };
 
