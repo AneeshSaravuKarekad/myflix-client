@@ -8,6 +8,7 @@ import { fetchMoviesByActor } from '../../actions/movieAction';
 import MovieCard from '../../components/movieCard/MovieCard';
 
 import './actor.scss';
+import { favourites } from '../../actions/favouritesAction';
 
 const Actor = () => {
   const { actorName } = useParams();
@@ -15,8 +16,10 @@ const Actor = () => {
   const { isLoading, actor, movies, count, error } = useSelector(
     (state) => state.movies
   );
+  const favouritesState = useSelector((state) => state.favourites);
 
   useEffect(() => {
+    dispatch(favourites());
     dispatch(fetchMoviesByActor(actorName));
   }, [dispatch]);
 
@@ -48,7 +51,7 @@ const Actor = () => {
 
   return (
     <Container className="actor-container">
-      {!isLoading && actor ? (
+      {!isLoading && actor && favouritesState.result ? (
         <>
           <Row className="name-row">
             <Col md={2} className="label">
@@ -93,10 +96,23 @@ const Actor = () => {
               <h3 style={{ marginBottom: '1rem' }}>Movies</h3>
             </Col>
           </Row>
-          <Row>
-            {movies.map((movie) => {
-              return <MovieCard key={movie._id} movie={movie} />;
-            })}
+          <Row className="justify-content-center movies-page-row">
+            {!favouritesState.isLoading && movies ? (
+              movies.map((movie) => {
+                let isFav = false;
+                favouritesState.result.map((res) => {
+                  if (res._id === movie._id) {
+                    isFav = true;
+                  }
+                  console.log(favouritesState);
+                });
+                return (
+                  <MovieCard key={movie._id} movie={movie} isFav={isFav} />
+                );
+              })
+            ) : (
+              <Spinner animation="border" variant="warning" />
+            )}
           </Row>
         </>
       ) : (

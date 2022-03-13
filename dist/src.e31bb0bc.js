@@ -72961,6 +72961,8 @@ const MovieCard = _ref => {
   const [favState, setFavState] = (0, _react.useState)(_unFavIcon.default);
   const dispatch = (0, _reactRedux.useDispatch)();
   (0, _react.useEffect)(() => {
+    console.log('card ', isFav);
+
     if (isFav) {
       setFavState(_favIcon.default);
     }
@@ -73011,7 +73013,8 @@ const MovieCard = _ref => {
   }, " View ")), /*#__PURE__*/_react.default.createElement("img", {
     className: "fav-icon",
     src: favState,
-    alt: "favourite unfavourite icon"
+    alt: "favourite unfavourite icon",
+    onClick: handleClick
   }))));
 };
 
@@ -79655,6 +79658,8 @@ var _MovieCard = _interopRequireDefault(require("../../components/movieCard/Movi
 
 require("./actor.scss");
 
+var _favouritesAction = require("../../actions/favouritesAction");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
@@ -79673,7 +79678,9 @@ const Actor = () => {
     count,
     error
   } = (0, _reactRedux.useSelector)(state => state.movies);
+  const favouritesState = (0, _reactRedux.useSelector)(state => state.favourites);
   (0, _react.useEffect)(() => {
+    dispatch((0, _favouritesAction.favourites)());
     dispatch((0, _movieAction.fetchMoviesByActor)(actorName));
   }, [dispatch]);
 
@@ -79704,7 +79711,7 @@ const Actor = () => {
 
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     className: "actor-container"
-  }, !isLoading && actor ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, !isLoading && actor && favouritesState.result ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "name-row"
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
     md: 2,
@@ -79740,11 +79747,25 @@ const Actor = () => {
     style: {
       marginBottom: '1rem'
     }
-  }, "Movies"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, movies.map(movie => {
+  }, "Movies"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center movies-page-row"
+  }, !favouritesState.isLoading && movies ? movies.map(movie => {
+    let isFav = false;
+    favouritesState.result.map(res => {
+      if (res._id === movie._id) {
+        isFav = true;
+      }
+
+      console.log(favouritesState);
+    });
     return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
       key: movie._id,
-      movie: movie
+      movie: movie,
+      isFav: isFav
     });
+  }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
   }))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",
     variant: "warning"
@@ -79753,7 +79774,7 @@ const Actor = () => {
 
 var _default = Actor;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","./actor.scss":"pages/actor/actor.scss"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","./actor.scss":"pages/actor/actor.scss","../../actions/favouritesAction":"actions/favouritesAction.js"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

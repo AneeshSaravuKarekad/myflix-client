@@ -465,11 +465,15 @@
 .actor-container {
   margin-top: 3rem;
 }
+.actor-container .spinner-border {
+  width: 50px;
+  height: 50px;
+}
 .actor-container .name-row .label h3,
 .actor-container .description-row .label h3,
 .actor-container .birth-row .label h3,
 .actor-container .death-row .label h3 {
-  color: var(--clr-text-heading) !important;
+  color: var(--clr-text-heading);
 }
 @media (max-width: 800px) {
   .actor-container .name-row .label h3,
@@ -497,6 +501,9 @@
 .actor-container hr {
   background-color: black !important;
   opacity: 0.2 !important;
+}
+.actor-container .actor-movies-title-row h3 {
+  color: var(--clr-primary-200);
 }
 /* Box sizing rules */
 *,

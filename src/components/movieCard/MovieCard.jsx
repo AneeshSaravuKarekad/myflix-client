@@ -17,6 +17,7 @@ const MovieCard = ({ movie, isFav }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log('card ', isFav);
     if (isFav) {
       setFavState(FavIcon);
     }
@@ -69,6 +70,7 @@ const MovieCard = ({ movie, isFav }) => {
             className="fav-icon"
             src={favState}
             alt="favourite unfavourite icon"
+            onClick={handleClick}
           />
         </div>
       </Card.Body>
