@@ -1,0 +1,30 @@
+.actor-container {
+  margin-top: 3rem;
+  .name-row,
+  .description-row,
+  .birth-row,
+  .death-row {
+    .label {
+      h3 {
+        @media (max-width: 800px) {
+          font-size: 1.5rem;
+        }
+        color: var(--clr-text-heading) !important;
+      }
+    }
+
+    .content {
+      span {
+        @media (max-width: 800px) {
+          font-size: 1rem;
+        }
+        font-size: 1.25rem;
+        color: var(--clr-text-body);
+      }
+    }
+  }
+  hr {
+    background-color: black !important;
+    opacity: 0.2 !important;
+  }
+}

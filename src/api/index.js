@@ -22,6 +22,13 @@ export const fetchMovieById = (movieId) => {
   });
 };
 
+export const fetchMoviesByActor = (actorName) => {
+  const token = getToken();
+  return axios.get(`${URL.movies}/actors/${actorName}`, {
+    headers: { Authorization: `${token}` },
+  });
+};
+
 export const userLogin = (userData) => {
   const { email, password } = userData;
   return axios.post(`${URL.users}/login`, { email, password });

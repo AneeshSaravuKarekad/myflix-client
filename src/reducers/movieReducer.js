@@ -3,6 +3,9 @@ import {
   ALL_MOVIES_REQUEST,
   ALL_MOVIES_SUCCESS,
   CLEAR_ALL_ERRORS,
+  MOVIES_BY_ACTOR_FAIL,
+  MOVIES_BY_ACTOR_REQUEST,
+  MOVIES_BY_ACTOR_SUCCESS,
   MOVIE_DETAILS_FAIL,
   MOVIE_DETAILS_REQUEST,
   MOVIE_DETAILS_SUCCESS,
@@ -54,6 +57,27 @@ export const movieReducer = (state = { isLoading: true }, action) => {
       return {
         isLoading: false,
         error: action.payload,
+      };
+
+    case MOVIES_BY_ACTOR_REQUEST:
+      return {
+        isLoading: true,
+        actor: {},
+        movies: [],
+      };
+
+    case MOVIES_BY_ACTOR_SUCCESS:
+      return {
+        isLoading: false,
+        movies: action.payload.movies,
+        count: action.payload.count,
+        actor: action.payload.actor,
+      };
+
+    case MOVIES_BY_ACTOR_FAIL:
+      return {
+        isLoading: false,
+        error: error.payload,
       };
 
     default:

@@ -462,6 +462,42 @@
   margin-top: 1rem;
   justify-content: center;
 }
+.actor-container {
+  margin-top: 3rem;
+}
+.actor-container .name-row .label h3,
+.actor-container .description-row .label h3,
+.actor-container .birth-row .label h3,
+.actor-container .death-row .label h3 {
+  color: var(--clr-text-heading) !important;
+}
+@media (max-width: 800px) {
+  .actor-container .name-row .label h3,
+.actor-container .description-row .label h3,
+.actor-container .birth-row .label h3,
+.actor-container .death-row .label h3 {
+    font-size: 1.5rem;
+  }
+}
+.actor-container .name-row .content span,
+.actor-container .description-row .content span,
+.actor-container .birth-row .content span,
+.actor-container .death-row .content span {
+  font-size: 1.25rem;
+  color: var(--clr-text-body);
+}
+@media (max-width: 800px) {
+  .actor-container .name-row .content span,
+.actor-container .description-row .content span,
+.actor-container .birth-row .content span,
+.actor-container .death-row .content span {
+    font-size: 1rem;
+  }
+}
+.actor-container hr {
+  background-color: black !important;
+  opacity: 0.2 !important;
+}
 /* Box sizing rules */
 *,
 *::before,

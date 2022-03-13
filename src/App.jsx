@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { PrivateRoute, PublicRoute } from './routes/routesCheck';
 
 import {
+  ACTOR_PATH,
   FAVOURITES_PATH,
   LOGIN_PATH,
   MOVIES_PATH,
@@ -18,6 +19,7 @@ import Header from './components/header/Header';
 import Favourites from './pages/favourites/Favourites';
 import Profile from './pages/profile/Profile';
 import MovieDetails from './pages/movieDetails/MovieDetails';
+import Actor from './pages/actor/Actor';
 
 const App = ({ user }) => {
   return (
@@ -53,11 +55,22 @@ const App = ({ user }) => {
           }
           exact
         />
+
         <Route
           path={`${MOVIES_PATH}/search/:title/page/:pageNumber`}
           element={
             <PrivateRoute>
               <Movies />
+            </PrivateRoute>
+          }
+          exact
+        />
+
+        <Route
+          path={`${ACTOR_PATH}/:actorName`}
+          element={
+            <PrivateRoute>
+              <Actor />
             </PrivateRoute>
           }
           exact
