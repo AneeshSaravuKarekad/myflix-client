@@ -3,6 +3,9 @@ import {
   ALL_MOVIES_REQUEST,
   ALL_MOVIES_SUCCESS,
   CLEAR_ALL_ERRORS,
+  MOVIE_DETAILS_FAIL,
+  MOVIE_DETAILS_REQUEST,
+  MOVIE_DETAILS_SUCCESS,
 } from '../constants/movieConstants';
 
 export const movieReducer = (state = { isLoading: true }, action) => {
@@ -33,6 +36,24 @@ export const movieReducer = (state = { isLoading: true }, action) => {
       return {
         ...state,
         error: null,
+      };
+
+    case MOVIE_DETAILS_REQUEST:
+      return {
+        isLoading: true,
+        movie: {},
+      };
+
+    case MOVIE_DETAILS_SUCCESS:
+      return {
+        isLoading: false,
+        movie: action.payload.movie,
+      };
+
+    case MOVIE_DETAILS_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload,
       };
 
     default:

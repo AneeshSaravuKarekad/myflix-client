@@ -37000,13 +37000,19 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
+exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
 const ALL_MOVIES_REQUEST = 'ALL_MOVIES_REQUEST';
 exports.ALL_MOVIES_REQUEST = ALL_MOVIES_REQUEST;
 const ALL_MOVIES_SUCCESS = 'ALL_MOVIES_SUCCESS';
 exports.ALL_MOVIES_SUCCESS = ALL_MOVIES_SUCCESS;
 const ALL_MOVIES_FAIL = 'ALL_MOVIES_FAIL';
 exports.ALL_MOVIES_FAIL = ALL_MOVIES_FAIL;
+const MOVIE_DETAILS_REQUEST = 'MOVIE_DETAILS_REQUEST';
+exports.MOVIE_DETAILS_REQUEST = MOVIE_DETAILS_REQUEST;
+const MOVIE_DETAILS_SUCCESS = 'MOVIE_DETAILS_SUCCESS';
+exports.MOVIE_DETAILS_SUCCESS = MOVIE_DETAILS_SUCCESS;
+const MOVIE_DETAILS_FAIL = 'MOVIE_DETAILS_FAIL';
+exports.MOVIE_DETAILS_FAIL = MOVIE_DETAILS_FAIL;
 const CLEAR_ALL_ERRORS = 'CLEAR_ALL_ERRORS';
 exports.CLEAR_ALL_ERRORS = CLEAR_ALL_ERRORS;
 },{}],"reducers/movieReducer.js":[function(require,module,exports) {
@@ -37051,6 +37057,24 @@ const movieReducer = function () {
     case _movieConstants.CLEAR_ALL_ERRORS:
       return { ...state,
         error: null
+      };
+
+    case _movieConstants.MOVIE_DETAILS_REQUEST:
+      return {
+        isLoading: true,
+        movie: {}
+      };
+
+    case _movieConstants.MOVIE_DETAILS_SUCCESS:
+      return {
+        isLoading: false,
+        movie: action.payload.movie
+      };
+
+    case _movieConstants.MOVIE_DETAILS_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
       };
 
     default:
@@ -71951,7 +71975,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMovieById = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -71978,6 +72002,17 @@ const fetchAllMovies = (title, page) => {
 };
 
 exports.fetchAllMovies = fetchAllMovies;
+
+const fetchMovieById = movieId => {
+  const token = getToken();
+  return _axios.default.get(`${_url.default.movies}/${movieId}`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.fetchMovieById = fetchMovieById;
 
 const userLogin = userData => {
   const {
@@ -72671,7 +72706,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchMovies = exports.clearErrors = void 0;
+exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -72706,6 +72741,28 @@ const fetchMovies = function () {
 };
 
 exports.fetchMovies = fetchMovies;
+
+const fetchMovieDetails = movieId => async dispatch => {
+  try {
+    dispatch({
+      type: _movieConstants.MOVIE_DETAILS_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchMovieById(movieId);
+    dispatch({
+      type: _movieConstants.MOVIE_DETAILS_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _movieConstants.MOVIE_DETAILS_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.fetchMovieDetails = fetchMovieDetails;
 
 const clearErrors = () => async dispatch => {
   dispatch({
@@ -72818,6 +72875,8 @@ var _reactBootstrap = require("react-bootstrap");
 
 var _reactRedux = require("react-redux");
 
+var _reactRouterDom = require("react-router-dom");
+
 var _favIcon = _interopRequireDefault(require("../../../public/favIcon.svg"));
 
 var _unFavIcon = _interopRequireDefault(require("../../../public/unFavIcon.svg"));
@@ -72883,19 +72942,20 @@ const MovieCard = _ref => {
     className: "movie-card__body-description"
   }, ' ', movie.description.substr(0, 150), "..."), /*#__PURE__*/_react.default.createElement("div", {
     className: "movie-card__footer"
+  }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `/movies/${movie._id}`
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     className: "view-movie-btn"
-  }, " View "), /*#__PURE__*/_react.default.createElement("img", {
+  }, " View ")), /*#__PURE__*/_react.default.createElement("img", {
     className: "fav-icon",
     src: favState,
-    onClick: handleClick,
     alt: "favourite unfavourite icon"
   }))));
 };
 
 var _default = MovieCard;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","../../actions/favouritesAction":"actions/favouritesAction.js","./movieCard.scss":"components/movieCard/movieCard.scss"}],"components/topBar/topBar.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../../public/favIcon.svg":"../public/favIcon.svg","../../../public/unFavIcon.svg":"../public/unFavIcon.svg","../../actions/favouritesAction":"actions/favouritesAction.js","./movieCard.scss":"components/movieCard/movieCard.scss"}],"components/topBar/topBar.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -79353,7 +79413,158 @@ const Profile = () => {
 
 var _default = Profile;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/userAction":"actions/userAction.js","moment":"../node_modules/moment/moment.js","./profile.scss":"pages/profile/profile.scss","./Update":"pages/profile/Update.jsx"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/userAction":"actions/userAction.js","moment":"../node_modules/moment/moment.js","./profile.scss":"pages/profile/profile.scss","./Update":"pages/profile/Update.jsx"}],"../public/calendar-icon.png":[function(require,module,exports) {
+module.exports = "/calendar-icon.240e075c.png";
+},{}],"../public/time-icon.png":[function(require,module,exports) {
+module.exports = "/time-icon.1531c330.png";
+},{}],"pages/movieDetails/movieDetails.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/movieDetails/MovieDetails.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _movieAction = require("../../actions/movieAction");
+
+var _calendarIcon = _interopRequireDefault(require("../../../public/calendar-icon.png"));
+
+var _starIcon = _interopRequireDefault(require("../../../public/star-icon.png"));
+
+var _timeIcon = _interopRequireDefault(require("../../../public/time-icon.png"));
+
+require("./movieDetails.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const MovieDetails = () => {
+  const {
+    movieId
+  } = (0, _reactRouterDom.useParams)();
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const {
+    movie,
+    isLoading
+  } = (0, _reactRedux.useSelector)(state => state.movies);
+  (0, _react.useEffect)(() => {
+    dispatch((0, _movieAction.fetchMovieDetails)(movieId));
+  }, [dispatch]);
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "movie-page"
+  }, !isLoading && movie ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "movie-page-description",
+    md: 8
+  }, /*#__PURE__*/_react.default.createElement("h1", {
+    className: "movie-title"
+  }, movie.title), /*#__PURE__*/_react.default.createElement("div", {
+    className: "release-rating"
+  }, /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    style: {
+      width: '20px',
+      float: 'left',
+      marginRight: '0.5rem'
+    },
+    src: _calendarIcon.default,
+    alt: "calender icon"
+  }), movie.releaseYear), /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, '   |    '), /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, ' ', /*#__PURE__*/_react.default.createElement("img", {
+    style: {
+      width: '20px',
+      float: 'left',
+      marginRight: '0.5rem'
+    },
+    src: _starIcon.default,
+    alt: "rating icon"
+  }), ' ', movie.rating), /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, '   |    '), /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, ' ', /*#__PURE__*/_react.default.createElement("img", {
+    style: {
+      width: '20px',
+      float: 'left',
+      marginRight: '0.5rem'
+    },
+    src: _timeIcon.default,
+    alt: "run time icon"
+  }), ' ', movie.runTime)), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("h4", {
+    className: "label"
+  }, "Description"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, movie.description), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("h4", {
+    className: "label"
+  }, "Story Line"), /*#__PURE__*/_react.default.createElement("span", {
+    className: "content"
+  }, movie.storyLine), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("h4", {
+    className: "label"
+  }, "Director"), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    to: `/directors/${movie.director.name}`
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+    variant: "outline-success"
+  }, movie.director.name)), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("h4", {
+    className: "label"
+  }, "Genre", '(', "s", ')'), movie.genres.map(genre => {
+    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      to: `/genres/${genre.name}`,
+      key: genre.name
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      key: genre._id,
+      variant: "outline-primary",
+      style: {
+        marginRight: '1rem'
+      }
+    }, genre.name));
+  }), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement("h4", {
+    className: "label"
+  }, "Actor", '(', "s", ')'), movie.actors.map(actor => {
+    return /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+      to: `/actors/${actor.name}`,
+      key: actor.name
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      key: actor._id,
+      variant: "outline-danger",
+      style: {
+        marginRight: '1rem',
+        marginBottom: '1rem'
+      }
+    }, actor.name));
+  }), /*#__PURE__*/_react.default.createElement("hr", null)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "movie-page-poster",
+    md: 4
+  }, /*#__PURE__*/_react.default.createElement("img", {
+    src: movie.imagePath,
+    alt: "movie-poster"
+  }))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  })));
+};
+
+var _default = MovieDetails;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","../../actions/movieAction":"actions/movieAction.js","../../../public/calendar-icon.png":"../public/calendar-icon.png","../../../public/star-icon.png":"../public/star-icon.png","../../../public/time-icon.png":"../public/time-icon.png","./movieDetails.scss":"pages/movieDetails/movieDetails.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -79382,6 +79593,8 @@ var _Header = _interopRequireDefault(require("./components/header/Header"));
 var _Favourites = _interopRequireDefault(require("./pages/favourites/Favourites"));
 
 var _Profile = _interopRequireDefault(require("./pages/profile/Profile"));
+
+var _MovieDetails = _interopRequireDefault(require("./pages/movieDetails/MovieDetails"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79414,6 +79627,9 @@ const App = _ref => {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: `${_routesPath.PROFILE_PATH}`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Profile.default, null))
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.MOVIES_PATH}/:movieId`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_MovieDetails.default, null))
   })));
 };
 
@@ -79426,7 +79642,7 @@ const mapStateToProps = state => {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -79504,7 +79720,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57706" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60647" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

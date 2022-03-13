@@ -1,7 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
+import { connect, useSelector } from 'react-redux';
+
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { PrivateRoute, PublicRoute } from './routes/routesCheck';
+
 import {
   FAVOURITES_PATH,
   LOGIN_PATH,
@@ -15,6 +17,7 @@ import Movies from './pages/movies/Movies';
 import Header from './components/header/Header';
 import Favourites from './pages/favourites/Favourites';
 import Profile from './pages/profile/Profile';
+import MovieDetails from './pages/movieDetails/MovieDetails';
 
 const App = ({ user }) => {
   return (
@@ -74,6 +77,15 @@ const App = ({ user }) => {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path={`${MOVIES_PATH}/:movieId`}
+          element={
+            <PrivateRoute>
+              <MovieDetails />
             </PrivateRoute>
           }
         />

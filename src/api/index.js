@@ -15,6 +15,13 @@ export const fetchAllMovies = (title, page) => {
   });
 };
 
+export const fetchMovieById = (movieId) => {
+  const token = getToken();
+  return axios.get(`${URL.movies}/${movieId}`, {
+    headers: { Authorization: `${token}` },
+  });
+};
+
 export const userLogin = (userData) => {
   const { email, password } = userData;
   return axios.post(`${URL.users}/login`, { email, password });

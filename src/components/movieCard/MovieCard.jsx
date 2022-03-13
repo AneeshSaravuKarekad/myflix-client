@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import FavIcon from '../../../public/favIcon.svg';
 import UnFavIcon from '../../../public/unFavIcon.svg';
@@ -61,11 +62,12 @@ const MovieCard = ({ movie, isFav }) => {
           {movie.description.substr(0, 150)}...
         </Card.Text>
         <div className="movie-card__footer">
-          <Button className="view-movie-btn"> View </Button>
+          <Link to={`/movies/${movie._id}`}>
+            <Button className="view-movie-btn"> View </Button>
+          </Link>
           <img
             className="fav-icon"
             src={favState}
-            onClick={handleClick}
             alt="favourite unfavourite icon"
           />
         </div>
