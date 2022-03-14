@@ -7,6 +7,7 @@ import { PrivateRoute, PublicRoute } from './routes/routesCheck';
 import {
   ACTOR_PATH,
   FAVOURITES_PATH,
+  HOME_PATH,
   LOGIN_PATH,
   MOVIES_PATH,
   PROFILE_PATH,
@@ -20,6 +21,7 @@ import Favourites from './pages/favourites/Favourites';
 import Profile from './pages/profile/Profile';
 import MovieDetails from './pages/movieDetails/MovieDetails';
 import Actor from './pages/actor/Actor';
+import Home from './pages/home/Home';
 
 const App = ({ user }) => {
   return (
@@ -99,6 +101,15 @@ const App = ({ user }) => {
           element={
             <PrivateRoute>
               <MovieDetails />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path={`${HOME_PATH}`}
+          element={
+            <PrivateRoute>
+              <Home />
             </PrivateRoute>
           }
         />

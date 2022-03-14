@@ -3,6 +3,9 @@ import {
   ALL_MOVIES_REQUEST,
   ALL_MOVIES_SUCCESS,
   CLEAR_ALL_ERRORS,
+  FETCH_MOVIES_BY_GENRE_FAIL,
+  FETCH_MOVIES_BY_GENRE_REQUEST,
+  FETCH_MOVIES_BY_GENRE_SUCCESS,
   MOVIES_BY_ACTOR_FAIL,
   MOVIES_BY_ACTOR_REQUEST,
   MOVIES_BY_ACTOR_SUCCESS,
@@ -77,7 +80,34 @@ export const movieReducer = (state = { isLoading: true }, action) => {
     case MOVIES_BY_ACTOR_FAIL:
       return {
         isLoading: false,
-        error: error.payload,
+        error: action.payload,
+      };
+
+    case FETCH_MOVIES_BY_GENRE_REQUEST:
+      return {
+        isLoading: true,
+        genres: [],
+      };
+
+    case FETCH_MOVIES_BY_GENRE_SUCCESS:
+      state.genres.push({
+        name: action.genre,
+        total: action.payload.total,
+        count: action.payload.count,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        movies: action.payload.movies,
+      });
+      return {
+        ...state,
+        isLoading: false,
+        genres: state.genres,
+      };
+
+    case FETCH_MOVIES_BY_GENRE_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload,
       };
 
     default:

@@ -4,6 +4,9 @@ import {
   ALL_MOVIES_REQUEST,
   ALL_MOVIES_SUCCESS,
   CLEAR_ALL_ERRORS,
+  FETCH_MOVIES_BY_GENRE_FAIL,
+  FETCH_MOVIES_BY_GENRE_REQUEST,
+  FETCH_MOVIES_BY_GENRE_SUCCESS,
   MOVIES_BY_ACTOR_FAIL,
   MOVIES_BY_ACTOR_REQUEST,
   MOVIES_BY_ACTOR_SUCCESS,
@@ -48,6 +51,24 @@ export const fetchMoviesByActor = (actorName) => async (dispatch) => {
     dispatch({ type: MOVIES_BY_ACTOR_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: MOVIES_BY_ACTOR_FAIL, payload: error.response?.data });
+  }
+};
+
+export const fetchMoviesByGenre = (genreName) => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_MOVIES_BY_GENRE_REQUEST });
+
+    const { data } = await api.fetchMoviesByGenre(genreName);
+    dispatch({
+      type: FETCH_MOVIES_BY_GENRE_SUCCESS,
+      payload: data,
+      genre: `${genreName}`,
+    });
+  } catch (error) {
+    dispatch({
+      type: FETCH_MOVIES_BY_GENRE_FAIL,
+      payload: error.response?.data,
+    });
   }
 };
 

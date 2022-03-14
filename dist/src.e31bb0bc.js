@@ -37000,7 +37000,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.MOVIES_BY_ACTOR_SUCCESS = exports.MOVIES_BY_ACTOR_REQUEST = exports.MOVIES_BY_ACTOR_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
+exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.MOVIES_BY_ACTOR_SUCCESS = exports.MOVIES_BY_ACTOR_REQUEST = exports.MOVIES_BY_ACTOR_FAIL = exports.FETCH_MOVIES_BY_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_GENRE_REQUEST = exports.FETCH_MOVIES_BY_GENRE_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
 const ALL_MOVIES_REQUEST = 'ALL_MOVIES_REQUEST';
 exports.ALL_MOVIES_REQUEST = ALL_MOVIES_REQUEST;
 const ALL_MOVIES_SUCCESS = 'ALL_MOVIES_SUCCESS';
@@ -37019,6 +37019,12 @@ const MOVIES_BY_ACTOR_SUCCESS = 'MOVIES_BY_ACTOR_SUCCESS';
 exports.MOVIES_BY_ACTOR_SUCCESS = MOVIES_BY_ACTOR_SUCCESS;
 const MOVIES_BY_ACTOR_FAIL = 'MOVIES_BY_ACTOR_FAIL';
 exports.MOVIES_BY_ACTOR_FAIL = MOVIES_BY_ACTOR_FAIL;
+const FETCH_MOVIES_BY_GENRE_REQUEST = 'FETCH_MOVIES_BY_GENRE_REQUEST';
+exports.FETCH_MOVIES_BY_GENRE_REQUEST = FETCH_MOVIES_BY_GENRE_REQUEST;
+const FETCH_MOVIES_BY_GENRE_SUCCESS = 'FETCH_MOVIES_BY_GENRE_SUCCESS';
+exports.FETCH_MOVIES_BY_GENRE_SUCCESS = FETCH_MOVIES_BY_GENRE_SUCCESS;
+const FETCH_MOVIES_BY_GENRE_FAIL = 'FETCH_MOVIES_BY_GENRE_FAIL';
+exports.FETCH_MOVIES_BY_GENRE_FAIL = FETCH_MOVIES_BY_GENRE_FAIL;
 const CLEAR_ALL_ERRORS = 'CLEAR_ALL_ERRORS';
 exports.CLEAR_ALL_ERRORS = CLEAR_ALL_ERRORS;
 },{}],"reducers/movieReducer.js":[function(require,module,exports) {
@@ -37101,7 +37107,33 @@ const movieReducer = function () {
     case _movieConstants.MOVIES_BY_ACTOR_FAIL:
       return {
         isLoading: false,
-        error: error.payload
+        error: action.payload
+      };
+
+    case _movieConstants.FETCH_MOVIES_BY_GENRE_REQUEST:
+      return {
+        isLoading: true,
+        genres: []
+      };
+
+    case _movieConstants.FETCH_MOVIES_BY_GENRE_SUCCESS:
+      state.genres.push({
+        name: action.genre,
+        total: action.payload.total,
+        count: action.payload.count,
+        page: action.payload.page,
+        pages: action.payload.pages,
+        movies: action.payload.movies
+      });
+      return { ...state,
+        isLoading: false,
+        genres: state.genres
+      };
+
+    case _movieConstants.FETCH_MOVIES_BY_GENRE_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
       };
 
     default:
@@ -37528,7 +37560,7 @@ function PublicRoute(_ref2) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.FAVOURITES_PATH = exports.ACTOR_PATH = void 0;
+exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.HOME_PATH = exports.FAVOURITES_PATH = exports.ACTOR_PATH = void 0;
 const LOGIN_PATH = '/';
 exports.LOGIN_PATH = LOGIN_PATH;
 const MOVIES_PATH = '/movies';
@@ -37539,6 +37571,8 @@ const PROFILE_PATH = '/profile';
 exports.PROFILE_PATH = PROFILE_PATH;
 const ACTOR_PATH = '/actors';
 exports.ACTOR_PATH = ACTOR_PATH;
+const HOME_PATH = '/home';
+exports.HOME_PATH = HOME_PATH;
 },{}],"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -69897,7 +69931,8 @@ const DEPLOYED_URL = 'http://localhost:8000/api';
 var _default = {
   base: `${DEPLOYED_URL}`,
   movies: `${DEPLOYED_URL}/movies`,
-  users: `${DEPLOYED_URL}/users`
+  users: `${DEPLOYED_URL}/users`,
+  genres: `${DEPLOYED_URL}/genres`
 };
 exports.default = _default;
 },{}],"../node_modules/axios/lib/helpers/bind.js":[function(require,module,exports) {
@@ -72004,7 +72039,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72053,6 +72088,17 @@ const fetchMoviesByActor = actorName => {
 };
 
 exports.fetchMoviesByActor = fetchMoviesByActor;
+
+const fetchMoviesByGenre = genreName => {
+  const token = getToken();
+  return _axios.default.get(`${_url.default.movies}/genres/${genreName}`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.fetchMoviesByGenre = fetchMoviesByGenre;
 
 const userLogin = userData => {
   const {
@@ -72746,7 +72792,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchMoviesByActor = exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
+exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -72825,6 +72871,29 @@ const fetchMoviesByActor = actorName => async dispatch => {
 };
 
 exports.fetchMoviesByActor = fetchMoviesByActor;
+
+const fetchMoviesByGenre = genreName => async dispatch => {
+  try {
+    dispatch({
+      type: _movieConstants.FETCH_MOVIES_BY_GENRE_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchMoviesByGenre(genreName);
+    dispatch({
+      type: _movieConstants.FETCH_MOVIES_BY_GENRE_SUCCESS,
+      payload: data,
+      genre: `${genreName}`
+    });
+  } catch (error) {
+    dispatch({
+      type: _movieConstants.FETCH_MOVIES_BY_GENRE_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.fetchMoviesByGenre = fetchMoviesByGenre;
 
 const clearErrors = () => async dispatch => {
   dispatch({
@@ -79774,7 +79843,61 @@ const Actor = () => {
 
 var _default = Actor;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","./actor.scss":"pages/actor/actor.scss","../../actions/favouritesAction":"actions/favouritesAction.js"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","./actor.scss":"pages/actor/actor.scss","../../actions/favouritesAction":"actions/favouritesAction.js"}],"pages/home/home.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/home/Home.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _movieAction = require("../../actions/movieAction");
+
+require("./home.scss");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Home = () => {
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const {
+    genres,
+    isLoading
+  } = (0, _reactRedux.useSelector)(state => state.movies);
+  (0, _react.useEffect)(() => {
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Action'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Adventure'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Comedy'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Drama'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Romance'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Thriller'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Fantasy'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('History'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Film-Noir'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Animation'));
+    dispatch((0, _movieAction.fetchMoviesByGenre)('Crime'));
+  }, [dispatch]);
+  return /*#__PURE__*/_react.default.createElement("div", null, console.log(genres, isLoading), /*#__PURE__*/_react.default.createElement("h1", null, "Home page"), genres && genres.map((genre, idx) => /*#__PURE__*/_react.default.createElement("h1", {
+    key: idx,
+    style: {
+      color: 'red'
+    }
+  }, genre.name)));
+};
+
+var _default = Home;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","./home.scss":"pages/home/home.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -79807,6 +79930,8 @@ var _Profile = _interopRequireDefault(require("./pages/profile/Profile"));
 var _MovieDetails = _interopRequireDefault(require("./pages/movieDetails/MovieDetails"));
 
 var _Actor = _interopRequireDefault(require("./pages/actor/Actor"));
+
+var _Home = _interopRequireDefault(require("./pages/home/Home"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79846,6 +79971,9 @@ const App = _ref => {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: `${_routesPath.MOVIES_PATH}/:movieId`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_MovieDetails.default, null))
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.HOME_PATH}`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Home.default, null))
   })));
 };
 
@@ -79858,7 +79986,7 @@ const mapStateToProps = state => {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx","./pages/actor/Actor":"pages/actor/Actor.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx","./pages/actor/Actor":"pages/actor/Actor.jsx","./pages/home/Home":"pages/home/Home.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -79936,7 +80064,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63022" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64568" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
