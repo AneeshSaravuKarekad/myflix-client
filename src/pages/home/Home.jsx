@@ -1,8 +1,18 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector, connect } from 'react-redux';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchMoviesByGenre } from '../../actions/movieAction';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+import 'swiper/swiper.scss';
+import 'swiper/modules/navigation/navigation.scss'; // Navigation module
+import 'swiper/modules/pagination/pagination.scss';
 
 import './home.scss';
+import MovieCard from '../../components/movieCard/MovieCard';
+import CarouselCard from '../../components/carouselCard/CarouselCard';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -23,16 +33,59 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      {console.log(genres, isLoading)}
-      <h1>Home page</h1>
-      {genres &&
-        genres.map((genre, idx) => (
-          <h1 key={idx} style={{ color: 'red' }}>
-            {genre.name}
-          </h1>
-        ))}
-    </div>
+    <Container
+      className="home-genre-container"
+      style={{ marginTop: '2rem' }}
+      fluid
+    >
+      {!isLoading && genres ? (
+        <>
+          {genres.map((genre) => {
+            return (
+              <>
+                <div className="genre-heading" as="h3">
+                  {genre.name}
+                </div>
+                <Swiper
+                  modules={[Navigation, Pagination, Scrollbar, A11y]}
+                  // spaceBetween={50}
+                  slidesPerView={6}
+                  navigation={true}
+                  pagination={{ clickable: true }}
+                  scrollbar={{ draggable: true }}
+                  onSlideChange={() => console.log('slide change')}
+                  onSwiper={(swiper) => console.log(swiper)}
+                  breakpoints={{
+                    // when window width is >= 0px
+                    0: {
+                      width: 0,
+                      slidesPerView: 1.1,
+                    },
+                    // when window width is >= 400px
+
+                    400: {
+                      width: 400,
+                      slidesPerView: 1.1,
+                    },
+                  }}
+                >
+                  {genre.movies.map((movie, idx) => (
+                    <SwiperSlide key={idx}>
+                      <div className="genre-content">
+                        <CarouselCard key={movie._id} movie={movie} />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                )
+              </>
+            );
+          })}
+        </>
+      ) : (
+        <Spinner animation="border" variant="warning" />
+      )}
+    </Container>
   );
 };
 

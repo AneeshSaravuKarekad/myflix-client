@@ -17,7 +17,6 @@ const MovieCard = ({ movie, isFav }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('card ', isFav);
     if (isFav) {
       setFavState(FavIcon);
     }
