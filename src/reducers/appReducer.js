@@ -5,6 +5,7 @@ import { movieReducer } from './movieReducer';
 import { userReducer } from './userReducer';
 import { favouritesReducer } from './favouritesReducer';
 import { profileReducer } from './profileReducer';
+import { genreReducer } from './genreReducer';
 
 const persistConfig = {
   key: 'auth',
@@ -17,6 +18,7 @@ const appReducer = combineReducers({
   movies: movieReducer,
   favourites: favouritesReducer,
   profile: profileReducer,
+  genres: genreReducer,
 });
 
 export default persistReducer(persistConfig, appReducer);

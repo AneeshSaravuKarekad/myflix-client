@@ -916,7 +916,7 @@ button.swiper-pagination-bullet {
   border-top-right-radius: 200px;
   border-bottom-right-radius: 200px;
   color: var(--clr-primary-200);
-  padding-block: 1rem;
+  padding-block: 0.5rem;
   font-size: 2rem;
 }
 .home-genre-container .genre-heading::after {
@@ -929,6 +929,15 @@ button.swiper-pagination-bullet {
   height: 120%;
   background-color: var(--warning);
   border-bottom-right-radius: 20px;
+}
+.home-genre-container .genre-heading img {
+  width: 30px;
+  left: 50%;
+  position: absolute;
+  transition: all 1000ms ease;
+}
+.home-genre-container .genre-heading:hover img {
+  left: 55%;
 }
 
 @media screen and (min-width: 640px) {

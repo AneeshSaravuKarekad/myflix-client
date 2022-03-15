@@ -11,7 +11,7 @@ import 'swiper/modules/navigation/navigation.scss'; // Navigation module
 import 'swiper/modules/pagination/pagination.scss';
 
 import './home.scss';
-import MovieCard from '../../components/movieCard/MovieCard';
+import RightChevron from '../../../public/right-chevron-1.png';
 import CarouselCard from '../../components/carouselCard/CarouselCard';
 
 const Home = () => {
@@ -43,9 +43,10 @@ const Home = () => {
           {genres.map((genre) => {
             return (
               <>
-                <div className="genre-heading" as="h3">
+                <Link className="genre-heading" to={`/genres/${genre.name}`}>
                   {genre.name}
-                </div>
+                  <img src={RightChevron} alt="chevron" />
+                </Link>
                 <Swiper
                   modules={[Navigation, Pagination, Scrollbar, A11y]}
                   // spaceBetween={50}

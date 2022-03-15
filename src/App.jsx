@@ -11,6 +11,7 @@ import {
   LOGIN_PATH,
   MOVIES_PATH,
   PROFILE_PATH,
+  GENRE_PATH,
 } from './routes/routesPath';
 
 import './app.scss';
@@ -22,6 +23,7 @@ import Profile from './pages/profile/Profile';
 import MovieDetails from './pages/movieDetails/MovieDetails';
 import Actor from './pages/actor/Actor';
 import Home from './pages/home/Home';
+import Genres from './pages/genres/Genres';
 
 const App = ({ user }) => {
   return (
@@ -110,6 +112,15 @@ const App = ({ user }) => {
           element={
             <PrivateRoute>
               <Home />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path={`${GENRE_PATH}/:genreName`}
+          element={
+            <PrivateRoute>
+              <Genres />
             </PrivateRoute>
           }
         />

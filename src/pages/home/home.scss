@@ -18,7 +18,7 @@
     border-top-right-radius: 200px;
     border-bottom-right-radius: 200px;
     color: var(--clr-primary-200);
-    padding-block: 1rem;
+    padding-block: 0.5rem;
     font-size: 2rem;
     &::after {
       content: '';
@@ -30,6 +30,17 @@
       height: 120%;
       background-color: var(--warning);
       border-bottom-right-radius: 20px;
+    }
+    img {
+      width: 30px;
+      left: 50%;
+      position: absolute;
+      transition: all 1000ms ease;
+    }
+    &:hover {
+      img {
+        left: 55%;
+      }
     }
   }
 }

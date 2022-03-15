@@ -37446,7 +37446,62 @@ const profileReducer = function () {
 };
 
 exports.profileReducer = profileReducer;
-},{"../constants/userConstants":"constants/userConstants.js"}],"reducers/appReducer.js":[function(require,module,exports) {
+},{"../constants/userConstants":"constants/userConstants.js"}],"constants/genreConstants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.GET_GENRE_SUCCESS = exports.GET_GENRE_REQUEST = exports.GET_GENRE_FAIL = void 0;
+const GET_GENRE_REQUEST = 'GET_GENRE_REQUEST';
+exports.GET_GENRE_REQUEST = GET_GENRE_REQUEST;
+const GET_GENRE_SUCCESS = 'GET_GENRE_SUCCESS';
+exports.GET_GENRE_SUCCESS = GET_GENRE_SUCCESS;
+const GET_GENRE_FAIL = 'GET_GENRE_FAIL';
+exports.GET_GENRE_FAIL = GET_GENRE_FAIL;
+},{}],"reducers/genreReducer.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.genreReducer = void 0;
+
+var _genreConstants = require("../constants/genreConstants");
+
+const genreReducer = function () {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+    genres: []
+  };
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _genreConstants.GET_GENRE_REQUEST:
+      return {
+        isLoading: true,
+        genres: []
+      };
+
+    case _genreConstants.GET_GENRE_SUCCESS:
+      return { ...state,
+        isLoading: false,
+        count: action.payload.count,
+        genres: action.payload.genres
+      };
+
+    case _genreConstants.GET_GENRE_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
+      };
+
+    default:
+      return state;
+  }
+};
+
+exports.genreReducer = genreReducer;
+},{"../constants/genreConstants":"constants/genreConstants.js"}],"reducers/appReducer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37468,6 +37523,8 @@ var _favouritesReducer = require("./favouritesReducer");
 
 var _profileReducer = require("./profileReducer");
 
+var _genreReducer = require("./genreReducer");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const persistConfig = {
@@ -37479,13 +37536,14 @@ const appReducer = (0, _redux.combineReducers)({
   user: _userReducer.userReducer,
   movies: _movieReducer.movieReducer,
   favourites: _favouritesReducer.favouritesReducer,
-  profile: _profileReducer.profileReducer
+  profile: _profileReducer.profileReducer,
+  genres: _genreReducer.genreReducer
 });
 
 var _default = (0, _persistReducer.default)(persistConfig, appReducer);
 
 exports.default = _default;
-},{"redux":"../node_modules/redux/es/redux.js","redux-persist/es/persistReducer":"../node_modules/redux-persist/es/persistReducer.js","redux-persist/lib/storage":"../node_modules/redux-persist/lib/storage/index.js","./movieReducer":"reducers/movieReducer.js","./userReducer":"reducers/userReducer.js","./favouritesReducer":"reducers/favouritesReducer.js","./profileReducer":"reducers/profileReducer.js"}],"store.js":[function(require,module,exports) {
+},{"redux":"../node_modules/redux/es/redux.js","redux-persist/es/persistReducer":"../node_modules/redux-persist/es/persistReducer.js","redux-persist/lib/storage":"../node_modules/redux-persist/lib/storage/index.js","./movieReducer":"reducers/movieReducer.js","./userReducer":"reducers/userReducer.js","./favouritesReducer":"reducers/favouritesReducer.js","./profileReducer":"reducers/profileReducer.js","./genreReducer":"reducers/genreReducer.js"}],"store.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -37560,7 +37618,7 @@ function PublicRoute(_ref2) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.HOME_PATH = exports.FAVOURITES_PATH = exports.ACTOR_PATH = void 0;
+exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.HOME_PATH = exports.GENRE_PATH = exports.FAVOURITES_PATH = exports.ACTOR_PATH = void 0;
 const LOGIN_PATH = '/';
 exports.LOGIN_PATH = LOGIN_PATH;
 const MOVIES_PATH = '/movies';
@@ -37573,6 +37631,8 @@ const ACTOR_PATH = '/actors';
 exports.ACTOR_PATH = ACTOR_PATH;
 const HOME_PATH = '/home';
 exports.HOME_PATH = HOME_PATH;
+const GENRE_PATH = '/genres';
+exports.GENRE_PATH = GENRE_PATH;
 },{}],"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
@@ -72039,7 +72099,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchGenres = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72099,6 +72159,17 @@ const fetchMoviesByGenre = genreName => {
 };
 
 exports.fetchMoviesByGenre = fetchMoviesByGenre;
+
+const fetchGenres = () => {
+  const token = getToken();
+  return _axios.default.get(`${_url.default.genres}`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.fetchGenres = fetchGenres;
 
 const userLogin = userData => {
   const {
@@ -93360,7 +93431,9 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/carouselCard/carousel.scss":[function(require,module,exports) {
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../public/right-chevron-1.png":[function(require,module,exports) {
+module.exports = "/right-chevron-1.c5ce0686.png";
+},{}],"components/carouselCard/carousel.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -93459,7 +93532,7 @@ require("swiper/modules/pagination/pagination.scss");
 
 require("./home.scss");
 
-var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
+var _rightChevron = _interopRequireDefault(require("../../../public/right-chevron-1.png"));
 
 var _CarouselCard = _interopRequireDefault(require("../../components/carouselCard/CarouselCard"));
 
@@ -93496,10 +93569,13 @@ const Home = () => {
     },
     fluid: true
   }, !isLoading && genres ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, genres.map(genre => {
-    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       className: "genre-heading",
-      as: "h3"
-    }, genre.name), /*#__PURE__*/_react.default.createElement(_swiperReact.Swiper, {
+      to: `/genres/${genre.name}`
+    }, genre.name, /*#__PURE__*/_react.default.createElement("img", {
+      src: _rightChevron.default,
+      alt: "chevron"
+    })), /*#__PURE__*/_react.default.createElement(_swiperReact.Swiper, {
       modules: [_swiper.Navigation, _swiper.Pagination, _swiper.Scrollbar, _swiper.A11y] // spaceBetween={50}
       ,
       slidesPerView: 6,
@@ -93540,7 +93616,76 @@ const Home = () => {
 
 var _default = Home;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","react-router-dom":"../node_modules/react-router-dom/index.js","swiper/react/swiper-react.js":"../node_modules/swiper/react/swiper-react.js","swiper":"../node_modules/swiper/swiper.esm.js","swiper/swiper.scss":"../node_modules/swiper/swiper.scss","swiper/modules/navigation/navigation.scss":"../node_modules/swiper/modules/navigation/navigation.scss","swiper/modules/pagination/pagination.scss":"../node_modules/swiper/modules/pagination/pagination.scss","./home.scss":"pages/home/home.scss","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/carouselCard/CarouselCard":"components/carouselCard/CarouselCard.jsx"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/movieAction":"actions/movieAction.js","react-router-dom":"../node_modules/react-router-dom/index.js","swiper/react/swiper-react.js":"../node_modules/swiper/react/swiper-react.js","swiper":"../node_modules/swiper/swiper.esm.js","swiper/swiper.scss":"../node_modules/swiper/swiper.scss","swiper/modules/navigation/navigation.scss":"../node_modules/swiper/modules/navigation/navigation.scss","swiper/modules/pagination/pagination.scss":"../node_modules/swiper/modules/pagination/pagination.scss","./home.scss":"pages/home/home.scss","../../../public/right-chevron-1.png":"../public/right-chevron-1.png","../../components/carouselCard/CarouselCard":"components/carouselCard/CarouselCard.jsx"}],"actions/genreAction.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fetchGenres = void 0;
+
+var api = _interopRequireWildcard(require("../api"));
+
+var _genreConstants = require("../constants/genreConstants");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const fetchGenres = () => async dispatch => {
+  try {
+    dispatch({
+      type: _genreConstants.GET_GENRE_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchGenres();
+    dispatch({
+      type: _genreConstants.GET_GENRE_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _genreConstants.GET_GENRE_FAIL,
+      payload: error.response?.data.message
+    });
+  }
+};
+
+exports.fetchGenres = fetchGenres;
+},{"../api":"api/index.js","../constants/genreConstants":"constants/genreConstants.js"}],"pages/genres/Genres.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _genreAction = require("../../actions/genreAction");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Genres = () => {
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const {
+    isLoading,
+    genres
+  } = (0, _reactRedux.useSelector)(state => state.genres);
+  (0, _react.useEffect)(() => {
+    dispatch((0, _genreAction.fetchGenres)());
+  }, [dispatch]);
+  return /*#__PURE__*/_react.default.createElement("div", null, console.log(isLoading, genres), /*#__PURE__*/_react.default.createElement("h1", null, "Genres Page"));
+};
+
+var _default = Genres;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/genreAction":"actions/genreAction.js"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -93575,6 +93720,8 @@ var _MovieDetails = _interopRequireDefault(require("./pages/movieDetails/MovieDe
 var _Actor = _interopRequireDefault(require("./pages/actor/Actor"));
 
 var _Home = _interopRequireDefault(require("./pages/home/Home"));
+
+var _Genres = _interopRequireDefault(require("./pages/genres/Genres"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93617,6 +93764,9 @@ const App = _ref => {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: `${_routesPath.HOME_PATH}`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Home.default, null))
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.GENRE_PATH}/:genreName`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Genres.default, null))
   })));
 };
 
@@ -93629,7 +93779,7 @@ const mapStateToProps = state => {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx","./pages/actor/Actor":"pages/actor/Actor.jsx","./pages/home/Home":"pages/home/Home.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx","./pages/actor/Actor":"pages/actor/Actor.jsx","./pages/home/Home":"pages/home/Home.jsx","./pages/genres/Genres":"pages/genres/Genres.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -93707,7 +93857,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62148" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62096" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
