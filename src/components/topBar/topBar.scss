@@ -34,4 +34,26 @@
       }
     }
   }
+
+  .filter-col {
+    .filter-form {
+      &__input {
+        justify-content: center;
+        &-select {
+          padding-inline: 1rem;
+          padding-block: 0.5rem;
+          border-radius: 20px;
+          background-color: transparent;
+          color: var(--clr-text-heading);
+          border-color: var(--warning);
+          outline: none;
+          &-option {
+            background-color: var(--warning);
+            color: black;
+            margin-block: 2rem;
+          }
+        }
+      }
+    }
+  }
 }

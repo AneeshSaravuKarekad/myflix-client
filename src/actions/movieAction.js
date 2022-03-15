@@ -22,12 +22,12 @@ import {
 } from '../constants/movieConstants';
 
 export const fetchMovies =
-  (title = '', page = 1) =>
+  (title = '', page = 1, sortOption = 'releaseYear') =>
   async (dispatch) => {
     try {
       dispatch({ type: ALL_MOVIES_REQUEST });
 
-      const { data } = await api.fetchAllMovies(title, page);
+      const { data } = await api.fetchAllMovies(title, page, sortOption);
       dispatch({ type: ALL_MOVIES_SUCCESS, payload: data });
     } catch (error) {
       dispatch({

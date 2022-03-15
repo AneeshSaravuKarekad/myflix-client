@@ -11,6 +11,7 @@ import './movies.scss';
 import Pagination from '../../components/pagination/Pagination';
 
 const Movies = () => {
+  const [filters, setFilters] = useState({ sort: '' });
   const { isLoading, pages, result } = useSelector((state) => state.movies);
   const favouritesState = useSelector((state) => state.favourites);
   const dispatch = useDispatch();
@@ -19,9 +20,10 @@ const Movies = () => {
   const [currentPage, setCurrentPage] = useState(parseInt(pageNumber) || 1);
 
   useEffect(() => {
-    dispatch(fetchMovies(title, currentPage));
+    const { sort } = filters;
+    dispatch(fetchMovies(title, currentPage, sort));
     dispatch(favourites());
-  }, [dispatch, title, currentPage, pageNumber]);
+  }, [dispatch, title, currentPage, pageNumber, filters]);
 
   const handleChange = (val) => {
     setTitle(val);
@@ -30,7 +32,12 @@ const Movies = () => {
   return (
     <>
       <Row className="justify-content-center">
-        <TopBar query={title} onTitleChange={(val) => handleChange(val)} />
+        <TopBar
+          query={title}
+          filters={filters}
+          setFilters={setFilters}
+          onTitleChange={(val) => handleChange(val)}
+        />
       </Row>
 
       <Row className="justify-content-center">

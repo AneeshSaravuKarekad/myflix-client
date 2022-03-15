@@ -245,6 +245,23 @@
   right: 0;
   z-index: 20;
 }
+.search-bar-row .filter-col .filter-form__input {
+  justify-content: center;
+}
+.search-bar-row .filter-col .filter-form__input-select {
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 20px;
+  background-color: transparent;
+  color: var(--clr-text-heading);
+  border-color: var(--warning);
+  outline: none;
+}
+.search-bar-row .filter-col .filter-form__input-select-option {
+  background-color: var(--warning);
+  color: black;
+  margin-block: 2rem;
+}
 .movies-page-row {
   gap: 1rem;
 }
@@ -1110,6 +1127,7 @@ html:focus-within {
 /* Set core body defaults */
 body {
   min-height: 100vh;
+  min-width: 100vw;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Roboto", sans-serif !important;
@@ -1150,6 +1168,17 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+.container {
+  margin-inline: 0;
+}
+
+.col {
+  margin-inline: 0;
+}
+
+.row {
+  margin-inline: 0;
 }
 
 /*# sourceMappingURL=/src.e31bb0bc.css.map */

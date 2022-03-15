@@ -72199,9 +72199,9 @@ function getToken() {
   return token;
 }
 
-const fetchAllMovies = (title, page) => {
+const fetchAllMovies = (title, page, sortOption) => {
   const token = getToken();
-  return _axios.default.get(`${_url.default.movies}?title=${title}&page=${page}`, {
+  return _axios.default.get(`${_url.default.movies}?title=${title}&page=${page}&sort=${sortOption}`, {
     headers: {
       Authorization: `${token}`
     }
@@ -72970,6 +72970,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 const fetchMovies = function () {
   let title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   let page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
+  let sortOption = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'releaseYear';
   return async dispatch => {
     try {
       dispatch({
@@ -72977,7 +72978,7 @@ const fetchMovies = function () {
       });
       const {
         data
-      } = await api.fetchAllMovies(title, page);
+      } = await api.fetchAllMovies(title, page, sortOption);
       dispatch({
         type: _movieConstants.ALL_MOVIES_SUCCESS,
         payload: data
@@ -73323,7 +73324,9 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 
 const TopBar = _ref => {
   let {
-    query
+    query,
+    filters,
+    setFilters
   } = _ref;
   const [title, setTitle] = (0, _react.useState)(query);
   const navigate = (0, _reactRouterDom.useNavigate)();
@@ -73336,6 +73339,13 @@ const TopBar = _ref => {
     } else {
       navigate(`/movies`);
     }
+  };
+
+  const sort = sort => {
+    // console.log(sort);
+    setFilters({ ...filters,
+      sort
+    });
   };
 
   const handleChange = e => {
@@ -73358,7 +73368,29 @@ const TopBar = _ref => {
     className: "btn btn-outline-warning",
     type: "submit",
     value: "Search"
-  })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, null, /*#__PURE__*/_react.default.createElement("h2", null, "Pagination"))));
+  })))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "filter-col"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+    className: "filter-form"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.InputGroup, {
+    className: "filter-form__input"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Select, {
+    "aria-label": "Filtering options",
+    onChange: e => sort(e.target.value),
+    className: "filter-form__input-select"
+  }, /*#__PURE__*/_react.default.createElement("option", {
+    className: "filter-form__input-select-option",
+    value: "releaseYear"
+  }, "Release Year: Ascending"), /*#__PURE__*/_react.default.createElement("option", {
+    className: "filter-form__input-select-option",
+    value: "-releaseYear"
+  }, "Release Year: Descending"), /*#__PURE__*/_react.default.createElement("option", {
+    className: "filter-form__input-select-option",
+    value: "rating"
+  }, "Rating: Ascending"), /*#__PURE__*/_react.default.createElement("option", {
+    className: "filter-form__input-select-option",
+    value: "-rating"
+  }, "Rating: Descending")))))));
 };
 
 var _default = TopBar;
@@ -73505,6 +73537,9 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 const Movies = () => {
+  const [filters, setFilters] = (0, _react.useState)({
+    sort: ''
+  });
   const {
     isLoading,
     pages,
@@ -73518,9 +73553,12 @@ const Movies = () => {
   } = (0, _reactRouterDom.useParams)();
   const [currentPage, setCurrentPage] = (0, _react.useState)(parseInt(pageNumber) || 1);
   (0, _react.useEffect)(() => {
-    dispatch((0, _movieAction.fetchMovies)(title, currentPage));
+    const {
+      sort
+    } = filters;
+    dispatch((0, _movieAction.fetchMovies)(title, currentPage, sort));
     dispatch((0, _favouritesAction.favourites)());
-  }, [dispatch, title, currentPage, pageNumber]);
+  }, [dispatch, title, currentPage, pageNumber, filters]);
 
   const handleChange = val => {
     setTitle(val);
@@ -73530,6 +73568,8 @@ const Movies = () => {
     className: "justify-content-center"
   }, /*#__PURE__*/_react.default.createElement(_TopBar.default, {
     query: title,
+    filters: filters,
+    setFilters: setFilters,
     onTitleChange: val => handleChange(val)
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center"

@@ -8,11 +8,14 @@ function getToken() {
   return token;
 }
 
-export const fetchAllMovies = (title, page) => {
+export const fetchAllMovies = (title, page, sortOption) => {
   const token = getToken();
-  return axios.get(`${URL.movies}?title=${title}&page=${page}`, {
-    headers: { Authorization: `${token}` },
-  });
+  return axios.get(
+    `${URL.movies}?title=${title}&page=${page}&sort=${sortOption}`,
+    {
+      headers: { Authorization: `${token}` },
+    }
+  );
 };
 
 export const fetchMovieById = (movieId) => {

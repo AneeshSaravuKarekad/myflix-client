@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './topBar.scss';
 
-const TopBar = ({ query }) => {
+const TopBar = ({ query, filters, setFilters }) => {
   const [title, setTitle] = useState(query);
   const navigate = useNavigate();
 
@@ -23,6 +23,13 @@ const TopBar = ({ query }) => {
     } else {
       navigate(`/movies`);
     }
+  };
+  const sort = (sort) => {
+    // console.log(sort);
+    setFilters({
+      ...filters,
+      sort,
+    });
   };
 
   const handleChange = (e) => {
@@ -49,8 +56,42 @@ const TopBar = ({ query }) => {
             </InputGroup>
           </Form>
         </Col>
-        <Col>
-          <h2>Pagination</h2>
+        <Col className="filter-col">
+          <Form className="filter-form">
+            <InputGroup className="filter-form__input">
+              <Form.Select
+                aria-label="Filtering options"
+                onChange={(e) => sort(e.target.value)}
+                className="filter-form__input-select"
+              >
+                <option
+                  className="filter-form__input-select-option"
+                  value="releaseYear"
+                >
+                  Release Year: Ascending
+                </option>
+
+                <option
+                  className="filter-form__input-select-option"
+                  value="-releaseYear"
+                >
+                  Release Year: Descending
+                </option>
+                <option
+                  className="filter-form__input-select-option"
+                  value="rating"
+                >
+                  Rating: Ascending
+                </option>
+                <option
+                  className="filter-form__input-select-option"
+                  value="-rating"
+                >
+                  Rating: Descending
+                </option>
+              </Form.Select>
+            </InputGroup>
+          </Form>
         </Col>
       </Row>
     </Container>

@@ -37,6 +37,7 @@ html:focus-within {
 /* Set core body defaults */
 body {
   min-height: 100vh;
+  min-width: 100vw;
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: 'Roboto', sans-serif !important;
@@ -78,4 +79,14 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+.container {
+  margin-inline: 0;
+}
+.col {
+  margin-inline: 0;
+}
+.row {
+  margin-inline: 0;
 }
