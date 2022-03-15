@@ -1,0 +1,45 @@
+.genre-top-row {
+  color: var(--clr-primary-200);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.genre-content-row {
+  position: relative;
+  align-items: center;
+  margin-bottom: 2rem;
+  .content-label {
+    color: var(--clr-text-heading);
+    font-size: 1.5rem;
+  }
+  .content-main {
+    font-size: 1.25rem;
+    color: var(--clr-text-body);
+  }
+  &::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 2px;
+    bottom: -10px;
+    opacity: 0.1;
+    background-color: var(--warning);
+    -webkit-box-shadow: 5px 5px 15px 5px #000000;
+    box-shadow: 5px 5px 15px 5px #646464;
+  }
+}
+
+.genre-movies-title {
+  color: var(--warning);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+.genre-movies-content {
+  position: relative;
+  .spinner-border {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 100px;
+  }
+}

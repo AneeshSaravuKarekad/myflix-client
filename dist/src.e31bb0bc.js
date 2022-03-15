@@ -37000,7 +37000,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.MOVIES_BY_ACTOR_SUCCESS = exports.MOVIES_BY_ACTOR_REQUEST = exports.MOVIES_BY_ACTOR_FAIL = exports.FETCH_MOVIES_BY_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_GENRE_REQUEST = exports.FETCH_MOVIES_BY_GENRE_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
+exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.MOVIES_BY_ACTOR_SUCCESS = exports.MOVIES_BY_ACTOR_REQUEST = exports.MOVIES_BY_ACTOR_FAIL = exports.FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST = exports.FETCH_MOVIES_BY_SINGLE_GENRE_FAIL = exports.FETCH_MOVIES_BY_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_GENRE_REQUEST = exports.FETCH_MOVIES_BY_GENRE_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
 const ALL_MOVIES_REQUEST = 'ALL_MOVIES_REQUEST';
 exports.ALL_MOVIES_REQUEST = ALL_MOVIES_REQUEST;
 const ALL_MOVIES_SUCCESS = 'ALL_MOVIES_SUCCESS';
@@ -37025,6 +37025,12 @@ const FETCH_MOVIES_BY_GENRE_SUCCESS = 'FETCH_MOVIES_BY_GENRE_SUCCESS';
 exports.FETCH_MOVIES_BY_GENRE_SUCCESS = FETCH_MOVIES_BY_GENRE_SUCCESS;
 const FETCH_MOVIES_BY_GENRE_FAIL = 'FETCH_MOVIES_BY_GENRE_FAIL';
 exports.FETCH_MOVIES_BY_GENRE_FAIL = FETCH_MOVIES_BY_GENRE_FAIL;
+const FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST = 'FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST';
+exports.FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST = FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST;
+const FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS = 'FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS';
+exports.FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS = FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS;
+const FETCH_MOVIES_BY_SINGLE_GENRE_FAIL = 'FETCH_MOVIES_BY_SINGLE_GENRE_FAIL';
+exports.FETCH_MOVIES_BY_SINGLE_GENRE_FAIL = FETCH_MOVIES_BY_SINGLE_GENRE_FAIL;
 const CLEAR_ALL_ERRORS = 'CLEAR_ALL_ERRORS';
 exports.CLEAR_ALL_ERRORS = CLEAR_ALL_ERRORS;
 },{}],"reducers/movieReducer.js":[function(require,module,exports) {
@@ -37131,6 +37137,28 @@ const movieReducer = function () {
       };
 
     case _movieConstants.FETCH_MOVIES_BY_GENRE_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
+      };
+
+    case _movieConstants.FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST:
+      return {
+        isLoading: true,
+        movies: []
+      };
+
+    case _movieConstants.FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS:
+      return {
+        isLoading: false,
+        total: action.payload.total,
+        count: action.payload.count,
+        pages: action.payload.pages,
+        page: action.payload.page,
+        movies: action.payload.movies
+      };
+
+    case _movieConstants.FETCH_MOVIES_BY_SINGLE_GENRE_FAIL:
       return {
         isLoading: false,
         error: action.payload
@@ -37452,13 +37480,19 @@ exports.profileReducer = profileReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GET_GENRE_SUCCESS = exports.GET_GENRE_REQUEST = exports.GET_GENRE_FAIL = void 0;
+exports.GET_GENRE_SUCCESS = exports.GET_GENRE_SPECIFIC_MOVIES_SUCCESS = exports.GET_GENRE_SPECIFIC_MOVIES_REQUEST = exports.GET_GENRE_SPECIFIC_MOVIES_FAIL = exports.GET_GENRE_REQUEST = exports.GET_GENRE_FAIL = void 0;
 const GET_GENRE_REQUEST = 'GET_GENRE_REQUEST';
 exports.GET_GENRE_REQUEST = GET_GENRE_REQUEST;
 const GET_GENRE_SUCCESS = 'GET_GENRE_SUCCESS';
 exports.GET_GENRE_SUCCESS = GET_GENRE_SUCCESS;
 const GET_GENRE_FAIL = 'GET_GENRE_FAIL';
 exports.GET_GENRE_FAIL = GET_GENRE_FAIL;
+const GET_GENRE_SPECIFIC_MOVIES_REQUEST = 'GET_GENRE_SPECIFIC_MOVIES_REQUEST';
+exports.GET_GENRE_SPECIFIC_MOVIES_REQUEST = GET_GENRE_SPECIFIC_MOVIES_REQUEST;
+const GET_GENRE_SPECIFIC_MOVIES_SUCCESS = 'GET_GENRE_SPECIFIC_MOVIES_SUCCESS';
+exports.GET_GENRE_SPECIFIC_MOVIES_SUCCESS = GET_GENRE_SPECIFIC_MOVIES_SUCCESS;
+const GET_GENRE_SPECIFIC_MOVIES_FAIL = 'GET_GENRE_SPECIFIC_MOVIES_FAIL';
+exports.GET_GENRE_SPECIFIC_MOVIES_FAIL = GET_GENRE_SPECIFIC_MOVIES_FAIL;
 },{}],"reducers/genreReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37492,6 +37526,26 @@ const genreReducer = function () {
     case _genreConstants.GET_GENRE_FAIL:
       return {
         isLoading: false,
+        error: action.payload
+      };
+
+    case _genreConstants.GET_GENRE_SPECIFIC_MOVIES_REQUEST:
+      return { ...state,
+        isLoading: true,
+        movies: []
+      };
+
+    case _genreConstants.GET_GENRE_SPECIFIC_MOVIES_SUCCESS:
+      return { ...state,
+        isLoading: false,
+        movies: action.payload.movies,
+        page: action.payload.page,
+        pages: action.payload,
+        count: action.payload.count
+      };
+
+    case _genreConstants.GET_GENRE_SPECIFIC_MOVIES_FAIL:
+      return { ...state,
         error: action.payload
       };
 
@@ -72863,7 +72917,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
+exports.fetchMoviesBySingleGenre = exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -72965,6 +73019,28 @@ const fetchMoviesByGenre = genreName => async dispatch => {
 };
 
 exports.fetchMoviesByGenre = fetchMoviesByGenre;
+
+const fetchMoviesBySingleGenre = genreName => async dispatch => {
+  try {
+    dispatch({
+      type: _movieConstants.FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchMoviesByGenre(genreName);
+    dispatch({
+      type: _movieConstants.FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _movieConstants.FETCH_MOVIES_BY_SINGLE_GENRE_FAIL,
+      payload: error.response?.data.message
+    });
+  }
+};
+
+exports.fetchMoviesBySingleGenre = fetchMoviesBySingleGenre;
 
 const clearErrors = () => async dispatch => {
   dispatch({
@@ -93569,11 +93645,14 @@ const Home = () => {
     },
     fluid: true
   }, !isLoading && genres ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, genres.map(genre => {
-    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      key: genre.name
+    }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
       className: "genre-heading",
       to: `/genres/${genre.name}`
     }, genre.name, /*#__PURE__*/_react.default.createElement("img", {
       src: _rightChevron.default,
+      key: genre.name,
       alt: "chevron"
     })), /*#__PURE__*/_react.default.createElement(_swiperReact.Swiper, {
       modules: [_swiper.Navigation, _swiper.Pagination, _swiper.Scrollbar, _swiper.A11y] // spaceBetween={50}
@@ -93622,7 +93701,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchGenres = void 0;
+exports.fetchMovies = exports.fetchGenres = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -93653,7 +93732,33 @@ const fetchGenres = () => async dispatch => {
 };
 
 exports.fetchGenres = fetchGenres;
-},{"../api":"api/index.js","../constants/genreConstants":"constants/genreConstants.js"}],"pages/genres/Genres.jsx":[function(require,module,exports) {
+
+const fetchMovies = genreName => async dispatch => {
+  try {
+    dispatch({
+      type: _genreConstants.GET_GENRE_SPECIFIC_MOVIES_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchMoviesByGenre(genreName);
+    dispatch({
+      type: _genreConstants.GET_GENRE_SPECIFIC_MOVIES_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _genreConstants.GET_GENRE_SPECIFIC_MOVIES_FAIL
+    });
+  }
+};
+
+exports.fetchMovies = fetchMovies;
+},{"../api":"api/index.js","../constants/genreConstants":"constants/genreConstants.js"}],"pages/genres/genres.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/genres/Genres.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -93663,9 +93768,25 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _reactBootstrap = require("react-bootstrap");
+
 var _reactRedux = require("react-redux");
 
+var _reactRouterDom = require("react-router-dom");
+
+var _favouritesAction = require("../../actions/favouritesAction");
+
 var _genreAction = require("../../actions/genreAction");
+
+var _movieAction = require("../../actions/movieAction");
+
+var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
+
+var _Pagination = _interopRequireDefault(require("../../components/pagination/Pagination"));
+
+require("./genres.scss");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
@@ -93674,18 +93795,100 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 const Genres = () => {
   const dispatch = (0, _reactRedux.useDispatch)();
   const {
+    genreName
+  } = (0, _reactRouterDom.useParams)();
+  const {
     isLoading,
     genres
   } = (0, _reactRedux.useSelector)(state => state.genres);
+  const favouritesState = (0, _reactRedux.useSelector)(state => state.favourites);
+  const {
+    movies,
+    page,
+    pages,
+    count,
+    total
+  } = (0, _reactRedux.useSelector)(state => state.movies);
+  const [currentGenre, setCurrentGenre] = (0, _react.useState)(genreName);
+  const [currentPage, setCurrentPage] = (0, _react.useState)(page || 1);
   (0, _react.useEffect)(() => {
     dispatch((0, _genreAction.fetchGenres)());
-  }, [dispatch]);
-  return /*#__PURE__*/_react.default.createElement("div", null, console.log(isLoading, genres), /*#__PURE__*/_react.default.createElement("h1", null, "Genres Page"));
+    dispatch((0, _favouritesAction.favourites)());
+    dispatch((0, _movieAction.fetchMoviesBySingleGenre)(genreName));
+  }, [dispatch, genreName]);
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "genre-top-row justify-content-center"
+  }, /*#__PURE__*/_react.default.createElement("div", {
+    className: "genre-top-heading"
+  }, genreName)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "genre-content justify-content-center"
+  }, genres ? genres.map((genre, idx) => genre.name === genreName && /*#__PURE__*/_react.default.createElement("div", {
+    key: idx
+  }, genre.description && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    key: genre.description,
+    className: "genre-content-row",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "content-label",
+    md: "2"
+  }, "Description"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "content-main"
+  }, genre.description)), genre.note && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    key: genre.note,
+    className: "genre-content-row",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "content-label",
+    md: "2"
+  }, "Note"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "content-main"
+  }, genre.note)), genre.examples && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    key: `${genre.examples}`,
+    className: "genre-content-row",
+    style: {
+      width: '100%'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "content-label",
+    md: "2"
+  }, "Movies"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    className: "content-main"
+  }, genre.examples.map(movie => `${movie}, `))))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    fluid: true,
+    key: "ad"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "genre-movies-title justify-content-center"
+  }, "Related Movies ..."), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "genre-movies-content justify-content-center"
+  }, movies && favouritesState.result ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center movies-page-row"
+  }, movies.map(movie => {
+    let isFav = false;
+    favouritesState.result.map(res => {
+      if (res._id === movie._id) {
+        isFav = true;
+      }
+    });
+    return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
+      movie: movie,
+      isFav: isFav
+    });
+  }), console.log(movies, pages, page, count, total))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  }))));
 };
 
 var _default = Genres;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","../../actions/genreAction":"actions/genreAction.js"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","../../actions/genreAction":"actions/genreAction.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/pagination/Pagination":"components/pagination/Pagination.jsx","./genres.scss":"pages/genres/genres.scss"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

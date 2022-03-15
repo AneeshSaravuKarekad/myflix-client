@@ -42,10 +42,10 @@ const Home = () => {
         <>
           {genres.map((genre) => {
             return (
-              <>
+              <div key={genre.name}>
                 <Link className="genre-heading" to={`/genres/${genre.name}`}>
                   {genre.name}
-                  <img src={RightChevron} alt="chevron" />
+                  <img src={RightChevron} key={genre.name} alt="chevron" />
                 </Link>
                 <Swiper
                   modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -79,7 +79,7 @@ const Home = () => {
                   ))}
                 </Swiper>
                 )
-              </>
+              </div>
             );
           })}
         </>

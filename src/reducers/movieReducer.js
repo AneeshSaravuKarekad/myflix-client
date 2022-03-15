@@ -12,6 +12,9 @@ import {
   MOVIE_DETAILS_FAIL,
   MOVIE_DETAILS_REQUEST,
   MOVIE_DETAILS_SUCCESS,
+  FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST,
+  FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS,
+  FETCH_MOVIES_BY_SINGLE_GENRE_FAIL,
 } from '../constants/movieConstants';
 
 export const movieReducer = (state = { isLoading: true }, action) => {
@@ -105,6 +108,28 @@ export const movieReducer = (state = { isLoading: true }, action) => {
       };
 
     case FETCH_MOVIES_BY_GENRE_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST:
+      return {
+        isLoading: true,
+        movies: [],
+      };
+
+    case FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS:
+      return {
+        isLoading: false,
+        total: action.payload.total,
+        count: action.payload.count,
+        pages: action.payload.pages,
+        page: action.payload.page,
+        movies: action.payload.movies,
+      };
+
+    case FETCH_MOVIES_BY_SINGLE_GENRE_FAIL:
       return {
         isLoading: false,
         error: action.payload,
