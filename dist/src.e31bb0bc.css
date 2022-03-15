@@ -27,7 +27,7 @@
   background: linear-gradient(rgba(30, 27, 38, 0.95), rgba(30, 27, 38, 0.95)), url("/baseBackground.7eed6fc9.jpg");
   background-position: center;
   background-size: cover;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   min-height: 100vh;
 }
 .form-container {
@@ -917,7 +917,7 @@ button.swiper-pagination-bullet {
   border-bottom-right-radius: 200px;
   color: var(--clr-primary-200);
   padding-block: 1rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 .home-genre-container .genre-heading::after {
   content: "";
@@ -945,6 +945,7 @@ button.swiper-pagination-bullet {
   background-color: transparent;
   border: none;
   justify-content: center !important;
+  align-items: center;
   padding-bottom: 4rem;
   padding-top: 2rem;
   filter: drop-shadow(5px 5px 10px #000);
