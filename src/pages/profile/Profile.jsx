@@ -16,7 +16,7 @@ const Profile = () => {
   }, [dispatch]);
 
   return (
-    <Container className="profile-container">
+    <Container className="profile-container" style={{ marginInline: 'auto' }}>
       <Row className="profile-header justify-content-center">
         <h1> Profile</h1>
       </Row>

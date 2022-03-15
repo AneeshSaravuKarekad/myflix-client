@@ -28,7 +28,7 @@ const Genres = () => {
   }, [dispatch, genreName]);
   return (
     <>
-      <Container>
+      <Container style={{ marginInline: 'auto' }}>
         <Row className="genre-top-row justify-content-center">
           <div className="genre-top-heading">{genreName}</div>
         </Row>

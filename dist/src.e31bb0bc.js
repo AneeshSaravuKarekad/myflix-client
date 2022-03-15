@@ -73736,7 +73736,11 @@ const Header = () => {
     collapseOnSelect: true,
     expand: "lg",
     variant: "dark"
-  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    style: {
+      marginInline: 'auto'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Brand, {
     href: "/"
   }, "myFlix"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Navbar.Toggle, {
     "aria-controls": "responsive-navbar-nav"
@@ -79807,7 +79811,10 @@ const Profile = () => {
     dispatch((0, _userAction.loadProfile)());
   }, [dispatch]);
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
-    className: "profile-container"
+    className: "profile-container",
+    style: {
+      marginInline: 'auto'
+    }
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "profile-header justify-content-center"
   }, /*#__PURE__*/_react.default.createElement("h1", null, " Profile")), /*#__PURE__*/_react.default.createElement("hr", null), !isLoading && user ? /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
@@ -94080,7 +94087,11 @@ const Genres = () => {
     dispatch((0, _favouritesAction.favourites)());
     dispatch((0, _movieAction.fetchMoviesBySingleGenre)(genreName));
   }, [dispatch, genreName]);
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    style: {
+      marginInline: 'auto'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "genre-top-row justify-content-center"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "genre-top-heading"

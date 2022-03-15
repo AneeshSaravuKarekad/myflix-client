@@ -36,7 +36,7 @@ const Header = () => {
 
   return (
     <Navbar collapseOnSelect expand="lg" variant="dark">
-      <Container>
+      <Container style={{ marginInline: 'auto' }}>
         <Navbar.Brand href="/">myFlix</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
