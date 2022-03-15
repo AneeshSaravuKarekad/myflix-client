@@ -121,3 +121,10 @@ export const deleteProfile = () => {
     headers: { Authorization: `${token}` },
   });
 };
+
+export const getReviews = (movieId) => {
+  const token = getToken();
+  return axios.get(`${URL.movies}/${movieId}/reviews`, {
+    headers: { Authorization: `${token}` },
+  });
+};

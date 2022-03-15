@@ -6,6 +6,7 @@ import { userReducer } from './userReducer';
 import { favouritesReducer } from './favouritesReducer';
 import { profileReducer } from './profileReducer';
 import { genreReducer } from './genreReducer';
+import { reviewReducer } from './reviewReducer';
 
 const persistConfig = {
   key: 'auth',
@@ -19,6 +20,7 @@ const appReducer = combineReducers({
   favourites: favouritesReducer,
   profile: profileReducer,
   genres: genreReducer,
+  reviews: reviewReducer,
 });
 
 export default persistReducer(persistConfig, appReducer);
