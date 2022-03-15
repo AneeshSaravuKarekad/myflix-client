@@ -131,6 +131,7 @@ const MovieDetails = () => {
           <Spinner animation="border" variant="warning" />
         )}
       </Row>
+      {/* TODO: ADD revies */}
       {/* <Row className="movie-page review-row">
         <Review movieId={movieId} />
       </Row> */}

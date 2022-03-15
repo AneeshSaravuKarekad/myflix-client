@@ -12,6 +12,7 @@ import {
   MOVIES_PATH,
   PROFILE_PATH,
   GENRE_PATH,
+  DIRECTOR_PATH,
 } from './routes/routesPath';
 
 import './app.scss';
@@ -24,6 +25,7 @@ import MovieDetails from './pages/movieDetails/MovieDetails';
 import Actor from './pages/actor/Actor';
 import Home from './pages/home/Home';
 import Genres from './pages/genres/Genres';
+import Director from './pages/director/Director';
 
 const App = ({ user }) => {
   return (
@@ -121,6 +123,15 @@ const App = ({ user }) => {
           element={
             <PrivateRoute>
               <Genres />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path={`${DIRECTOR_PATH}/:directorName`}
+          element={
+            <PrivateRoute>
+              <Director />
             </PrivateRoute>
           }
         />

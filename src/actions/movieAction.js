@@ -13,6 +13,9 @@ import {
   MOVIES_BY_ACTOR_FAIL,
   MOVIES_BY_ACTOR_REQUEST,
   MOVIES_BY_ACTOR_SUCCESS,
+  MOVIES_BY_DIRECTOR_FAIL,
+  MOVIES_BY_DIRECTOR_REQUEST,
+  MOVIES_BY_DIRECTOR_SUCCESS,
   MOVIE_DETAILS_FAIL,
   MOVIE_DETAILS_REQUEST,
   MOVIE_DETAILS_SUCCESS,
@@ -54,6 +57,17 @@ export const fetchMoviesByActor = (actorName) => async (dispatch) => {
     dispatch({ type: MOVIES_BY_ACTOR_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: MOVIES_BY_ACTOR_FAIL, payload: error.response?.data });
+  }
+};
+
+export const fetchMoviesByDirector = (directorName) => async (dispatch) => {
+  try {
+    dispatch({ type: MOVIES_BY_DIRECTOR_REQUEST });
+
+    const { data } = await api.fetchMoviesByDirector(directorName);
+    dispatch({ type: MOVIES_BY_DIRECTOR_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: MOVIES_BY_DIRECTOR_FAIL, payload: error.response?.data });
   }
 };
 

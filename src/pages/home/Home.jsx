@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchMoviesByGenre } from '../../actions/movieAction';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import 'swiper/swiper.scss';
-import 'swiper/modules/navigation/navigation.scss'; // Navigation module
+import 'swiper/modules/navigation/navigation.scss';
 import 'swiper/modules/pagination/pagination.scss';
 
 import './home.scss';

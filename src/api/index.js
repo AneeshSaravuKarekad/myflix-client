@@ -43,6 +43,12 @@ export const fetchGenres = () => {
   });
 };
 
+export const fetchMoviesByDirector = (directorName) => {
+  const token = getToken();
+  return axios.get(`${URL.movies}/directors/${directorName}`, {
+    headers: { Authorization: `${token}` },
+  });
+};
 export const userLogin = (userData) => {
   const { email, password } = userData;
   return axios.post(`${URL.users}/login`, { email, password });

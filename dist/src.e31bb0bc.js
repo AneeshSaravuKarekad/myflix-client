@@ -37000,7 +37000,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.MOVIES_BY_ACTOR_SUCCESS = exports.MOVIES_BY_ACTOR_REQUEST = exports.MOVIES_BY_ACTOR_FAIL = exports.FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST = exports.FETCH_MOVIES_BY_SINGLE_GENRE_FAIL = exports.FETCH_MOVIES_BY_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_GENRE_REQUEST = exports.FETCH_MOVIES_BY_GENRE_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
+exports.MOVIE_DETAILS_SUCCESS = exports.MOVIE_DETAILS_REQUEST = exports.MOVIE_DETAILS_FAIL = exports.MOVIES_BY_DIRECTOR_SUCCESS = exports.MOVIES_BY_DIRECTOR_REQUEST = exports.MOVIES_BY_DIRECTOR_FAIL = exports.MOVIES_BY_ACTOR_SUCCESS = exports.MOVIES_BY_ACTOR_REQUEST = exports.MOVIES_BY_ACTOR_FAIL = exports.FETCH_MOVIES_BY_SINGLE_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_SINGLE_GENRE_REQUEST = exports.FETCH_MOVIES_BY_SINGLE_GENRE_FAIL = exports.FETCH_MOVIES_BY_GENRE_SUCCESS = exports.FETCH_MOVIES_BY_GENRE_REQUEST = exports.FETCH_MOVIES_BY_GENRE_FAIL = exports.CLEAR_ALL_ERRORS = exports.ALL_MOVIES_SUCCESS = exports.ALL_MOVIES_REQUEST = exports.ALL_MOVIES_FAIL = void 0;
 const ALL_MOVIES_REQUEST = 'ALL_MOVIES_REQUEST';
 exports.ALL_MOVIES_REQUEST = ALL_MOVIES_REQUEST;
 const ALL_MOVIES_SUCCESS = 'ALL_MOVIES_SUCCESS';
@@ -37019,6 +37019,12 @@ const MOVIES_BY_ACTOR_SUCCESS = 'MOVIES_BY_ACTOR_SUCCESS';
 exports.MOVIES_BY_ACTOR_SUCCESS = MOVIES_BY_ACTOR_SUCCESS;
 const MOVIES_BY_ACTOR_FAIL = 'MOVIES_BY_ACTOR_FAIL';
 exports.MOVIES_BY_ACTOR_FAIL = MOVIES_BY_ACTOR_FAIL;
+const MOVIES_BY_DIRECTOR_REQUEST = 'MOVIES_BY_DIRECTOR_REQUEST';
+exports.MOVIES_BY_DIRECTOR_REQUEST = MOVIES_BY_DIRECTOR_REQUEST;
+const MOVIES_BY_DIRECTOR_SUCCESS = 'MOVIES_BY_DIRECTOR_SUCCESS';
+exports.MOVIES_BY_DIRECTOR_SUCCESS = MOVIES_BY_DIRECTOR_SUCCESS;
+const MOVIES_BY_DIRECTOR_FAIL = 'MOVIES_BY_DIRECTOR_FAIL';
+exports.MOVIES_BY_DIRECTOR_FAIL = MOVIES_BY_DIRECTOR_FAIL;
 const FETCH_MOVIES_BY_GENRE_REQUEST = 'FETCH_MOVIES_BY_GENRE_REQUEST';
 exports.FETCH_MOVIES_BY_GENRE_REQUEST = FETCH_MOVIES_BY_GENRE_REQUEST;
 const FETCH_MOVIES_BY_GENRE_SUCCESS = 'FETCH_MOVIES_BY_GENRE_SUCCESS';
@@ -37111,6 +37117,27 @@ const movieReducer = function () {
       };
 
     case _movieConstants.MOVIES_BY_ACTOR_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
+      };
+
+    case _movieConstants.MOVIES_BY_DIRECTOR_REQUEST:
+      return {
+        isLoading: true,
+        director: {},
+        movies: []
+      };
+
+    case _movieConstants.MOVIES_BY_DIRECTOR_SUCCESS:
+      return {
+        isLoading: false,
+        movies: action.payload.movies,
+        count: action.payload.count,
+        director: action.payload.director
+      };
+
+    case _movieConstants.MOVIES_BY_DIRECTOR_FAIL:
       return {
         isLoading: false,
         error: action.payload
@@ -37672,7 +37699,7 @@ function PublicRoute(_ref2) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.HOME_PATH = exports.GENRE_PATH = exports.FAVOURITES_PATH = exports.ACTOR_PATH = void 0;
+exports.PROFILE_PATH = exports.MOVIES_PATH = exports.LOGIN_PATH = exports.HOME_PATH = exports.GENRE_PATH = exports.FAVOURITES_PATH = exports.DIRECTOR_PATH = exports.ACTOR_PATH = void 0;
 const LOGIN_PATH = '/';
 exports.LOGIN_PATH = LOGIN_PATH;
 const MOVIES_PATH = '/movies';
@@ -37683,6 +37710,8 @@ const PROFILE_PATH = '/profile';
 exports.PROFILE_PATH = PROFILE_PATH;
 const ACTOR_PATH = '/actors';
 exports.ACTOR_PATH = ACTOR_PATH;
+const DIRECTOR_PATH = '/directors';
+exports.DIRECTOR_PATH = DIRECTOR_PATH;
 const HOME_PATH = '/home';
 exports.HOME_PATH = HOME_PATH;
 const GENRE_PATH = '/genres';
@@ -72153,7 +72182,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchGenres = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.fetchMoviesByGenre = exports.fetchMoviesByDirector = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchGenres = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72224,6 +72253,17 @@ const fetchGenres = () => {
 };
 
 exports.fetchGenres = fetchGenres;
+
+const fetchMoviesByDirector = directorName => {
+  const token = getToken();
+  return _axios.default.get(`${_url.default.movies}/directors/${directorName}`, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.fetchMoviesByDirector = fetchMoviesByDirector;
 
 const userLogin = userData => {
   const {
@@ -72917,7 +72957,7 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchMoviesBySingleGenre = exports.fetchMoviesByGenre = exports.fetchMoviesByActor = exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
+exports.fetchMoviesBySingleGenre = exports.fetchMoviesByGenre = exports.fetchMoviesByDirector = exports.fetchMoviesByActor = exports.fetchMovies = exports.fetchMovieDetails = exports.clearErrors = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -72996,6 +73036,28 @@ const fetchMoviesByActor = actorName => async dispatch => {
 };
 
 exports.fetchMoviesByActor = fetchMoviesByActor;
+
+const fetchMoviesByDirector = directorName => async dispatch => {
+  try {
+    dispatch({
+      type: _movieConstants.MOVIES_BY_DIRECTOR_REQUEST
+    });
+    const {
+      data
+    } = await api.fetchMoviesByDirector(directorName);
+    dispatch({
+      type: _movieConstants.MOVIES_BY_DIRECTOR_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _movieConstants.MOVIES_BY_DIRECTOR_FAIL,
+      payload: error.response?.data
+    });
+  }
+};
+
+exports.fetchMoviesByDirector = fetchMoviesByDirector;
 
 const fetchMoviesByGenre = genreName => async dispatch => {
   try {
@@ -93618,7 +93680,6 @@ function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "functio
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-// Navigation module
 const Home = () => {
   const dispatch = (0, _reactRedux.useDispatch)();
   const {
@@ -93888,7 +93949,147 @@ const Genres = () => {
 
 var _default = Genres;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","../../actions/genreAction":"actions/genreAction.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/pagination/Pagination":"components/pagination/Pagination.jsx","./genres.scss":"pages/genres/genres.scss"}],"App.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","../../actions/favouritesAction":"actions/favouritesAction.js","../../actions/genreAction":"actions/genreAction.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../../components/pagination/Pagination":"components/pagination/Pagination.jsx","./genres.scss":"pages/genres/genres.scss"}],"pages/director/Director.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactRedux = require("react-redux");
+
+var _reactRouterDom = require("react-router-dom");
+
+var _reactBootstrap = require("react-bootstrap");
+
+var _moment = _interopRequireDefault(require("moment"));
+
+var _movieAction = require("../../actions/movieAction");
+
+var _MovieCard = _interopRequireDefault(require("../../components/movieCard/MovieCard"));
+
+require("../actor/actor.scss");
+
+var _favouritesAction = require("../../actions/favouritesAction");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+const Director = () => {
+  const {
+    directorName
+  } = (0, _reactRouterDom.useParams)();
+  const dispatch = (0, _reactRedux.useDispatch)();
+  const {
+    isLoading,
+    director,
+    movies,
+    count,
+    error
+  } = (0, _reactRedux.useSelector)(state => state.movies);
+  const favouritesState = (0, _reactRedux.useSelector)(state => state.favourites);
+  (0, _react.useEffect)(() => {
+    dispatch((0, _favouritesAction.favourites)());
+    dispatch((0, _movieAction.fetchMoviesByDirector)(directorName));
+  }, [dispatch]);
+
+  const ReadMore = _ref => {
+    let {
+      children
+    } = _ref;
+    const text = children;
+    const [isReadMore, setIsReadMore] = (0, _react.useState)(true);
+
+    const toggleReadMore = () => {
+      setIsReadMore(!isReadMore);
+    };
+
+    return /*#__PURE__*/_react.default.createElement("span", {
+      className: "text"
+    }, isReadMore ? text.slice(0, 150) : text, /*#__PURE__*/_react.default.createElement("span", {
+      onClick: toggleReadMore,
+      className: "read-or-hide",
+      style: {
+        textDecoration: 'underline',
+        cursor: 'pointer',
+        fontSize: '1rem',
+        color: 'var(--info)'
+      }
+    }, isReadMore ? '...read more' : ' show less'));
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+    className: "actor-container"
+  }, !isLoading && director && favouritesState.result ? /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "name-row"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 2,
+    className: "label"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, "Name")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 10,
+    className: "content"
+  }, /*#__PURE__*/_react.default.createElement("span", null, director.name))), /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "description-row"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 2,
+    className: "label"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, "Bio")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 10,
+    className: "content"
+  }, /*#__PURE__*/_react.default.createElement(ReadMore, null, director.bio))), /*#__PURE__*/_react.default.createElement("hr", null), director.birth ? /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "birth-row"
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 2,
+    className: "label"
+  }, /*#__PURE__*/_react.default.createElement("h3", null, "Born")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 10,
+    className: "content"
+  }, /*#__PURE__*/_react.default.createElement("span", null, (0, _moment.default)(director.birth.date).format('LL'), " in", ' ', director.birth.place, ' '))) : null, /*#__PURE__*/_react.default.createElement("hr", null), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "actor-movies-title-row",
+    style: {
+      justifyContent: 'center'
+    }
+  }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
+    md: 2,
+    className: "label"
+  }, /*#__PURE__*/_react.default.createElement("h3", {
+    style: {
+      marginBottom: '1rem'
+    }
+  }, "Movies"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center movies-page-row"
+  }, !favouritesState.isLoading && movies ? movies.map(movie => {
+    let isFav = false;
+    favouritesState.result.map(res => {
+      if (res._id === movie._id) {
+        isFav = true;
+      }
+
+      console.log(favouritesState);
+    });
+    return /*#__PURE__*/_react.default.createElement(_MovieCard.default, {
+      key: movie._id,
+      movie: movie,
+      isFav: isFav
+    });
+  }) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  }))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
+    animation: "border",
+    variant: "warning"
+  }));
+};
+
+var _default = Director;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../actions/movieAction":"actions/movieAction.js","../../components/movieCard/MovieCard":"components/movieCard/MovieCard.jsx","../actor/actor.scss":"pages/actor/actor.scss","../../actions/favouritesAction":"actions/favouritesAction.js"}],"App.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -93925,6 +94126,8 @@ var _Actor = _interopRequireDefault(require("./pages/actor/Actor"));
 var _Home = _interopRequireDefault(require("./pages/home/Home"));
 
 var _Genres = _interopRequireDefault(require("./pages/genres/Genres"));
+
+var _Director = _interopRequireDefault(require("./pages/director/Director"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -93970,6 +94173,9 @@ const App = _ref => {
   }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
     path: `${_routesPath.GENRE_PATH}/:genreName`,
     element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Genres.default, null))
+  }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
+    path: `${_routesPath.DIRECTOR_PATH}/:directorName`,
+    element: /*#__PURE__*/_react.default.createElement(_routesCheck.PrivateRoute, null, /*#__PURE__*/_react.default.createElement(_Director.default, null))
   })));
 };
 
@@ -93982,7 +94188,7 @@ const mapStateToProps = state => {
 var _default = (0, _reactRedux.connect)(mapStateToProps)(App);
 
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx","./pages/actor/Actor":"pages/actor/Actor.jsx","./pages/home/Home":"pages/home/Home.jsx","./pages/genres/Genres":"pages/genres/Genres.jsx"}],"index.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","./routes/routesCheck":"routes/routesCheck.js","./routes/routesPath":"routes/routesPath.js","./app.scss":"app.scss","./pages/auth/Welcome":"pages/auth/Welcome.jsx","./pages/movies/Movies":"pages/movies/Movies.jsx","./components/header/Header":"components/header/Header.jsx","./pages/favourites/Favourites":"pages/favourites/Favourites.jsx","./pages/profile/Profile":"pages/profile/Profile.jsx","./pages/movieDetails/MovieDetails":"pages/movieDetails/MovieDetails.jsx","./pages/actor/Actor":"pages/actor/Actor.jsx","./pages/home/Home":"pages/home/Home.jsx","./pages/genres/Genres":"pages/genres/Genres.jsx","./pages/director/Director":"pages/director/Director.jsx"}],"index.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -94060,7 +94266,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62096" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55532" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
