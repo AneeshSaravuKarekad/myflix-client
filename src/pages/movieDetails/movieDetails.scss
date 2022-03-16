@@ -75,6 +75,10 @@
 .review-row-content {
   justify-content: center;
   font-size: 2rem;
+
+  .caption {
+    font-size: 1.25rem;
+  }
 }
 
 .review-card {
@@ -82,19 +86,46 @@
   font-size: 1rem;
   max-width: 1200px;
   color: var(--clr-text-body);
+  &__profile-col {
+    @media screen and (max-width: 500px) {
+      width: 75px;
+    }
+  }
   &-content {
+    @media screen and (max-width: 500px) {
+      .row {
+        flex-direction: column !important;
+      }
+      font-size: 1rem;
+    }
     &__header {
-      color: var(--clr-text-heading);
+      color: var(--warning);
+      font-size: 1.25rem;
+      @media screen and (max-width: 500px) {
+        font-size: 1rem;
+      }
     }
 
     .stars-col {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-end;
+
+      margin-inline: 0;
+      @media screen and (max-width: 500px) {
+        div {
+          // display: none;
+          font-size: 1.75rem !important;
+        }
+        justify-content: flex-start;
+      }
       img {
         margin-inline: 1rem;
         width: 30px;
         height: 30px;
+        // @media screen and (max-width: 500px) {
+        //   margin-inline: 0;
+        // }
       }
     }
   }

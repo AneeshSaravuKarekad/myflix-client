@@ -9,22 +9,22 @@ import starIcon from '../../../public/star-icon.png';
 import timeIcon from '../../../public/time-icon.png';
 import profileIcon from '../../../public/profileIcon.png';
 
-import './movieDetails.scss';
-
 import { fetchMovieDetails } from '../../actions/movieAction';
 import { getReviews } from '../../actions/reviewAction';
 import ReviewForm from '../../components/reviewForm/ReviewForm';
+
+import './movieDetails.scss';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const dispatch = useDispatch();
   const { movie, isLoading } = useSelector((state) => state.movies);
-  const { reviews, count } = useSelector((state) => state.reviews);
+  const { reviews, count, message } = useSelector((state) => state.reviews);
 
   useEffect(() => {
     dispatch(fetchMovieDetails(movieId));
     dispatch(getReviews(movieId));
-  }, [dispatch]);
+  }, [dispatch, message]);
 
   return (
     <Container style={{ marginInline: 'auto' }}>
@@ -139,11 +139,12 @@ const MovieDetails = () => {
         )}
       </Row>
       <Row className="review-row-title">Reviews</Row>
+      <Row className="text-muted justify-content-center">{count} reviews</Row>
+
       <Row>
         {' '}
-        <ReviewForm />{' '}
+        <ReviewForm movieId={movieId} />{' '}
       </Row>
-      <Row className="text-muted justify-content-center">{count} reviews</Row>
       <Row className="review-row-content">
         {movie ? (
           reviews && count !== 0 ? (
@@ -158,6 +159,7 @@ const MovieDetails = () => {
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}
+                    className="review-card__profile-col"
                   >
                     <img
                       src={profileIcon}
@@ -175,16 +177,27 @@ const MovieDetails = () => {
                           {moment(review.createdAt).startOf('second').fromNow()}
                         </Row>
                       </Col>
-                      <Col
-                        style={{ marginInline: 'auto' }}
-                        className="stars-col"
-                      >
+                      <Col className="stars-col">
                         <img src={starIcon} alt="stars icon" />
-                        <div>{review.stars}</div> / 10
+                        <div
+                          style={{
+                            fontSize: '3rem',
+                            color: `${
+                              review.stars <= 4
+                                ? 'red'
+                                : review.stars < 8
+                                ? 'var(--warning)'
+                                : 'green'
+                            }`,
+                          }}
+                        >
+                          {review.stars}
+                        </div>{' '}
+                        / 10
                       </Col>
                     </Row>
 
-                    <Row>{review.caption}</Row>
+                    <Row className="caption">{review.caption}</Row>
                     <Row>{review.comment}</Row>
                   </Col>
                 </Row>

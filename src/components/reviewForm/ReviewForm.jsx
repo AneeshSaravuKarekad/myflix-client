@@ -4,8 +4,11 @@ import * as Yup from 'yup';
 import { Form, Button } from 'react-bootstrap';
 
 import './reviewForm.scss';
+import { useDispatch } from 'react-redux';
+import { addReview, getReviews } from '../../actions/reviewAction';
 
-const ReviewForm = () => {
+const ReviewForm = ({ movieId }) => {
+  const dispatch = useDispatch();
   return (
     <Formik
       initialValues={{
@@ -14,8 +17,13 @@ const ReviewForm = () => {
         stars: 1,
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        console.log(parseInt(values.stars), { ...values });
-
+        let reviewData = {
+          caption: values.caption,
+          comment: values.comment,
+          stars: parseInt(values.stars),
+        };
+        dispatch(addReview(movieId, reviewData));
+        dispatch(getReviews(movieId));
         resetForm();
         // dispatch(updateProfile(values));
       }}

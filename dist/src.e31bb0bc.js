@@ -37588,13 +37588,19 @@ exports.genreReducer = genreReducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.GET_REVIEWS_SUCCESS = exports.GET_REVIEWS_REQUEST = exports.GET_REVIEWS_FAIL = void 0;
+exports.GET_REVIEWS_SUCCESS = exports.GET_REVIEWS_REQUEST = exports.GET_REVIEWS_FAIL = exports.ADD_REVIEW_SUCCESS = exports.ADD_REVIEW_REQUEST = exports.ADD_REVIEW_FAIL = void 0;
 const GET_REVIEWS_REQUEST = 'GET_REVIEWS_REQUEST';
 exports.GET_REVIEWS_REQUEST = GET_REVIEWS_REQUEST;
 const GET_REVIEWS_SUCCESS = 'GET_REVIEWS_SUCCESS';
 exports.GET_REVIEWS_SUCCESS = GET_REVIEWS_SUCCESS;
 const GET_REVIEWS_FAIL = 'GET_REVIEWS_FAIL';
 exports.GET_REVIEWS_FAIL = GET_REVIEWS_FAIL;
+const ADD_REVIEW_REQUEST = 'ADD_REVIEW_REQUEST';
+exports.ADD_REVIEW_REQUEST = ADD_REVIEW_REQUEST;
+const ADD_REVIEW_SUCCESS = 'ADD_REVIEW_SUCCESS';
+exports.ADD_REVIEW_SUCCESS = ADD_REVIEW_SUCCESS;
+const ADD_REVIEW_FAIL = 'ADD_REVIEW_FAIL';
+exports.ADD_REVIEW_FAIL = ADD_REVIEW_FAIL;
 },{}],"reducers/reviewReducer.js":[function(require,module,exports) {
 "use strict";
 
@@ -37626,6 +37632,23 @@ const reviewReducer = function () {
       };
 
     case _reviewConstants.GET_REVIEWS_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload
+      };
+
+    case _reviewConstants.ADD_REVIEW_REQUEST:
+      return {
+        isLoading: true
+      };
+
+    case _reviewConstants.ADD_REVIEW_SUCCESS:
+      return {
+        isLoading: false,
+        message: action.payload.message
+      };
+
+    case _reviewConstants.ADD_REVIEW_FAIL:
       return {
         isLoading: false,
         error: action.payload
@@ -72240,7 +72263,7 @@ module.exports = require('./lib/axios');
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.getReviews = exports.fetchMoviesByGenre = exports.fetchMoviesByDirector = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchGenres = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addFavourites = void 0;
+exports.userRegister = exports.userLogin = exports.updateProfile = exports.removeFavourites = exports.loadProfile = exports.getReviews = exports.fetchMoviesByGenre = exports.fetchMoviesByDirector = exports.fetchMoviesByActor = exports.fetchMovieById = exports.fetchGenres = exports.fetchFavourites = exports.fetchAllMovies = exports.deleteProfile = exports.addReview = exports.addFavourites = void 0;
 
 var _url = _interopRequireDefault(require("./url"));
 
@@ -72442,6 +72465,21 @@ const getReviews = movieId => {
 };
 
 exports.getReviews = getReviews;
+
+const addReview = (movieId, reviewData) => {
+  const token = getToken();
+  return _axios.default.post(`${_url.default.movies}/${movieId}/reviews`, {
+    caption: reviewData.caption,
+    comment: reviewData.comment,
+    stars: reviewData.stars
+  }, {
+    headers: {
+      Authorization: `${token}`
+    }
+  });
+};
+
+exports.addReview = addReview;
 },{"./url":"api/url.js","axios":"../node_modules/axios/index.js","../store":"store.js"}],"actions/userAction.js":[function(require,module,exports) {
 "use strict";
 
@@ -79874,18 +79912,13 @@ exports.default = _default;
 module.exports = "/calendar-icon.240e075c.png";
 },{}],"../public/time-icon.png":[function(require,module,exports) {
 module.exports = "/time-icon.1531c330.png";
-},{}],"pages/movieDetails/movieDetails.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"actions/reviewAction.js":[function(require,module,exports) {
+},{}],"actions/reviewAction.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getReviews = void 0;
+exports.getReviews = exports.addReview = void 0;
 
 var api = _interopRequireWildcard(require("../api"));
 
@@ -79916,6 +79949,29 @@ const getReviews = movieId => async dispatch => {
 };
 
 exports.getReviews = getReviews;
+
+const addReview = (movieId, reviewData) => async dispatch => {
+  try {
+    dispatch({
+      type: _reviewConstants.ADD_REVIEW_REQUEST
+    });
+    console.log(movieId, reviewData);
+    const {
+      data
+    } = await api.addReview(movieId, reviewData);
+    dispatch({
+      type: _reviewConstants.ADD_REVIEW_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: _reviewConstants.ADD_REVIEW_FAIL,
+      payload: error.response?.data.message
+    });
+  }
+};
+
+exports.addReview = addReview;
 },{"../api":"api/index.js","../constants/reviewConstants":"constants/reviewConstants.js"}],"components/reviewForm/reviewForm.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
@@ -79939,26 +79995,39 @@ var _reactBootstrap = require("react-bootstrap");
 
 require("./reviewForm.scss");
 
+var _reactRedux = require("react-redux");
+
+var _reviewAction = require("../../actions/reviewAction");
+
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const ReviewForm = () => {
+const ReviewForm = _ref => {
+  let {
+    movieId
+  } = _ref;
+  const dispatch = (0, _reactRedux.useDispatch)();
   return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
     initialValues: {
       caption: '',
       comment: '',
       stars: 1
     },
-    onSubmit: (values, _ref) => {
+    onSubmit: (values, _ref2) => {
       let {
         setSubmitting,
         resetForm
-      } = _ref;
-      console.log(parseInt(values.stars), { ...values
-      });
+      } = _ref2;
+      let reviewData = {
+        caption: values.caption,
+        comment: values.comment,
+        stars: parseInt(values.stars)
+      };
+      dispatch((0, _reviewAction.addReview)(movieId, reviewData));
+      dispatch((0, _reviewAction.getReviews)(movieId));
       resetForm(); // dispatch(updateProfile(values));
     },
     validationSchema: Yup.object().shape({
@@ -80068,7 +80137,12 @@ const ReviewForm = () => {
 
 var _default = ReviewForm;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./reviewForm.scss":"components/reviewForm/reviewForm.scss"}],"pages/movieDetails/MovieDetails.jsx":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./reviewForm.scss":"components/reviewForm/reviewForm.scss","react-redux":"../node_modules/react-redux/es/index.js","../../actions/reviewAction":"actions/reviewAction.js"}],"pages/movieDetails/movieDetails.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"pages/movieDetails/MovieDetails.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -80094,13 +80168,13 @@ var _timeIcon = _interopRequireDefault(require("../../../public/time-icon.png"))
 
 var _profileIcon = _interopRequireDefault(require("../../../public/profileIcon.png"));
 
-require("./movieDetails.scss");
-
 var _movieAction = require("../../actions/movieAction");
 
 var _reviewAction = require("../../actions/reviewAction");
 
 var _ReviewForm = _interopRequireDefault(require("../../components/reviewForm/ReviewForm"));
+
+require("./movieDetails.scss");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80119,12 +80193,13 @@ const MovieDetails = () => {
   } = (0, _reactRedux.useSelector)(state => state.movies);
   const {
     reviews,
-    count
+    count,
+    message
   } = (0, _reactRedux.useSelector)(state => state.reviews);
   (0, _react.useEffect)(() => {
     dispatch((0, _movieAction.fetchMovieDetails)(movieId));
     dispatch((0, _reviewAction.getReviews)(movieId));
-  }, [dispatch]);
+  }, [dispatch, message]);
   return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     style: {
       marginInline: 'auto'
@@ -80224,9 +80299,11 @@ const MovieDetails = () => {
     variant: "warning"
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-title"
-  }, "Reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, ' ', /*#__PURE__*/_react.default.createElement(_ReviewForm.default, null), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, "Reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "text-muted justify-content-center"
-  }, count, " reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, count, " reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, ' ', /*#__PURE__*/_react.default.createElement(_ReviewForm.default, {
+    movieId: movieId
+  }), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-content"
   }, movie ? reviews && count !== 0 ? reviews.map((review, idx) => /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     className: "review-card",
@@ -80238,7 +80315,8 @@ const MovieDetails = () => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center'
-    }
+    },
+    className: "review-card__profile-col"
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: _profileIcon.default,
     alt: "profile image",
@@ -80252,14 +80330,18 @@ const MovieDetails = () => {
   }, review.postedBy.username), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-card-content__sub text-muted"
   }, (0, _moment.default)(review.createdAt).startOf('second').fromNow())), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {
-    style: {
-      marginInline: 'auto'
-    },
     className: "stars-col"
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: _starIcon.default,
     alt: "stars icon"
-  }), /*#__PURE__*/_react.default.createElement("div", null, review.stars), " / 10")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.caption), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.comment))), /*#__PURE__*/_react.default.createElement("hr", null))) : /*#__PURE__*/_react.default.createElement("h1", {
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    style: {
+      fontSize: '3rem',
+      color: `${review.stars <= 4 ? 'red' : review.stars < 8 ? 'var(--warning)' : 'green'}`
+    }
+  }, review.stars), ' ', "/ 10")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "caption"
+  }, review.caption), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.comment))), /*#__PURE__*/_react.default.createElement("hr", null))) : /*#__PURE__*/_react.default.createElement("h1", {
     style: {
       color: 'var(--clr-text-body)',
       marginBlock: '2rem'
@@ -80272,7 +80354,7 @@ const MovieDetails = () => {
 
 var _default = MovieDetails;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../../public/calendar-icon.png":"../public/calendar-icon.png","../../../public/star-icon.png":"../public/star-icon.png","../../../public/time-icon.png":"../public/time-icon.png","../../../public/profileIcon.png":"../public/profileIcon.png","./movieDetails.scss":"pages/movieDetails/movieDetails.scss","../../actions/movieAction":"actions/movieAction.js","../../actions/reviewAction":"actions/reviewAction.js","../../components/reviewForm/ReviewForm":"components/reviewForm/ReviewForm.jsx"}],"pages/actor/actor.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../../public/calendar-icon.png":"../public/calendar-icon.png","../../../public/star-icon.png":"../public/star-icon.png","../../../public/time-icon.png":"../public/time-icon.png","../../../public/profileIcon.png":"../public/profileIcon.png","../../actions/movieAction":"actions/movieAction.js","../../actions/reviewAction":"actions/reviewAction.js","../../components/reviewForm/ReviewForm":"components/reviewForm/ReviewForm.jsx","./movieDetails.scss":"pages/movieDetails/movieDetails.scss"}],"pages/actor/actor.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);

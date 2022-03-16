@@ -2,6 +2,9 @@ import {
   GET_REVIEWS_REQUEST,
   GET_REVIEWS_SUCCESS,
   GET_REVIEWS_FAIL,
+  ADD_REVIEW_REQUEST,
+  ADD_REVIEW_SUCCESS,
+  ADD_REVIEW_FAIL,
 } from '../constants/reviewConstants';
 
 export const reviewReducer = (state = { reviews: [] }, action) => {
@@ -20,6 +23,23 @@ export const reviewReducer = (state = { reviews: [] }, action) => {
       };
 
     case GET_REVIEWS_FAIL:
+      return {
+        isLoading: false,
+        error: action.payload,
+      };
+
+    case ADD_REVIEW_REQUEST:
+      return {
+        isLoading: true,
+      };
+
+    case ADD_REVIEW_SUCCESS:
+      return {
+        isLoading: false,
+        message: action.payload.message,
+      };
+
+    case ADD_REVIEW_FAIL:
       return {
         isLoading: false,
         error: action.payload,

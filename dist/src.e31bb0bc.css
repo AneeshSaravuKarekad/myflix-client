@@ -411,6 +411,48 @@
 .profile-container .profile-form .form-container {
   margin-inline: auto;
 }
+.review-form select {
+  cursor: pointer;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border-radius: 20px;
+  background-color: rgba(255, 193, 5, 0.1);
+  color: var(--clr-text-heading);
+  border-color: var(--warning);
+  outline: none;
+}
+.review-form select option {
+  background-color: var(--warning);
+  color: black;
+  margin-block: 2rem;
+}
+.review-form__top-label {
+  font-size: 1.25rem;
+}
+.review-form__top-control {
+  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #1a1a1a !important;
+  background: transparent;
+  color: white;
+}
+.review-form__top-control:focus {
+  border: 1px solid var(--clr-primary-200) !important;
+  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  color: white;
+}
+.review-form__bottom-control {
+  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
+  border: 2px solid #1a1a1a;
+  background: transparent;
+  color: white;
+}
+.review-form__bottom-control:focus {
+  border: 1px solid var(--clr-primary-200);
+  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
+  background: transparent;
+  color: white;
+}
 .movie-page {
   margin-top: 3rem;
   justify-content: center;
@@ -491,6 +533,9 @@
   justify-content: center;
   font-size: 2rem;
 }
+.review-row-content .caption {
+  font-size: 1.25rem;
+}
 
 .review-card {
   margin-bottom: 2rem;
@@ -498,60 +543,46 @@
   max-width: 1200px;
   color: var(--clr-text-body);
 }
+@media screen and (max-width: 500px) {
+  .review-card__profile-col {
+    width: 75px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .review-card-content {
+    font-size: 1rem;
+  }
+  .review-card-content .row {
+    flex-direction: column !important;
+  }
+}
 .review-card-content__header {
-  color: var(--clr-text-heading);
+  color: var(--warning);
+  font-size: 1.25rem;
+}
+@media screen and (max-width: 500px) {
+  .review-card-content__header {
+    font-size: 1rem;
+  }
 }
 .review-card-content .stars-col {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  margin-inline: 0;
+}
+@media screen and (max-width: 500px) {
+  .review-card-content .stars-col {
+    justify-content: flex-start;
+  }
+  .review-card-content .stars-col div {
+    font-size: 1.75rem !important;
+  }
 }
 .review-card-content .stars-col img {
   margin-inline: 1rem;
   width: 30px;
   height: 30px;
-}
-.review-form select {
-  cursor: pointer;
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
-  border-radius: 20px;
-  background-color: rgba(255, 193, 5, 0.1);
-  color: var(--clr-text-heading);
-  border-color: var(--warning);
-  outline: none;
-}
-.review-form select option {
-  background-color: var(--warning);
-  color: black;
-  margin-block: 2rem;
-}
-.review-form__top-label {
-  font-size: 1.25rem;
-}
-.review-form__top-control {
-  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
-  border: 2px solid #1a1a1a !important;
-  background: transparent;
-  color: white;
-}
-.review-form__top-control:focus {
-  border: 1px solid var(--clr-primary-200) !important;
-  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
-  background: transparent;
-  color: white;
-}
-.review-form__bottom-control {
-  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
-  border: 2px solid #1a1a1a;
-  background: transparent;
-  color: white;
-}
-.review-form__bottom-control:focus {
-  border: 1px solid var(--clr-primary-200);
-  box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5), inset 4px 4px 10px rgba(0, 0, 0, 0.5), inset -4px -4px 10px rgba(67, 67, 67, 0.3), 4px 4px 10px rgba(0, 0, 0, 0.3);
-  background: transparent;
-  color: white;
 }
 .actor-container {
   margin-top: 3rem;

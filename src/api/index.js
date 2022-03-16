@@ -128,3 +128,16 @@ export const getReviews = (movieId) => {
     headers: { Authorization: `${token}` },
   });
 };
+
+export const addReview = (movieId, reviewData) => {
+  const token = getToken();
+  return axios.post(
+    `${URL.movies}/${movieId}/reviews`,
+    {
+      caption: reviewData.caption,
+      comment: reviewData.comment,
+      stars: reviewData.stars,
+    },
+    { headers: { Authorization: `${token}` } }
+  );
+};
