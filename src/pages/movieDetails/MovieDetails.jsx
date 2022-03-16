@@ -138,13 +138,20 @@ const MovieDetails = () => {
           <Spinner animation="border" variant="warning" />
         )}
       </Row>
-      <Row className="review-row-title">Reviews</Row>
-      <Row className="text-muted justify-content-center">{count} reviews</Row>
+      {movie && !isLoading && (
+        <>
+          <Row className="review-row-title">Reviews</Row>
+          <Row className="text-muted justify-content-center">
+            {count} reviews
+          </Row>
 
-      <Row>
-        {' '}
-        <ReviewForm movieId={movieId} />{' '}
-      </Row>
+          <Row>
+            {' '}
+            <ReviewForm movieId={movieId} />{' '}
+          </Row>
+        </>
+      )}
+
       <Row className="review-row-content">
         {movie ? (
           reviews && count !== 0 ? (

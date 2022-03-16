@@ -80311,13 +80311,13 @@ const MovieDetails = () => {
   }))) : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",
     variant: "warning"
-  })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  })), movie && !isLoading && /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-title"
   }, "Reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "text-muted justify-content-center"
   }, count, " reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, ' ', /*#__PURE__*/_react.default.createElement(_ReviewForm.default, {
     movieId: movieId
-  }), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }), ' ')), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-content"
   }, movie ? reviews && count !== 0 ? reviews.map((review, idx) => /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     className: "review-card",
