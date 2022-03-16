@@ -13,8 +13,10 @@ const ReviewForm = () => {
         comment: '',
         stars: 1,
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         console.log(parseInt(values.stars), { ...values });
+
+        resetForm();
         // dispatch(updateProfile(values));
       }}
       validationSchema={Yup.object().shape({

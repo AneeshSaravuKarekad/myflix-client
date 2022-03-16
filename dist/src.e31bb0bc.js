@@ -79954,10 +79954,12 @@ const ReviewForm = () => {
     },
     onSubmit: (values, _ref) => {
       let {
-        setSubmitting
+        setSubmitting,
+        resetForm
       } = _ref;
       console.log(parseInt(values.stars), { ...values
-      }); // dispatch(updateProfile(values));
+      });
+      resetForm(); // dispatch(updateProfile(values));
     },
     validationSchema: Yup.object().shape({
       caption: Yup.string().required('Caption is required'),
