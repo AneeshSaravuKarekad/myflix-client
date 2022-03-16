@@ -40,10 +40,11 @@
       &__input {
         justify-content: center;
         &-select {
+          cursor: pointer;
           padding-inline: 1rem;
           padding-block: 0.5rem;
           border-radius: 20px;
-          background-color: transparent;
+          background-color: hsl(45, 100%, 51%, 0.1);
           color: var(--clr-text-heading);
           border-color: var(--warning);
           outline: none;

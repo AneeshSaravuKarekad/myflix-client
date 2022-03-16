@@ -80071,6 +80071,8 @@ const MovieDetails = () => {
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-title"
   }, "Reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "text-muted justify-content-center"
+  }, count, " reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-content"
   }, movie ? reviews && count !== 0 ? reviews.map((review, idx) => /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     className: "review-card",
@@ -80103,9 +80105,10 @@ const MovieDetails = () => {
   }, /*#__PURE__*/_react.default.createElement("img", {
     src: _starIcon.default,
     alt: "stars icon"
-  }), review.stars, " / 10")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.caption), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.comment))), /*#__PURE__*/_react.default.createElement("hr", null))) : /*#__PURE__*/_react.default.createElement("h1", {
+  }), /*#__PURE__*/_react.default.createElement("div", null, review.stars), " / 10")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.caption), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, review.comment))), /*#__PURE__*/_react.default.createElement("hr", null))) : /*#__PURE__*/_react.default.createElement("h1", {
     style: {
-      color: 'var(--clr-text-body)'
+      color: 'var(--clr-text-body)',
+      marginBlock: '2rem'
     }
   }, "No reviews Yet..") : /*#__PURE__*/_react.default.createElement(_reactBootstrap.Spinner, {
     animation: "border",
@@ -93926,8 +93929,8 @@ const Home = () => {
       key: genre.name,
       alt: "chevron"
     })), /*#__PURE__*/_react.default.createElement(_swiperReact.Swiper, {
-      modules: [_swiper.Navigation, _swiper.Pagination, _swiper.Scrollbar, _swiper.A11y] // spaceBetween={50}
-      ,
+      modules: [_swiper.Navigation, _swiper.Pagination, _swiper.Scrollbar, _swiper.A11y],
+      spaceBetween: 0,
       slidesPerView: 6,
       navigation: true,
       pagination: {
@@ -93940,14 +93943,25 @@ const Home = () => {
       onSwiper: swiper => console.log(swiper),
       breakpoints: {
         // when window width is >= 0px
-        0: {
-          width: 0,
-          slidesPerView: 1.1
+        1696: {
+          width: 1696,
+          slidesPerView: 6
         },
-        // when window width is >= 400px
-        400: {
-          width: 400,
-          slidesPerView: 1.1
+        1520: {
+          width: 1520,
+          slidesPerView: 5
+        },
+        1400: {
+          width: 1400,
+          slidesPerView: 4
+        },
+        1200: {
+          width: 1200,
+          slidesPerView: 3.5
+        },
+        1092: {
+          width: 1092,
+          slidesPerView: 3
         }
       }
     }, genre.movies.map((movie, idx) => /*#__PURE__*/_react.default.createElement(_swiperReact.SwiperSlide, {
@@ -94480,7 +94494,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55532" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62628" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -49,7 +49,7 @@ const Home = () => {
                 </Link>
                 <Swiper
                   modules={[Navigation, Pagination, Scrollbar, A11y]}
-                  // spaceBetween={50}
+                  spaceBetween={0}
                   slidesPerView={6}
                   navigation={true}
                   pagination={{ clickable: true }}
@@ -58,15 +58,27 @@ const Home = () => {
                   onSwiper={(swiper) => console.log(swiper)}
                   breakpoints={{
                     // when window width is >= 0px
-                    0: {
-                      width: 0,
-                      slidesPerView: 1.1,
+                    1696: {
+                      width: 1696,
+                      slidesPerView: 6,
                     },
-                    // when window width is >= 400px
 
-                    400: {
-                      width: 400,
-                      slidesPerView: 1.1,
+                    1520: {
+                      width: 1520,
+                      slidesPerView: 5,
+                    },
+
+                    1400: {
+                      width: 1400,
+                      slidesPerView: 4,
+                    },
+                    1200: {
+                      width: 1200,
+                      slidesPerView: 3.5,
+                    },
+                    1092: {
+                      width: 1092,
+                      slidesPerView: 3,
                     },
                   }}
                 >

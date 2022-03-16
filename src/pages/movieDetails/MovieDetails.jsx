@@ -138,6 +138,7 @@ const MovieDetails = () => {
         )}
       </Row>
       <Row className="review-row-title">Reviews</Row>
+      <Row className="text-muted justify-content-center">{count} reviews</Row>
       <Row className="review-row-content">
         {movie ? (
           reviews && count !== 0 ? (
@@ -174,7 +175,7 @@ const MovieDetails = () => {
                         className="stars-col"
                       >
                         <img src={starIcon} alt="stars icon" />
-                        {review.stars} / 10
+                        <div>{review.stars}</div> / 10
                       </Col>
                     </Row>
 
@@ -186,7 +187,9 @@ const MovieDetails = () => {
               </Container>
             ))
           ) : (
-            <h1 style={{ color: 'var(--clr-text-body)' }}>No reviews Yet..</h1>
+            <h1 style={{ color: 'var(--clr-text-body)', marginBlock: '2rem' }}>
+              No reviews Yet..
+            </h1>
           )
         ) : (
           <Spinner animation="border" variant="warning" />
