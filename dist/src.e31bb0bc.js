@@ -70151,7 +70151,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-const DEPLOYED_URL = 'http://localhost:8000/api';
+const DEPLOYED_URL = 'https://myflix-api-app.herokuapp.com/api';
 var _default = {
   base: `${DEPLOYED_URL}`,
   movies: `${DEPLOYED_URL}/movies`,
@@ -80319,7 +80319,7 @@ const MovieDetails = () => {
     movieId: movieId
   }), ' ')), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-content"
-  }, movie ? reviews && count !== 0 ? reviews.map((review, idx) => /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
+  }, movie ? reviews && count !== 0 ? reviews.map((review, idx) => review.postedBy && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Container, {
     className: "review-card",
     key: idx
   }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Col, {

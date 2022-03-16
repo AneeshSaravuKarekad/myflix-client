@@ -1,4 +1,4 @@
-const DEPLOYED_URL = 'http://localhost:8000/api';
+const DEPLOYED_URL = 'https://myflix-api-app.herokuapp.com/api';
 
 export default {
   base: `${DEPLOYED_URL}`,

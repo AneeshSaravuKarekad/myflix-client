@@ -155,62 +155,67 @@ const MovieDetails = () => {
       <Row className="review-row-content">
         {movie ? (
           reviews && count !== 0 ? (
-            reviews.map((review, idx) => (
-              <Container className="review-card" key={idx}>
-                <Row>
-                  <Col
-                    sm="2"
-                    style={{
-                      maxWidth: '90px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                    className="review-card__profile-col"
-                  >
-                    <img
-                      src={profileIcon}
-                      alt="profile image"
-                      style={{ width: '100%' }}
-                    />
-                  </Col>
-                  <Col className="review-card-content">
+            reviews.map(
+              (review, idx) =>
+                review.postedBy && (
+                  <Container className="review-card" key={idx}>
                     <Row>
-                      <Col>
-                        <Row className="review-card-content__header">
-                          {review.postedBy.username}
-                        </Row>
-                        <Row className="review-card-content__sub text-muted">
-                          {moment(review.createdAt).startOf('second').fromNow()}
-                        </Row>
+                      <Col
+                        sm="2"
+                        style={{
+                          maxWidth: '90px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                        className="review-card__profile-col"
+                      >
+                        <img
+                          src={profileIcon}
+                          alt="profile image"
+                          style={{ width: '100%' }}
+                        />
                       </Col>
-                      <Col className="stars-col">
-                        <img src={starIcon} alt="stars icon" />
-                        <div
-                          style={{
-                            fontSize: '3rem',
-                            color: `${
-                              review.stars <= 4
-                                ? 'red'
-                                : review.stars < 8
-                                ? 'var(--warning)'
-                                : 'green'
-                            }`,
-                          }}
-                        >
-                          {review.stars}
-                        </div>{' '}
-                        / 10
+                      <Col className="review-card-content">
+                        <Row>
+                          <Col>
+                            <Row className="review-card-content__header">
+                              {review.postedBy.username}
+                            </Row>
+                            <Row className="review-card-content__sub text-muted">
+                              {moment(review.createdAt)
+                                .startOf('second')
+                                .fromNow()}
+                            </Row>
+                          </Col>
+                          <Col className="stars-col">
+                            <img src={starIcon} alt="stars icon" />
+                            <div
+                              style={{
+                                fontSize: '3rem',
+                                color: `${
+                                  review.stars <= 4
+                                    ? 'red'
+                                    : review.stars < 8
+                                    ? 'var(--warning)'
+                                    : 'green'
+                                }`,
+                              }}
+                            >
+                              {review.stars}
+                            </div>{' '}
+                            / 10
+                          </Col>
+                        </Row>
+
+                        <Row className="caption">{review.caption}</Row>
+                        <Row>{review.comment}</Row>
                       </Col>
                     </Row>
-
-                    <Row className="caption">{review.caption}</Row>
-                    <Row>{review.comment}</Row>
-                  </Col>
-                </Row>
-                <hr />
-              </Container>
-            ))
+                    <hr />
+                  </Container>
+                )
+            )
           ) : (
             <h1 style={{ color: 'var(--clr-text-body)', marginBlock: '2rem' }}>
               No reviews Yet..
