@@ -13,6 +13,7 @@ import './movieDetails.scss';
 
 import { fetchMovieDetails } from '../../actions/movieAction';
 import { getReviews } from '../../actions/reviewAction';
+import ReviewForm from '../../components/reviewForm/ReviewForm';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
@@ -138,6 +139,10 @@ const MovieDetails = () => {
         )}
       </Row>
       <Row className="review-row-title">Reviews</Row>
+      <Row>
+        {' '}
+        <ReviewForm />{' '}
+      </Row>
       <Row className="text-muted justify-content-center">{count} reviews</Row>
       <Row className="review-row-content">
         {movie ? (

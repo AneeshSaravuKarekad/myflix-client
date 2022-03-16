@@ -79916,7 +79916,157 @@ const getReviews = movieId => async dispatch => {
 };
 
 exports.getReviews = getReviews;
-},{"../api":"api/index.js","../constants/reviewConstants":"constants/reviewConstants.js"}],"pages/movieDetails/MovieDetails.jsx":[function(require,module,exports) {
+},{"../api":"api/index.js","../constants/reviewConstants":"constants/reviewConstants.js"}],"components/reviewForm/reviewForm.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../../../../../AppData/Local/Yarn/Data/global/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/reviewForm/ReviewForm.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _formik = require("formik");
+
+var Yup = _interopRequireWildcard(require("yup"));
+
+var _reactBootstrap = require("react-bootstrap");
+
+require("./reviewForm.scss");
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+const ReviewForm = () => {
+  return /*#__PURE__*/_react.default.createElement(_formik.Formik, {
+    initialValues: {
+      caption: '',
+      comment: '',
+      stars: 1
+    },
+    onSubmit: (values, _ref) => {
+      let {
+        setSubmitting
+      } = _ref;
+      console.log(parseInt(values.stars), { ...values
+      }); // dispatch(updateProfile(values));
+    },
+    validationSchema: Yup.object().shape({
+      caption: Yup.string().required('Caption is required'),
+      comment: Yup.string().required('Comment is required'),
+      stars: Yup.number().integer().required('Please rate your experience')
+    })
+  }, props => {
+    const {
+      values,
+      touched,
+      isValid,
+      errors,
+      isSubmitting,
+      handleChange,
+      handleBlur,
+      handleSubmit
+    } = props;
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "form-container",
+      style: {
+        width: '100%'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form, {
+      className: "auth-form review-form",
+      onSubmit: handleSubmit
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+      className: "mb-3"
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, {
+      className: "mb-3 review-form__top-label",
+      style: {
+        marginRight: '1rem'
+      }
+    }, "Rating"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Select, {
+      "aria-label": "select rating",
+      name: "stars",
+      value: values.stars,
+      onChange: handleChange,
+      className: errors.stars && touched.stars && 'error'
+    }, /*#__PURE__*/_react.default.createElement("option", {
+      value: 1
+    }, "One"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 2
+    }, "Two"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 3
+    }, "Three"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 4
+    }, "Four"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 5
+    }, "Five"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 6
+    }, "Six"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 7
+    }, "Seven"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 8
+    }, "Eight"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 9
+    }, "Nine"), /*#__PURE__*/_react.default.createElement("option", {
+      value: 10
+    }, "Ten")), errors.stars && touched.stars && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.stars)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+      className: "mb-3 review-form__top"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, {
+      className: "mb-3 review-form__top-label"
+    }, "Caption"), errors.caption && touched.caption && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.caption)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+      type: "text",
+      name: "caption",
+      onBlur: handleBlur,
+      value: values.caption,
+      onChange: handleChange,
+      className: errors.comment && touched.comment ? 'mb-3 review-form__top-control error' : 'mb-3 review-form__top-control'
+    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
+      className: "mb-3 review-form__bottom"
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      style: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }
+    }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Label, {
+      className: "mb-3 review-form__bottom-label"
+    }, "Comment"), errors.comment && touched.comment && /*#__PURE__*/_react.default.createElement("div", {
+      className: "input-feedback"
+    }, errors.comment)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Control, {
+      as: "textarea",
+      name: "comment",
+      onBlur: handleBlur,
+      rows: 3,
+      value: values.comment,
+      onChange: handleChange,
+      className: errors.comment && touched.comment ? 'review-form__bottom-control error' : 'review-form__bottom-control'
+    })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      type: "submit",
+      variant: "outline-warning"
+    }, "Post")));
+  });
+};
+
+var _default = ReviewForm;
+exports.default = _default;
+},{"react":"../node_modules/react/index.js","formik":"../node_modules/formik/dist/formik.esm.js","yup":"../node_modules/yup/es/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./reviewForm.scss":"components/reviewForm/reviewForm.scss"}],"pages/movieDetails/MovieDetails.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -79947,6 +80097,8 @@ require("./movieDetails.scss");
 var _movieAction = require("../../actions/movieAction");
 
 var _reviewAction = require("../../actions/reviewAction");
+
+var _ReviewForm = _interopRequireDefault(require("../../components/reviewForm/ReviewForm"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -80070,7 +80222,7 @@ const MovieDetails = () => {
     variant: "warning"
   })), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-title"
-  }, "Reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }, "Reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, null, ' ', /*#__PURE__*/_react.default.createElement(_ReviewForm.default, null), ' '), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "text-muted justify-content-center"
   }, count, " reviews"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "review-row-content"
@@ -80118,7 +80270,7 @@ const MovieDetails = () => {
 
 var _default = MovieDetails;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../../public/calendar-icon.png":"../public/calendar-icon.png","../../../public/star-icon.png":"../public/star-icon.png","../../../public/time-icon.png":"../public/time-icon.png","../../../public/profileIcon.png":"../public/profileIcon.png","./movieDetails.scss":"pages/movieDetails/movieDetails.scss","../../actions/movieAction":"actions/movieAction.js","../../actions/reviewAction":"actions/reviewAction.js"}],"pages/actor/actor.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-redux":"../node_modules/react-redux/es/index.js","react-router-dom":"../node_modules/react-router-dom/index.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","moment":"../node_modules/moment/moment.js","../../../public/calendar-icon.png":"../public/calendar-icon.png","../../../public/star-icon.png":"../public/star-icon.png","../../../public/time-icon.png":"../public/time-icon.png","../../../public/profileIcon.png":"../public/profileIcon.png","./movieDetails.scss":"pages/movieDetails/movieDetails.scss","../../actions/movieAction":"actions/movieAction.js","../../actions/reviewAction":"actions/reviewAction.js","../../components/reviewForm/ReviewForm":"components/reviewForm/ReviewForm.jsx"}],"pages/actor/actor.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);

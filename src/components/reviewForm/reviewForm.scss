@@ -1,0 +1,64 @@
+.review-form {
+  select {
+    cursor: pointer;
+    padding-inline: 1rem;
+    padding-block: 0.5rem;
+    border-radius: 20px;
+    background-color: hsl(45, 100%, 51%, 0.1);
+    color: var(--clr-text-heading);
+    border-color: var(--warning);
+    outline: none;
+    option {
+      background-color: var(--warning);
+      color: black;
+      margin-block: 2rem;
+    }
+  }
+
+  &__top {
+    &-label {
+      font-size: 1.25rem;
+    }
+    &-control {
+      box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+        inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+        inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+        4px 4px 10px rgba(0, 0, 0, 0.3);
+      border: 2px solid hsl(0, 0%, 10%) !important;
+      background: transparent;
+      color: white;
+      &:focus {
+        border: 1px solid var(--clr-primary-200) !important;
+        box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+          inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+          inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+          4px 4px 10px rgba(0, 0, 0, 0.3);
+        background: transparent;
+        color: white;
+      }
+    }
+  }
+
+  &__bottom {
+    &-control {
+      box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+        inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+        inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+        4px 4px 10px rgba(0, 0, 0, 0.3);
+      border: 2px solid hsl(0, 0%, 10%);
+      background: transparent;
+      color: white;
+
+      &:focus {
+        border: 1px solid var(--clr-primary-200);
+
+        box-shadow: -4px -4px 10px rgba(67, 67, 67, 0.5),
+          inset 4px 4px 10px rgba(0, 0, 0, 0.5),
+          inset -4px -4px 10px rgba(67, 67, 67, 0.3),
+          4px 4px 10px rgba(0, 0, 0, 0.3);
+        background: transparent;
+        color: white;
+      }
+    }
+  }
+}
