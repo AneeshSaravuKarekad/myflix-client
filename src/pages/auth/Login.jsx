@@ -38,11 +38,14 @@ const Login = ({ toggle, dispatchUserLogin }) => {
     <Formik
       initialValues={{ email: '', password: '' }}
       onSubmit={(values, { setSubmitting }) => {
-        const { email, password } = values;
-        dispatchUserLogin({
-          email,
-          password,
-        });
+        setTimeout(() => {
+          const { email, password } = values;
+          dispatchUserLogin({
+            email,
+            password,
+          });
+          setSubmitting(false);
+        }, 500);
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()

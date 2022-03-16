@@ -45,7 +45,10 @@ const Register = ({ toggle, dispatchUserRegister }) => {
         birthDate: '',
       }}
       onSubmit={(values, { setSubmitting }) => {
-        dispatchUserRegister(values);
+        setTimeout(() => {
+          dispatchUserRegister(values);
+          setSubmitting(false);
+        }, 500);
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()

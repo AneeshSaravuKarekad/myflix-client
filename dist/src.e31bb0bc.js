@@ -72673,14 +72673,17 @@ const Login = _ref => {
       let {
         setSubmitting
       } = _ref2;
-      const {
-        email,
-        password
-      } = values;
-      dispatchUserLogin({
-        email,
-        password
-      });
+      setTimeout(() => {
+        const {
+          email,
+          password
+        } = values;
+        dispatchUserLogin({
+          email,
+          password
+        });
+        setSubmitting(false);
+      }, 500);
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email('Invalid Email').required('Email is required'),
@@ -72847,7 +72850,10 @@ const Register = _ref => {
       let {
         setSubmitting
       } = _ref2;
-      dispatchUserRegister(values);
+      setTimeout(() => {
+        dispatchUserRegister(values);
+        setSubmitting(false);
+      }, 500);
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email('Invalid Email').required('Email is required'),
@@ -79672,8 +79678,10 @@ const Update = _ref => {
       let {
         setSubmitting
       } = _ref2;
-      console.log(values);
-      dispatch((0, _userAction.updateProfile)(values));
+      setTimeout(() => {
+        dispatch((0, _userAction.updateProfile)(values));
+        setSubmitting(false);
+      }, 500);
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email('Invalid Email').required('Email is required'),

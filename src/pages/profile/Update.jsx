@@ -44,8 +44,11 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
         birthDate: prevBirthDate,
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
-        dispatch(updateProfile(values));
+        setTimeout(() => {
+          dispatch(updateProfile(values));
+
+          setSubmitting(false);
+        }, 500);
       }}
       validationSchema={Yup.object().shape({
         email: Yup.string()
