@@ -73883,7 +73883,13 @@ const Favourites = _ref => {
       width: '20px',
       height: '20px'
     }
-  }))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+  }))), count === 0 && /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
+    className: "justify-content-center movies-page-row",
+    style: {
+      color: 'var(--clr-text-body)',
+      fontSize: '2rem'
+    }
+  }, "No Favourites"), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Row, {
     className: "justify-content-center movies-page-row"
   }, !isLoading && result ? result.map((movie, idx) => {
     let isFav = false;

@@ -93,10 +93,10 @@
   }
   &-content {
     @media screen and (max-width: 500px) {
+      font-size: 1rem;
       .row {
         flex-direction: column !important;
       }
-      font-size: 1rem;
     }
     &__header {
       color: var(--warning);
@@ -110,22 +110,18 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
-
       margin-inline: 0;
+
       @media screen and (max-width: 500px) {
+        justify-content: flex-start;
         div {
-          // display: none;
           font-size: 1.75rem !important;
         }
-        justify-content: flex-start;
       }
       img {
         margin-inline: 1rem;
         width: 30px;
         height: 30px;
-        // @media screen and (max-width: 500px) {
-        //   margin-inline: 0;
-        // }
       }
     }
   }

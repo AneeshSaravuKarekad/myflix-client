@@ -23,6 +23,14 @@ const Favourites = ({ dispatchFetchFavourites }) => {
           <img src={StarIcon} style={{ width: '20px', height: '20px' }} />
         </div>
       </Row>
+      {count === 0 && (
+        <Row
+          className="justify-content-center movies-page-row"
+          style={{ color: 'var(--clr-text-body)', fontSize: '2rem' }}
+        >
+          No Favourites
+        </Row>
+      )}
       <Row className="justify-content-center movies-page-row">
         {!isLoading && result ? (
           result.map((movie, idx) => {
