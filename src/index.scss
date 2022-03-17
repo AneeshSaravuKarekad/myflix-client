@@ -27,6 +27,7 @@ ol[role='list'] {
 
 html {
   height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Set core root defaults */
@@ -41,8 +42,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: 'Roboto', sans-serif !important;
-  overflow-x: hidden;
-  // min-height: 100vh;
+  overflow-x: hidden !important;
 }
 
 /* A elements that don't have a class get default styles */
@@ -81,12 +81,12 @@ select {
   }
 }
 
-.container {
-  margin-inline: 0;
-}
-.col {
-  margin-inline: 0;
-}
-.row {
-  margin-inline: 0;
-}
+// .container {
+//   margin-inline: 0;
+// }
+// .col {
+//   margin-inline: 0;
+// }
+// .row {
+//   margin-inline: 0;
+// }
