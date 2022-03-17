@@ -1,7 +1,8 @@
 <div class='outer-container' style='width: 100%; margin-inline:auto;'>
-  <div class='banner-container' id='top' style='width: 100%; display: flex; justify-content: center'>
-    <img src='./public/myFlixLogo.png' alt='myFlix'/>
-  </div>
+  
+  <p align="center" width="100%" id='top'>
+    <img width="33%"  src='./public/myFlixLogo.png'>
+  </p
 
   <div class='heading' style='width: 100%; display: flex; justify-content: center; font-weight: bold'>
     <h3>A minimal movie browsing app made for non-commercial use</h3>
