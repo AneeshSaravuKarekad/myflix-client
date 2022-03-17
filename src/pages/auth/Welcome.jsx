@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Row } from 'react-bootstrap';
 
 import Logo from '../../../public/myFlixLogo.png';
-import Login from './login';
+import Login from './Login';
 import Register from './register';
 
 import './welcome.scss';
