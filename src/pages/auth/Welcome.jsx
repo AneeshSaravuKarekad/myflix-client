@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row } from 'react-bootstrap';
 
 import Logo from '../../../public/myFlixLogo.png';
 import Login from './Login';
-import Register from './register';
+import Register from './Register';
 
 import './welcome.scss';
 
