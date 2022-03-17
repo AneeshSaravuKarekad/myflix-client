@@ -578,11 +578,8 @@
   margin-inline: 0;
 }
 @media screen and (max-width: 500px) {
-  .review-card-content .stars-col {
-    justify-content: flex-start;
-  }
   .review-card-content .stars-col div {
-    font-size: 1.75rem !important;
+    font-size: 1.5rem !important;
   }
 }
 .review-card-content .stars-col img {
