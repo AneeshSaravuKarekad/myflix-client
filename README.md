@@ -9,8 +9,11 @@
   </div>
 
   <div class='badges-container' style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
+  
     ![GitHub last commit](https://img.shields.io/github/last-commit/AneeshSaravuKarekad/myflix-client)
+  
     [![License](https://img.shields.io/badge/license-MIT-red)](./LICENSE)
+  
   </div>
 
 </div>
