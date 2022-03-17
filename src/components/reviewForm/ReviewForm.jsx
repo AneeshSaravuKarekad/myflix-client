@@ -2,6 +2,7 @@ import React from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types'
 
 import './reviewForm.scss';
 import { useDispatch } from 'react-redux';
@@ -145,5 +146,9 @@ const ReviewForm = ({ movieId }) => {
     </Formik>
   );
 };
+
+ReviewForm.propTypes = {
+  movieId: PropTypes.string
+}
 
 export default ReviewForm;

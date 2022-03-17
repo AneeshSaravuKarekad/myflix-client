@@ -61445,6 +61445,8 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _formik = require("formik");
 var _yup = require("yup");
 var _reactBootstrap = require("react-bootstrap");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _reviewFormScss = require("./reviewForm.scss");
 var _reactRedux = require("react-redux");
 var _reviewAction = require("../../actions/reviewAction");
@@ -61496,7 +61498,7 @@ const ReviewForm = ({ movieId  })=>{
                                     children: "Rating"
                                 }, void 0, false, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 53,
+                                    lineNumber: 54,
                                     columnNumber: 17
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Select, {
@@ -61511,7 +61513,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "One"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 66,
+                                            lineNumber: 67,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61519,7 +61521,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Two"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 67,
+                                            lineNumber: 68,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61527,7 +61529,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Three"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 68,
+                                            lineNumber: 69,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61535,7 +61537,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Four"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 69,
+                                            lineNumber: 70,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61543,7 +61545,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Five"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 70,
+                                            lineNumber: 71,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61551,7 +61553,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Six"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 71,
+                                            lineNumber: 72,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61559,7 +61561,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Seven"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 72,
+                                            lineNumber: 73,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61567,7 +61569,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Eight"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 73,
+                                            lineNumber: 74,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61575,7 +61577,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Nine"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 74,
+                                            lineNumber: 75,
                                             columnNumber: 19
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("option", {
@@ -61583,13 +61585,13 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Ten"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 75,
+                                            lineNumber: 76,
                                             columnNumber: 19
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 59,
+                                    lineNumber: 60,
                                     columnNumber: 17
                                 }, undefined),
                                 errors.stars && touched.stars && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -61597,13 +61599,13 @@ const ReviewForm = ({ movieId  })=>{
                                     children: errors.stars
                                 }, void 0, false, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 78,
+                                    lineNumber: 79,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                            lineNumber: 52,
+                            lineNumber: 53,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Group, {
@@ -61621,7 +61623,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Caption"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 89,
+                                            lineNumber: 90,
                                             columnNumber: 19
                                         }, undefined),
                                         errors.caption && touched.caption && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -61629,13 +61631,13 @@ const ReviewForm = ({ movieId  })=>{
                                             children: errors.caption
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 93,
+                                            lineNumber: 94,
                                             columnNumber: 21
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 82,
+                                    lineNumber: 83,
                                     columnNumber: 17
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
@@ -61647,13 +61649,13 @@ const ReviewForm = ({ movieId  })=>{
                                     className: errors.comment && touched.comment ? 'mb-3 review-form__top-control error' : 'mb-3 review-form__top-control'
                                 }, void 0, false, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 96,
+                                    lineNumber: 97,
                                     columnNumber: 17
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                            lineNumber: 81,
+                            lineNumber: 82,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Group, {
@@ -61671,7 +61673,7 @@ const ReviewForm = ({ movieId  })=>{
                                             children: "Comment"
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 117,
+                                            lineNumber: 118,
                                             columnNumber: 19
                                         }, undefined),
                                         errors.comment && touched.comment && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -61679,13 +61681,13 @@ const ReviewForm = ({ movieId  })=>{
                                             children: errors.comment
                                         }, void 0, false, {
                                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                            lineNumber: 121,
+                                            lineNumber: 122,
                                             columnNumber: 21
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 110,
+                                    lineNumber: 111,
                                     columnNumber: 17
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
@@ -61698,13 +61700,13 @@ const ReviewForm = ({ movieId  })=>{
                                     className: errors.comment && touched.comment ? 'review-form__bottom-control error' : 'review-form__bottom-control'
                                 }, void 0, false, {
                                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                                    lineNumber: 124,
+                                    lineNumber: 125,
                                     columnNumber: 17
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                            lineNumber: 109,
+                            lineNumber: 110,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
@@ -61713,24 +61715,24 @@ const ReviewForm = ({ movieId  })=>{
                             children: "Post"
                         }, void 0, false, {
                             fileName: "src/components/reviewForm/ReviewForm.jsx",
-                            lineNumber: 138,
+                            lineNumber: 139,
                             columnNumber: 15
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/reviewForm/ReviewForm.jsx",
-                    lineNumber: 51,
+                    lineNumber: 52,
                     columnNumber: 13
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/reviewForm/ReviewForm.jsx",
-                lineNumber: 50,
+                lineNumber: 51,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
         fileName: "src/components/reviewForm/ReviewForm.jsx",
-        lineNumber: 13,
+        lineNumber: 14,
         columnNumber: 5
     }, undefined));
 };
@@ -61740,6 +61742,9 @@ _s(ReviewForm, "rgTLoBID190wEKCp9+G8W6F7A5M=", false, function() {
     ];
 });
 _c = ReviewForm;
+ReviewForm.propTypes = {
+    movieId: _propTypesDefault.default.string
+};
 exports.default = ReviewForm;
 var _c;
 $RefreshReg$(_c, "ReviewForm");
@@ -61749,7 +61754,7 @@ $RefreshReg$(_c, "ReviewForm");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","formik":"aefoQ","yup":"b4KAh","react-bootstrap":"3AD9A","./reviewForm.scss":"cCeqK","react-redux":"bdVon","../../actions/reviewAction":"bmfxY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cCeqK":[function() {},{}],"1N51k":[function() {},{}],"bjKg0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","formik":"aefoQ","yup":"b4KAh","react-bootstrap":"3AD9A","./reviewForm.scss":"cCeqK","react-redux":"bdVon","../../actions/reviewAction":"bmfxY","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"cCeqK":[function() {},{}],"1N51k":[function() {},{}],"bjKg0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1a15 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
