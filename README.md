@@ -4,7 +4,7 @@
     <img width="33%"  src='./public/myFlixLogo.png'>
   </p
 
-  <div class='heading' style='width: 100%; display: flex; justify-content: center; font-weight: bold'>
+  <div class='heading' style='font-weight: bold' align="center">
     <h3>A minimal movie browsing app made for non-commercial use</h3>
   </div>
 
