@@ -1,5 +1,5 @@
 <div class='outer-container' style:'width: 100%; maring-inline:auto;'>
-  div class='banner-container' id='top' style='width: 100%; display: flex; justify-content: center'>
+  <div class='banner-container' id='top' style='width: 100%; display: flex; justify-content: center'>
     <img src='./public/myFlixLogo.png' alt='myFlix'/>
   </div>
 
