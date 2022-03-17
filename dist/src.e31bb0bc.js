@@ -44778,6 +44778,10 @@ function getContainingBlock(element) {
 
   var currentNode = (0, _getParentNode.default)(element);
 
+  if ((0, _instanceOf.isShadowRoot)(currentNode)) {
+    currentNode = currentNode.host;
+  }
+
   while ((0, _instanceOf.isHTMLElement)(currentNode) && ['html', 'body'].indexOf((0, _getNodeName.default)(currentNode)) < 0) {
     var css = (0, _getComputedStyle.default)(currentNode); // This is non-exhaustive but covers the most common CSS properties that
     // create a containing block.
@@ -45118,7 +45122,7 @@ function mapToStyles(_ref2) {
 
     if (placement === _enums.top || (placement === _enums.left || placement === _enums.right) && variation === _enums.end) {
       sideY = _enums.bottom;
-      var offsetY = isFixed && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
+      var offsetY = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.height : // $FlowFixMe[prop-missing]
       offsetParent[heightProp];
       y -= offsetY - popperRect.height;
       y *= gpuAcceleration ? 1 : -1;
@@ -45126,7 +45130,7 @@ function mapToStyles(_ref2) {
 
     if (placement === _enums.left || (placement === _enums.top || placement === _enums.bottom) && variation === _enums.end) {
       sideX = _enums.right;
-      var offsetX = isFixed && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
+      var offsetX = isFixed && offsetParent === win && win.visualViewport ? win.visualViewport.width : // $FlowFixMe[prop-missing]
       offsetParent[widthProp];
       x -= offsetX - popperRect.width;
       x *= gpuAcceleration ? 1 : -1;
@@ -47421,6 +47425,13 @@ function isModifiedEvent(event) {
 }
 
 const getRefTarget = ref => ref && ('current' in ref ? ref.current : ref);
+
+exports.getRefTarget = getRefTarget;
+const InitialTriggerEvents = {
+  click: 'mousedown',
+  mouseup: 'mousedown',
+  pointerup: 'pointerdown'
+};
 /**
  * The `useClickOutside` hook registers your callback on the document that fires
  * when a pointer event is registered outside of the provided ref or element.
@@ -47432,19 +47443,25 @@ const getRefTarget = ref => ref && ('current' in ref ? ref.current : ref);
  * @param {string=}  options.clickTrigger The DOM event name (click, mousedown, etc) to attach listeners on
  */
 
-
-exports.getRefTarget = getRefTarget;
-
 function useClickOutside(ref, onClickOutside = noop, {
   disabled,
   clickTrigger = 'click'
 } = {}) {
   const preventMouseClickOutsideRef = (0, _react.useRef)(false);
+  const waitingForTrigger = (0, _react.useRef)(false);
   const handleMouseCapture = (0, _react.useCallback)(e => {
     const currentTarget = getRefTarget(ref);
     (0, _warning.default)(!!currentTarget, 'ClickOutside captured a close event but does not have a ref to compare it to. ' + 'useClickOutside(), should be passed a ref that resolves to a DOM node');
-    preventMouseClickOutsideRef.current = !currentTarget || isModifiedEvent(e) || !isLeftClickEvent(e) || !!(0, _contains.default)(currentTarget, e.target);
+    preventMouseClickOutsideRef.current = !currentTarget || isModifiedEvent(e) || !isLeftClickEvent(e) || !!(0, _contains.default)(currentTarget, e.target) || waitingForTrigger.current;
+    waitingForTrigger.current = false;
   }, [ref]);
+  const handleInitialMouse = (0, _useEventCallback.default)(e => {
+    const currentTarget = getRefTarget(ref);
+
+    if (currentTarget && (0, _contains.default)(currentTarget, e.target)) {
+      waitingForTrigger.current = true;
+    }
+  });
   const handleMouse = (0, _useEventCallback.default)(e => {
     if (!preventMouseClickOutsideRef.current) {
       onClickOutside(e);
@@ -47455,9 +47472,15 @@ function useClickOutside(ref, onClickOutside = noop, {
     const doc = (0, _ownerDocument.default)(getRefTarget(ref)); // Store the current event to avoid triggering handlers immediately
     // https://github.com/facebook/react/issues/20074
 
-    let currentEvent = (doc.defaultView || window).event; // Use capture for this listener so it fires before React's listener, to
+    let currentEvent = (doc.defaultView || window).event;
+    let removeInitialTriggerListener = null;
+
+    if (InitialTriggerEvents[clickTrigger]) {
+      removeInitialTriggerListener = (0, _listen.default)(doc, InitialTriggerEvents[clickTrigger], handleInitialMouse, true);
+    } // Use capture for this listener so it fires before React's listener, to
     // avoid false positives in the contains() check below if the target DOM
     // element is removed in the React mouse callback.
+
 
     const removeMouseCaptureListener = (0, _listen.default)(doc, clickTrigger, handleMouseCapture, true);
     const removeMouseListener = (0, _listen.default)(doc, clickTrigger, e => {
@@ -47476,11 +47499,12 @@ function useClickOutside(ref, onClickOutside = noop, {
     }
 
     return () => {
+      removeInitialTriggerListener == null ? void 0 : removeInitialTriggerListener();
       removeMouseCaptureListener();
       removeMouseListener();
       mobileSafariHackListeners.forEach(remove => remove());
     };
-  }, [ref, disabled, clickTrigger, handleMouseCapture, handleMouse]);
+  }, [ref, disabled, clickTrigger, handleMouseCapture, handleInitialMouse, handleMouse]);
 }
 
 var _default = useClickOutside;
