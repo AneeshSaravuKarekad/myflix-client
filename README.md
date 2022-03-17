@@ -8,7 +8,7 @@
     <h3  width="100%" align="center">A minimal movie browsing app made for non-commercial use</h3>
   </div>
 
-  <div class='badges-container' style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
+  <div class='badges-container' align="center" style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
   
   ![GitHub last commit](https://img.shields.io/github/last-commit/AneeshSaravuKarekad/myflix-client)
   [![License](https://img.shields.io/badge/license-MIT-red)](./LICENSE)
