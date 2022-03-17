@@ -1,12 +1,12 @@
-<div class='banner-container' id='top' style='display: flex; justify-content: center'>
+<div class='banner-container' id='top' style='width: 100%; display: flex; justify-content: center'>
   <img src='./public/myFlixLogo.png' alt='myFlix'/>
 </div>
 
-<div class='heading' style='display: flex; justify-content: center; font-weight: bold'>
+<div class='heading' style='width: 100%; display: flex; justify-content: center; font-weight: bold'>
   <h3>A minimal movie browsing app made for non-commercial use</h3>
 </div>
 
-<div class='badges-container' style='display: flex; justify-content: center; gap: 1rem'>
+<div class='badges-container' style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/AneeshSaravuKarekad/myflix-client)
 
