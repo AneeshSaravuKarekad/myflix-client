@@ -81,6 +81,11 @@
   ```sh
   npm install npm@latest -g
   ```
+  
+- parcel
+  ```sh
+  npm install parcel -g
+  ```
 
 ### Installation
 
