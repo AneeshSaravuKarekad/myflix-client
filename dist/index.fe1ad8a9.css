@@ -121,7 +121,8 @@
   position: relative;
   height: 700px;
   background: linear-gradient(0deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)), rgba(18, 18, 18, 0.336) !important;
-  border-radius: 20px;
+  border-top-left-radius: 20px !important;
+  border-top-right-radius: 20px !important;
   overflow: hidden;
   transition: 500ms ease-in-out;
   border: 1px solid rgba(188, 136, 252, 0.5) !important;
