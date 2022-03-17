@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
 import FavIcon from '../../../public/favIcon.svg';
 import UnFavIcon from '../../../public/unFavIcon.svg';
@@ -75,6 +76,20 @@ const MovieCard = ({ movie, isFav }) => {
       </Card.Body>
     </Card>
   );
+};
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    storyLine: PropTypes.string,
+    runTime: PropTypes.string,
+    rating: PropTypes.number,
+    imagePath: PropTypes.string,
+    reviews: PropTypes.arrayOf(PropTypes.object),
+    featured: PropTypes.bool,
+  }),
+  isFav: PropTypes.bool
 };
 
 export default MovieCard;

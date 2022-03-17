@@ -55415,6 +55415,8 @@ var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRedux = require("react-redux");
 var _reactRouterDom = require("react-router-dom");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _favIconSvg = require("../../../public/favIcon.svg");
 var _favIconSvgDefault = parcelHelpers.interopDefault(_favIconSvg);
 var _unFavIconSvg = require("../../../public/unFavIcon.svg");
@@ -55451,7 +55453,7 @@ const MovieCard = ({ movie , isFav  })=>{
                 }
             }, void 0, false, {
                 fileName: "src/components/movieCard/MovieCard.jsx",
-                lineNumber: 37,
+                lineNumber: 38,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Card.Body, {
@@ -55465,7 +55467,7 @@ const MovieCard = ({ movie , isFav  })=>{
                                 children: movie.title
                             }, void 0, false, {
                                 fileName: "src/components/movieCard/MovieCard.jsx",
-                                lineNumber: 44,
+                                lineNumber: 45,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -55485,7 +55487,7 @@ const MovieCard = ({ movie , isFav  })=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/components/movieCard/MovieCard.jsx",
-                                                lineNumber: 49,
+                                                lineNumber: 50,
                                                 columnNumber: 15
                                             }, undefined),
                                             ' ',
@@ -55494,7 +55496,7 @@ const MovieCard = ({ movie , isFav  })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/movieCard/MovieCard.jsx",
-                                        lineNumber: 48,
+                                        lineNumber: 49,
                                         columnNumber: 13
                                     }, undefined),
                                     ' ',
@@ -55507,19 +55509,19 @@ const MovieCard = ({ movie , isFav  })=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/components/movieCard/MovieCard.jsx",
-                                        lineNumber: 54,
+                                        lineNumber: 55,
                                         columnNumber: 13
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/movieCard/MovieCard.jsx",
-                                lineNumber: 47,
+                                lineNumber: 48,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movieCard/MovieCard.jsx",
-                        lineNumber: 43,
+                        lineNumber: 44,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Card.Text, {
@@ -55531,7 +55533,7 @@ const MovieCard = ({ movie , isFav  })=>{
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movieCard/MovieCard.jsx",
-                        lineNumber: 60,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -55544,12 +55546,12 @@ const MovieCard = ({ movie , isFav  })=>{
                                     children: " View "
                                 }, void 0, false, {
                                     fileName: "src/components/movieCard/MovieCard.jsx",
-                                    lineNumber: 66,
+                                    lineNumber: 67,
                                     columnNumber: 13
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/components/movieCard/MovieCard.jsx",
-                                lineNumber: 65,
+                                lineNumber: 66,
                                 columnNumber: 11
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -55559,25 +55561,25 @@ const MovieCard = ({ movie , isFav  })=>{
                                 onClick: handleClick
                             }, void 0, false, {
                                 fileName: "src/components/movieCard/MovieCard.jsx",
-                                lineNumber: 68,
+                                lineNumber: 69,
                                 columnNumber: 11
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/movieCard/MovieCard.jsx",
-                        lineNumber: 64,
+                        lineNumber: 65,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/movieCard/MovieCard.jsx",
-                lineNumber: 42,
+                lineNumber: 43,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/movieCard/MovieCard.jsx",
-        lineNumber: 36,
+        lineNumber: 37,
         columnNumber: 5
     }, undefined));
 };
@@ -55587,6 +55589,19 @@ _s(MovieCard, "YawCKaEVL/nXhPOWnJpDO8PIRZY=", false, function() {
     ];
 });
 _c = MovieCard;
+MovieCard.propTypes = {
+    movie: _propTypesDefault.default.shape({
+        title: _propTypesDefault.default.string,
+        description: _propTypesDefault.default.string,
+        storyLine: _propTypesDefault.default.string,
+        runTime: _propTypesDefault.default.string,
+        rating: _propTypesDefault.default.number,
+        imagePath: _propTypesDefault.default.string,
+        reviews: _propTypesDefault.default.arrayOf(_propTypesDefault.default.object),
+        featured: _propTypesDefault.default.bool
+    }),
+    isFav: _propTypesDefault.default.bool
+};
 exports.default = MovieCard;
 var _c;
 $RefreshReg$(_c, "MovieCard");
@@ -55596,7 +55611,7 @@ $RefreshReg$(_c, "MovieCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-redux":"bdVon","react-router-dom":"fdOAw","../../../public/favIcon.svg":"hQAXn","../../../public/unFavIcon.svg":"4PXgk","../../actions/favouritesAction":"5X6JK","./movieCard.scss":"4whX7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"hQAXn":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-redux":"bdVon","react-router-dom":"fdOAw","../../../public/favIcon.svg":"hQAXn","../../../public/unFavIcon.svg":"4PXgk","../../actions/favouritesAction":"5X6JK","./movieCard.scss":"4whX7","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"hQAXn":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('bLxZJ') + "favIcon.d633f906.svg" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"lgJ39"}],"4PXgk":[function(require,module,exports) {
