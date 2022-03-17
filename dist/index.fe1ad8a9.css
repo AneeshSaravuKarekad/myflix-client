@@ -417,6 +417,9 @@
 .profile-container .profile-form .form-container {
   margin-inline: auto;
 }
+.review-form {
+  margin-inline: 1rem;
+}
 .review-form select {
   cursor: pointer;
   padding-inline: 1rem;
@@ -542,6 +545,11 @@
 .review-row-content .caption {
   font-size: 1.25rem;
 }
+@media screen and (max-width: 500px) {
+  .review-row-content .caption {
+    font-size: 1rem;
+  }
+}
 
 .review-card {
   margin-bottom: 2rem;
@@ -558,18 +566,10 @@
   .review-card-content {
     font-size: 1rem;
   }
-  .review-card-content .row {
-    flex-direction: column !important;
-  }
 }
 .review-card-content__header {
   color: var(--warning);
   font-size: 1.25rem;
-}
-@media screen and (max-width: 500px) {
-  .review-card-content__header {
-    font-size: 1rem;
-  }
 }
 .review-card-content .stars-col {
   display: flex;
@@ -1214,6 +1214,7 @@ ol[role=list] {
 
 html {
   height: 100vh;
+  overflow-x: hidden;
 }
 
 /* Set core root defaults */
@@ -1228,7 +1229,7 @@ body {
   text-rendering: optimizeSpeed;
   line-height: 1.5;
   font-family: "Roboto", sans-serif !important;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 /* A elements that don't have a class get default styles */
@@ -1265,16 +1266,5 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-.container {
-  margin-inline: 0;
-}
-
-.col {
-  margin-inline: 0;
-}
-
-.row {
-  margin-inline: 0;
 }
 /*# sourceMappingURL=index.fe1ad8a9.css.map */
