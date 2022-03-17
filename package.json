@@ -10,7 +10,6 @@
   },
   "proxy": "http://localhost:8000",
   "dependencies": {
-    "@parcel/transformer-sass": "^2.3.2",
     "axios": "^0.26.0",
     "formik": "^2.2.9",
     "moment": "^2.29.1",
@@ -26,7 +25,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "swiper": "^8.0.7",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@parcel/transformer-sass": "^2.0.0"
   },
   "devDependencies": {
     "sass": "^1.49.9"
