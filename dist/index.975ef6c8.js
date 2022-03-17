@@ -42128,6 +42128,8 @@ var _reactRouterDom = require("react-router-dom");
 var _formik = require("formik");
 var _yup = require("yup");
 var _reactRedux = require("react-redux");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _showIconPng = require("../../../public/showIcon.png");
 var _showIconPngDefault = parcelHelpers.interopDefault(_showIconPng);
 var _hideIconPng = require("../../../public/hideIcon.png");
@@ -42187,7 +42189,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                         children: "Login"
                     }, void 0, false, {
                         fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 70,
+                        lineNumber: 71,
                         columnNumber: 13
                     }, undefined),
                     customError && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42199,7 +42201,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                         children: customError
                     }, void 0, false, {
                         fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 72,
+                        lineNumber: 73,
                         columnNumber: 15
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
@@ -42217,7 +42219,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 87,
+                                        lineNumber: 88,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.email && touched.email && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42225,13 +42227,13 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: errors.email
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 89,
+                                        lineNumber: 90,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 80,
+                                lineNumber: 81,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -42246,12 +42248,12 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                     className: errors.email && touched.email && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/auth/Login.jsx",
-                                    lineNumber: 93,
+                                    lineNumber: 94,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 92,
+                                lineNumber: 93,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42265,7 +42267,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: "Password"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 112,
+                                        lineNumber: 113,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.password && touched.password && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42273,13 +42275,13 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: errors.password
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 114,
+                                        lineNumber: 115,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 105,
+                                lineNumber: 106,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -42296,7 +42298,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         className: errors.password && touched.password && 'error'
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 118,
+                                        lineNumber: 119,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -42306,13 +42308,13 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         onClick: toggleEye
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 128,
+                                        lineNumber: 129,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 117,
+                                lineNumber: 118,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Text, {
@@ -42328,7 +42330,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: "Register"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 137,
+                                        lineNumber: 138,
                                         columnNumber: 17
                                     }, undefined),
                                     ' ',
@@ -42336,7 +42338,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 135,
+                                lineNumber: 136,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
@@ -42347,25 +42349,25 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                 children: "Login"
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 147,
+                                lineNumber: 148,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 79,
+                        lineNumber: 80,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/pages/auth/Login.jsx",
-                lineNumber: 69,
+                lineNumber: 70,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
         fileName: "src/pages/auth/Login.jsx",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 5
     }, undefined));
 };
@@ -42376,6 +42378,10 @@ _s(Login, "C+1hUkZZRXz2GaL8If3np9vZ7JI=", false, function() {
     ];
 });
 _c = Login;
+Login.propTypes = {
+    toggle: _propTypesDefault.default.func,
+    dispatchUserLogin: _propTypesDefault.default.func
+};
 const mapDispatchToProps = (dispatch)=>({
         dispatchUserLogin: (email, password)=>dispatch(_userAction.login(email, password))
     })
@@ -42389,7 +42395,7 @@ $RefreshReg$(_c, "Login");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","react-redux":"bdVon","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aefoQ":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","react-redux":"bdVon","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"aefoQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ErrorMessage", ()=>ErrorMessage
@@ -54625,6 +54631,8 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _formik = require("formik");
 var _yup = require("yup");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _showIconPng = require("../../../public/showIcon.png");
 var _showIconPngDefault = parcelHelpers.interopDefault(_showIconPng);
 var _hideIconPng = require("../../../public/hideIcon.png");
@@ -54690,7 +54698,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                         children: "Register"
                     }, void 0, false, {
                         fileName: "src/pages/auth/Register.jsx",
-                        lineNumber: 91,
+                        lineNumber: 92,
                         columnNumber: 13
                     }, undefined),
                     customError && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54702,7 +54710,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                         children: customError
                     }, void 0, false, {
                         fileName: "src/pages/auth/Register.jsx",
-                        lineNumber: 93,
+                        lineNumber: 94,
                         columnNumber: 15
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
@@ -54720,7 +54728,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 109,
+                                        lineNumber: 110,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.email && touched.email && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54728,13 +54736,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: errors.email
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 111,
+                                        lineNumber: 112,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 102,
+                                lineNumber: 103,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54749,12 +54757,12 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                     className: errors.email && touched.email && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/auth/Register.jsx",
-                                    lineNumber: 115,
+                                    lineNumber: 116,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 114,
+                                lineNumber: 115,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54768,7 +54776,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: "Username"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 135,
+                                        lineNumber: 136,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.username && touched.username && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54776,13 +54784,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: errors.username
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 137,
+                                        lineNumber: 138,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 128,
+                                lineNumber: 129,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54797,12 +54805,12 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                     className: errors.username && touched.username && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/auth/Register.jsx",
-                                    lineNumber: 141,
+                                    lineNumber: 142,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 140,
+                                lineNumber: 141,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54816,7 +54824,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: "Password"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 161,
+                                        lineNumber: 162,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.password && touched.password && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54824,13 +54832,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: errors.password
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 163,
+                                        lineNumber: 164,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 154,
+                                lineNumber: 155,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54847,7 +54855,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         className: errors.password && touched.password && 'error'
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 167,
+                                        lineNumber: 168,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -54857,13 +54865,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         onClick: toggleEye
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 177,
+                                        lineNumber: 178,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 166,
+                                lineNumber: 167,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54877,7 +54885,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: "Confirm Password"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 193,
+                                        lineNumber: 194,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.confirmPassword && touched.confirmPassword && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54885,13 +54893,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: errors.confirmPassword
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 195,
+                                        lineNumber: 196,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 186,
+                                lineNumber: 187,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54908,7 +54916,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         className: errors.confirmPassword && touched.confirmPassword && 'error'
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 199,
+                                        lineNumber: 200,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -54918,13 +54926,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         onClick: toggleEye
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 211,
+                                        lineNumber: 212,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 198,
+                                lineNumber: 199,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54938,7 +54946,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: "Date of Birth"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 227,
+                                        lineNumber: 228,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.birthDate && touched.birthDate && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54946,13 +54954,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: errors.birthDate
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 229,
+                                        lineNumber: 230,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 220,
+                                lineNumber: 221,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54965,12 +54973,12 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                     className: errors.birthDate && touched.birthDate && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/auth/Register.jsx",
-                                    lineNumber: 233,
+                                    lineNumber: 234,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 232,
+                                lineNumber: 233,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Text, {
@@ -54986,7 +54994,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         children: "Login"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Register.jsx",
-                                        lineNumber: 245,
+                                        lineNumber: 246,
                                         columnNumber: 17
                                     }, undefined),
                                     ' ',
@@ -54994,7 +55002,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 243,
+                                lineNumber: 244,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
@@ -55004,25 +55012,25 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                 children: "Register"
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Register.jsx",
-                                lineNumber: 255,
+                                lineNumber: 256,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/auth/Register.jsx",
-                        lineNumber: 100,
+                        lineNumber: 101,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/pages/auth/Register.jsx",
-                lineNumber: 90,
+                lineNumber: 91,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
         fileName: "src/pages/auth/Register.jsx",
-        lineNumber: 39,
+        lineNumber: 40,
         columnNumber: 5
     }, undefined));
 };
@@ -55033,6 +55041,10 @@ _s(Register, "C+1hUkZZRXz2GaL8If3np9vZ7JI=", false, function() {
     ];
 });
 _c = Register;
+Register.propTypes = {
+    toggle: _propTypesDefault.default.func,
+    dispatchUserRegister: _propTypesDefault.default.func
+};
 const mapDispatchToProps = (dispatch)=>({
         dispatchUserRegister: (userData)=>dispatch(_userAction.register(userData))
     })
@@ -55046,7 +55058,7 @@ $RefreshReg$(_c, "Register");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","react-redux":"bdVon","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"keg8g":[function() {},{}],"fJMU0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","react-redux":"bdVon","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"keg8g":[function() {},{}],"fJMU0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2fc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -56244,8 +56256,10 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRedux = require("react-redux");
-var _favouritesAction = require("../../actions/favouritesAction");
 var _reactBootstrap = require("react-bootstrap");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
+var _favouritesAction = require("../../actions/favouritesAction");
 var _movieCard = require("../../components/movieCard/MovieCard");
 var _movieCardDefault = parcelHelpers.interopDefault(_movieCard);
 var _starIconPng = require("../../../public/star-icon.png");
@@ -56280,7 +56294,7 @@ const Favourites = ({ dispatchFetchFavourites  })=>{
                             }
                         }, void 0, false, {
                             fileName: "src/pages/favourites/Favourites.jsx",
-                            lineNumber: 21,
+                            lineNumber: 24,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("h1", {
@@ -56288,7 +56302,7 @@ const Favourites = ({ dispatchFetchFavourites  })=>{
                             children: "Favourites"
                         }, void 0, false, {
                             fileName: "src/pages/favourites/Favourites.jsx",
-                            lineNumber: 22,
+                            lineNumber: 25,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -56299,18 +56313,18 @@ const Favourites = ({ dispatchFetchFavourites  })=>{
                             }
                         }, void 0, false, {
                             fileName: "src/pages/favourites/Favourites.jsx",
-                            lineNumber: 23,
+                            lineNumber: 26,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/pages/favourites/Favourites.jsx",
-                    lineNumber: 20,
+                    lineNumber: 23,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/favourites/Favourites.jsx",
-                lineNumber: 19,
+                lineNumber: 22,
                 columnNumber: 7
             }, undefined),
             count === 0 && /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
@@ -56322,7 +56336,7 @@ const Favourites = ({ dispatchFetchFavourites  })=>{
                 children: "No Favourites"
             }, void 0, false, {
                 fileName: "src/pages/favourites/Favourites.jsx",
-                lineNumber: 27,
+                lineNumber: 30,
                 columnNumber: 9
             }, undefined),
             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
@@ -56337,7 +56351,7 @@ const Favourites = ({ dispatchFetchFavourites  })=>{
                         isFav: isFav
                     }, idx, false, {
                         fileName: "src/pages/favourites/Favourites.jsx",
-                        lineNumber: 43,
+                        lineNumber: 46,
                         columnNumber: 20
                     }, undefined));
                 }) : /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Spinner, {
@@ -56345,12 +56359,12 @@ const Favourites = ({ dispatchFetchFavourites  })=>{
                     variant: "warning"
                 }, void 0, false, {
                     fileName: "src/pages/favourites/Favourites.jsx",
-                    lineNumber: 46,
+                    lineNumber: 49,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/favourites/Favourites.jsx",
-                lineNumber: 34,
+                lineNumber: 37,
                 columnNumber: 7
             }, undefined)
         ]
@@ -56363,6 +56377,9 @@ _s(Favourites, "PFEam3eQgwdlz+IIa93fDvnE2vo=", false, function() {
     ];
 });
 _c = Favourites;
+Favourites.propTypes = {
+    dispatchFetchFavourites: _propTypesDefault.default.func
+};
 const mapDispatchToProps = (dispatch)=>({
         dispatchFetchFavourites: ()=>dispatch(_favouritesAction.favourites())
     })
@@ -56376,7 +56393,7 @@ $RefreshReg$(_c, "Favourites");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","../../actions/favouritesAction":"5X6JK","react-bootstrap":"3AD9A","../../components/movieCard/MovieCard":"9nPer","../../../public/star-icon.png":"ht7XN","./favourites.scss":"8n0iJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"ht7XN":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","../../actions/favouritesAction":"5X6JK","react-bootstrap":"3AD9A","../../components/movieCard/MovieCard":"9nPer","../../../public/star-icon.png":"ht7XN","./favourites.scss":"8n0iJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"ht7XN":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('bLxZJ') + "star-icon.bf843931.png" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"lgJ39"}],"8n0iJ":[function() {},{}],"l5B5V":[function(require,module,exports) {
@@ -60404,6 +60421,8 @@ var _formik = require("formik");
 var _yup = require("yup");
 var _reactRedux = require("react-redux");
 var _reactBootstrap = require("react-bootstrap");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _showIconPng = require("../../../public/showIcon.png");
 var _showIconPngDefault = parcelHelpers.interopDefault(_showIconPng);
 var _hideIconPng = require("../../../public/hideIcon.png");
@@ -60481,7 +60500,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Email"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 100,
+                                    lineNumber: 101,
                                     columnNumber: 17
                                 }, undefined),
                                 errors.email && touched.email && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60489,13 +60508,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: errors.email
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 102,
+                                    lineNumber: 103,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 93,
+                            lineNumber: 94,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -60510,12 +60529,12 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                 className: errors.email && touched.email && 'error'
                             }, void 0, false, {
                                 fileName: "src/pages/profile/Update.jsx",
-                                lineNumber: 106,
+                                lineNumber: 107,
                                 columnNumber: 17
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 105,
+                            lineNumber: 106,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60529,7 +60548,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Username"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 125,
+                                    lineNumber: 126,
                                     columnNumber: 17
                                 }, undefined),
                                 errors.username && touched.username && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60537,13 +60556,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: errors.username
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 127,
+                                    lineNumber: 128,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 118,
+                            lineNumber: 119,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -60558,12 +60577,12 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                 className: errors.username && touched.username && 'error'
                             }, void 0, false, {
                                 fileName: "src/pages/profile/Update.jsx",
-                                lineNumber: 131,
+                                lineNumber: 132,
                                 columnNumber: 17
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 130,
+                            lineNumber: 131,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60577,7 +60596,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Password"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 150,
+                                    lineNumber: 151,
                                     columnNumber: 17
                                 }, undefined),
                                 errors.password && touched.password && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60585,13 +60604,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: errors.password
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 152,
+                                    lineNumber: 153,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 143,
+                            lineNumber: 144,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -60608,7 +60627,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     className: errors.password && touched.password && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 156,
+                                    lineNumber: 157,
                                     columnNumber: 17
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -60618,13 +60637,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     onClick: toggleEye
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 166,
+                                    lineNumber: 167,
                                     columnNumber: 17
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 155,
+                            lineNumber: 156,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60638,7 +60657,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Confirm Password"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 181,
+                                    lineNumber: 182,
                                     columnNumber: 17
                                 }, undefined),
                                 errors.confirmPassword && touched.confirmPassword && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60646,13 +60665,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: errors.confirmPassword
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 183,
+                                    lineNumber: 184,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 174,
+                            lineNumber: 175,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -60669,7 +60688,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     className: errors.confirmPassword && touched.confirmPassword && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 187,
+                                    lineNumber: 188,
                                     columnNumber: 17
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -60679,13 +60698,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     onClick: toggleEye
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 199,
+                                    lineNumber: 200,
                                     columnNumber: 17
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 186,
+                            lineNumber: 187,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60699,7 +60718,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Date of Birth"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 214,
+                                    lineNumber: 215,
                                     columnNumber: 17
                                 }, undefined),
                                 errors.birthDate && touched.birthDate && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60707,13 +60726,13 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: errors.birthDate
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 216,
+                                    lineNumber: 217,
                                     columnNumber: 19
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 207,
+                            lineNumber: 208,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -60726,12 +60745,12 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                 className: errors.birthDate && touched.birthDate && 'error'
                             }, void 0, false, {
                                 fileName: "src/pages/profile/Update.jsx",
-                                lineNumber: 220,
+                                lineNumber: 221,
                                 columnNumber: 17
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 219,
+                            lineNumber: 220,
                             columnNumber: 15
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -60747,7 +60766,7 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Update"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 230,
+                                    lineNumber: 231,
                                     columnNumber: 17
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
@@ -60757,30 +60776,30 @@ const Update = ({ prevEmail , prevUsername , prevBirthDate  })=>{
                                     children: "Deregister"
                                 }, void 0, false, {
                                     fileName: "src/pages/profile/Update.jsx",
-                                    lineNumber: 238,
+                                    lineNumber: 239,
                                     columnNumber: 17
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/pages/profile/Update.jsx",
-                            lineNumber: 229,
+                            lineNumber: 230,
                             columnNumber: 15
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/pages/profile/Update.jsx",
-                    lineNumber: 91,
+                    lineNumber: 92,
                     columnNumber: 13
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/profile/Update.jsx",
-                lineNumber: 90,
+                lineNumber: 91,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
         fileName: "src/pages/profile/Update.jsx",
-        lineNumber: 38,
+        lineNumber: 39,
         columnNumber: 5
     }, undefined));
 };
@@ -60791,6 +60810,11 @@ _s(Update, "RaNnl1OmIc49pUqp+zx2Ca+aMiE=", false, function() {
     ];
 });
 _c = Update;
+Update.propTypes = {
+    prevEmail: _propTypesDefault.default.string,
+    prevUsername: _propTypesDefault.default.string,
+    prevBirthDate: _propTypesDefault.default.date
+};
 exports.default = Update;
 var _c;
 $RefreshReg$(_c, "Update");
@@ -60800,7 +60824,7 @@ $RefreshReg$(_c, "Update");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","formik":"aefoQ","yup":"b4KAh","react-redux":"bdVon","react-bootstrap":"3AD9A","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","../../actions/userAction":"cOT3n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"crA2Q":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","formik":"aefoQ","yup":"b4KAh","react-redux":"bdVon","react-bootstrap":"3AD9A","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","../../actions/userAction":"cOT3n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"crA2Q":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$095d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

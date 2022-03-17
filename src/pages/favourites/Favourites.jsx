@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { useDispatch, useSelector, connect } from 'react-redux';
-import { favourites } from '../../actions/favouritesAction';
 import { Row, Spinner } from 'react-bootstrap';
+import PropTypes from 'prop-types'
+
+import { favourites } from '../../actions/favouritesAction';
 import MovieCard from '../../components/movieCard/MovieCard';
 import StarIcon from '../../../public/star-icon.png';
+
 
 import './favourites.scss';
 
@@ -49,6 +52,10 @@ const Favourites = ({ dispatchFetchFavourites }) => {
     </>
   );
 };
+
+Favourites.propTypes = {
+  dispatchFetchFavourites: PropTypes.func
+}
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchFetchFavourites: () => dispatch(favourites()),

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, FormControl, InputGroup, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
@@ -249,6 +250,12 @@ const Update = ({ prevEmail, prevUsername, prevBirthDate }) => {
       }}
     </Formik>
   );
+};
+
+Update.propTypes = {
+  prevEmail: PropTypes.string,
+  prevUsername: PropTypes.string,
+  prevBirthDate: PropTypes.date,
 };
 
 export default Update;

@@ -3,6 +3,7 @@ import { Button, Form, FormControl, InputGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import PropTypes from 'prop-types'
 
 import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
@@ -262,6 +263,11 @@ const Register = ({ toggle, dispatchUserRegister }) => {
     </Formik>
   );
 };
+
+Register.propTypes = {
+  toggle: PropTypes.func,
+  dispatchUserRegister: PropTypes.func
+}
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchUserRegister: (userData) => dispatch(register(userData)),
