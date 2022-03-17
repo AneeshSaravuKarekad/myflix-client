@@ -1,16 +1,20 @@
-<div class='banner-container' id='top' style='width: 100%; display: flex; justify-content: center'>
-  <img src='./public/myFlixLogo.png' alt='myFlix'/>
-</div>
 
-<div class='heading' style='width: 100%; display: flex; justify-content: center; font-weight: bold'>
-  <h3>A minimal movie browsing app made for non-commercial use</h3>
-</div>
+<div class='outer-container' style:'width: 100%; maring-inline:auto;'>
+  div class='banner-container' id='top' style='width: 100%; display: flex; justify-content: center'>
+    <img src='./public/myFlixLogo.png' alt='myFlix'/>
+  </div>
 
-<div class='badges-container' style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
+  <div class='heading' style='width: 100%; display: flex; justify-content: center; font-weight: bold'>
+    <h3>A minimal movie browsing app made for non-commercial use</h3>
+  </div>
 
-![GitHub last commit](https://img.shields.io/github/last-commit/AneeshSaravuKarekad/myflix-client)
+  <div class='badges-container' style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
 
-[![License](https://img.shields.io/badge/license-MIT-red)](./LICENSE)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/AneeshSaravuKarekad/myflix-client)
+
+  [![License](https://img.shields.io/badge/license-MIT-red)](./LICENSE)
+
+  </div>
 
 </div>
 
