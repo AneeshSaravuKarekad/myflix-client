@@ -55631,6 +55631,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _topBarScss = require("./topBar.scss");
 var _s = $RefreshSig$();
 const TopBar = ({ query , filters , setFilters  })=>{
@@ -55640,10 +55642,9 @@ const TopBar = ({ query , filters , setFilters  })=>{
     const handleSubmit = (e)=>{
         e.preventDefault();
         if (title.trim()) navigate(`/movies/search/${title}/page/1`);
-        else navigate(`/movies`);
+        else navigate(`/movies/page/1`);
     };
     const sort1 = (sort)=>{
-        // console.log(sort);
         setFilters({
             ...filters,
             sort
@@ -55785,6 +55786,11 @@ _s(TopBar, "EIzF7lTQbw9hgIPwGkRkl/UM2io=", false, function() {
     ];
 });
 _c = TopBar;
+TopBar.propTypes = {
+    query: _propTypesDefault.default.string,
+    filters: _propTypesDefault.default.object,
+    setFilters: _propTypesDefault.default.func
+};
 exports.default = TopBar;
 var _c;
 $RefreshReg$(_c, "TopBar");
@@ -55794,7 +55800,7 @@ $RefreshReg$(_c, "TopBar");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","./topBar.scss":"1j9lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"1j9lG":[function() {},{}],"ctZL8":[function() {},{}],"lr0Ya":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","./topBar.scss":"1j9lG","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"1j9lG":[function() {},{}],"ctZL8":[function() {},{}],"lr0Ya":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$f4d9 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

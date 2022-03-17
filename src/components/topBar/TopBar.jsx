@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Form,
@@ -8,6 +8,8 @@ import {
   FormControl,
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types'
+
 
 import './topBar.scss';
 
@@ -17,15 +19,13 @@ const TopBar = ({ query, filters, setFilters }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (title.trim()) {
       navigate(`/movies/search/${title}/page/1`);
     } else {
-      navigate(`/movies`);
+      navigate(`/movies/page/1`);
     }
   };
   const sort = (sort) => {
-    // console.log(sort);
     setFilters({
       ...filters,
       sort,
@@ -97,5 +97,13 @@ const TopBar = ({ query, filters, setFilters }) => {
     </Container>
   );
 };
+
+TopBar.propTypes = {
+  query: PropTypes.string,
+  filters: PropTypes.object,
+  setFilters: PropTypes.func
+}
+
+
 
 export default TopBar;
