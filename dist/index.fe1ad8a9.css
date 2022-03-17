@@ -192,7 +192,8 @@
 .movie-card__footer .fav-icon {
   cursor: pointer;
   opacity: 0.75;
-  transform: scale(1.25);
+  width: 30px;
+  height: 36px;
 }
 .movie-card__footer .fav-icon:hover {
   opacity: 1;

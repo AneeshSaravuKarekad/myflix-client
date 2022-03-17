@@ -95,8 +95,8 @@
     .fav-icon {
       cursor: pointer;
       opacity: 0.75;
-      transform: scaleY(0.8);
-      transform: scaleX(1.2);
+      width: 30px;
+      height: 36px;
       &:hover {
         opacity: 1;
       }
