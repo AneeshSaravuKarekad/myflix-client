@@ -56470,6 +56470,9 @@ const Profile = ()=>{
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("hr", {
+                style: {
+                    marginBottom: '2rem'
+                }
             }, void 0, false, {
                 fileName: "src/pages/profile/Profile.jsx",
                 lineNumber: 25,
@@ -56479,7 +56482,7 @@ const Profile = ()=>{
                 fluid: true,
                 children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
                     style: {
-                        gap: '14rem',
+                        gap: '3rem',
                         alignItems: 'center'
                     },
                     children: [

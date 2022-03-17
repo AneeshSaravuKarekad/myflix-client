@@ -22,11 +22,11 @@ const Profile = () => {
         <h1> Profile</h1>
       </Row>
 
-      <hr />
+      <hr style={{marginBottom: '2rem'}} />
 
       {!isLoading && user ? (
         <Container fluid>
-          <Row style={{ gap: '14rem', alignItems: 'center' }}>
+          <Row style={{ gap: '3rem', alignItems: 'center' }}>
             <Col>
               <div className="profile-body">
                 <Row className="justify-content-center">

@@ -12,12 +12,16 @@
       position: relative;
       margin-block: 1.5rem;
       font-size: 1.25rem;
+      @media screen and (max-width: 500px) {
+        // display: none;
+        flex-direction: column;
+        // gap: 0rem;
+      }
       &::after {
         content: '';
         position: absolute;
         width: 100%;
         background-color: var(--clr-text-body);
-        // background-color: var(--clr-primary-400);
         height: 1px;
         bottom: -10px;
         opacity: 0.4;
@@ -38,7 +42,6 @@
           opacity: 0.4;
           filter: blur(1px);
           background-color: var(--clr-text-body);
-          // background-color: var(--clr-primary-400);
           -webkit-box-shadow: 0px 2px 15px 5px #000000;
           box-shadow: 0px 2px 15px 5px #000000;
           left: 0;

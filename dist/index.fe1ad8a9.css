@@ -384,6 +384,11 @@
   margin-block: 1.5rem;
   font-size: 1.25rem;
 }
+@media screen and (max-width: 500px) {
+  .profile-container .profile-body .row {
+    flex-direction: column;
+  }
+}
 .profile-container .profile-body .row::after {
   content: "";
   position: absolute;
