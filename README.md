@@ -4,8 +4,8 @@
     <img width="33%"  src='./public/myFlixLogo.png'>
   </p
 
-  <div class='heading' style='font-weight: bold' align="center">
-    <h3>A minimal movie browsing app made for non-commercial use</h3>
+  <div class='heading' style='font-weight: bold'>
+    <h3  width="100%" align="center">A minimal movie browsing app made for non-commercial use</h3>
   </div>
 
   <div class='badges-container' style='width: 100%; display: flex; justify-content: center; gap: 1rem'>
