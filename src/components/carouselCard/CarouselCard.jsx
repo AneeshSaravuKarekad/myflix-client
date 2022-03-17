@@ -1,7 +1,10 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
+import PropTypes from 'prop-types'
+
 import starIcon from '../../../public/star-icon.png';
 import timeIcon from '../../../public/calendar-icon.png';
+
 
 import './carousel.scss';
 
@@ -38,6 +41,19 @@ const CarouselCard = ({ movie }) => {
       </div>
     </Card>
   );
+};
+
+CarouselCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    storyLine: PropTypes.string,
+    runTime: PropTypes.string,
+    rating: PropTypes.number,
+    imagePath: PropTypes.string,
+    reviews: PropTypes.arrayOf(PropTypes.object),
+    featured: PropTypes.bool
+  }),
 };
 
 export default CarouselCard;

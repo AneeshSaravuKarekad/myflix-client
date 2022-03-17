@@ -76,9 +76,17 @@ const Home = () => {
                       width: 1200,
                       slidesPerView: 3.5,
                     },
-                    1092: {
-                      width: 1092,
-                      slidesPerView: 3,
+                    540: {
+                      width: 700,
+                      slidesPerView: 2,
+                    },
+                    // 400: {
+                    //   width: 400,
+                    //   slidesPerView: 1.5,
+                    // },
+                    0: {
+                      width: 0,
+                      slidesPerView: 1.5,
                     },
                   }}
                 >

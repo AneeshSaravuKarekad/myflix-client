@@ -62144,9 +62144,17 @@ const Home = ()=>{
                                     width: 1200,
                                     slidesPerView: 3.5
                                 },
-                                1092: {
-                                    width: 1092,
-                                    slidesPerView: 3
+                                540: {
+                                    width: 700,
+                                    slidesPerView: 2
+                                },
+                                // 400: {
+                                //   width: 400,
+                                //   slidesPerView: 1.5,
+                                // },
+                                0: {
+                                    width: 0,
+                                    slidesPerView: 1.5
                                 }
                             },
                             children: genre.movies.map((movie, idx)=>/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_swiperReactJs.SwiperSlide, {
@@ -62156,17 +62164,17 @@ const Home = ()=>{
                                             movie: movie
                                         }, movie._id, false, {
                                             fileName: "src/pages/home/Home.jsx",
-                                            lineNumber: 88,
+                                            lineNumber: 96,
                                             columnNumber: 25
                                         }, undefined)
                                     }, void 0, false, {
                                         fileName: "src/pages/home/Home.jsx",
-                                        lineNumber: 87,
+                                        lineNumber: 95,
                                         columnNumber: 23
                                     }, undefined)
                                 }, idx, false, {
                                     fileName: "src/pages/home/Home.jsx",
-                                    lineNumber: 86,
+                                    lineNumber: 94,
                                     columnNumber: 21
                                 }, undefined)
                             )
@@ -62188,7 +62196,7 @@ const Home = ()=>{
             variant: "warning"
         }, void 0, false, {
             fileName: "src/pages/home/Home.jsx",
-            lineNumber: 99,
+            lineNumber: 107,
             columnNumber: 9
         }, undefined)
     }, void 0, false, {
@@ -71708,6 +71716,8 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _starIconPng = require("../../../public/star-icon.png");
 var _starIconPngDefault = parcelHelpers.interopDefault(_starIconPng);
 var _calendarIconPng = require("../../../public/calendar-icon.png");
@@ -71728,12 +71738,12 @@ const CarouselCard = ({ movie  })=>{
                         children: movie.title
                     }, void 0, false, {
                         fileName: "src/components/carouselCard/CarouselCard.jsx",
-                        lineNumber: 16,
+                        lineNumber: 19,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/carouselCard/CarouselCard.jsx",
-                    lineNumber: 15,
+                    lineNumber: 18,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -71752,7 +71762,7 @@ const CarouselCard = ({ movie  })=>{
                                             src: _starIconPngDefault.default
                                         }, void 0, false, {
                                             fileName: "src/components/carouselCard/CarouselCard.jsx",
-                                            lineNumber: 21,
+                                            lineNumber: 24,
                                             columnNumber: 15
                                         }, undefined),
                                         movie.rating,
@@ -71765,13 +71775,13 @@ const CarouselCard = ({ movie  })=>{
                                             children: "10"
                                         }, void 0, false, {
                                             fileName: "src/components/carouselCard/CarouselCard.jsx",
-                                            lineNumber: 23,
+                                            lineNumber: 26,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/carouselCard/CarouselCard.jsx",
-                                    lineNumber: 20,
+                                    lineNumber: 23,
                                     columnNumber: 13
                                 }, undefined),
                                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -71785,26 +71795,26 @@ const CarouselCard = ({ movie  })=>{
                                             alt: ""
                                         }, void 0, false, {
                                             fileName: "src/components/carouselCard/CarouselCard.jsx",
-                                            lineNumber: 30,
+                                            lineNumber: 33,
                                             columnNumber: 15
                                         }, undefined),
                                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("span", {
                                             children: movie.runTime
                                         }, void 0, false, {
                                             fileName: "src/components/carouselCard/CarouselCard.jsx",
-                                            lineNumber: 31,
+                                            lineNumber: 34,
                                             columnNumber: 15
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/carouselCard/CarouselCard.jsx",
-                                    lineNumber: 29,
+                                    lineNumber: 32,
                                     columnNumber: 13
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/carouselCard/CarouselCard.jsx",
-                            lineNumber: 19,
+                            lineNumber: 22,
                             columnNumber: 11
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV("span", {
@@ -71812,28 +71822,40 @@ const CarouselCard = ({ movie  })=>{
                             children: movie.description
                         }, void 0, false, {
                             fileName: "src/components/carouselCard/CarouselCard.jsx",
-                            lineNumber: 34,
+                            lineNumber: 37,
                             columnNumber: 11
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/carouselCard/CarouselCard.jsx",
-                    lineNumber: 18,
+                    lineNumber: 21,
                     columnNumber: 9
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/carouselCard/CarouselCard.jsx",
-            lineNumber: 11,
+            lineNumber: 14,
             columnNumber: 7
         }, undefined)
     }, void 0, false, {
         fileName: "src/components/carouselCard/CarouselCard.jsx",
-        lineNumber: 10,
+        lineNumber: 13,
         columnNumber: 5
     }, undefined));
 };
 _c = CarouselCard;
+CarouselCard.propTypes = {
+    movie: _propTypesDefault.default.shape({
+        title: _propTypesDefault.default.string,
+        description: _propTypesDefault.default.string,
+        storyLine: _propTypesDefault.default.string,
+        runTime: _propTypesDefault.default.string,
+        rating: _propTypesDefault.default.number,
+        imagePath: _propTypesDefault.default.string,
+        reviews: _propTypesDefault.default.arrayOf(_propTypesDefault.default.object),
+        featured: _propTypesDefault.default.bool
+    })
+};
 exports.default = CarouselCard;
 var _c;
 $RefreshReg$(_c, "CarouselCard");
@@ -71843,7 +71865,7 @@ $RefreshReg$(_c, "CarouselCard");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../../../public/star-icon.png":"ht7XN","../../../public/calendar-icon.png":"3SFg7","./carousel.scss":"bwOBW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"bwOBW":[function() {},{}],"2uXd6":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../../../public/star-icon.png":"ht7XN","../../../public/calendar-icon.png":"3SFg7","./carousel.scss":"bwOBW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"bwOBW":[function() {},{}],"2uXd6":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$427e = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
