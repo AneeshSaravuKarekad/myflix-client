@@ -55807,6 +55807,8 @@ var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactRouterDom = require("react-router-dom");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _paginationScss = require("./pagination.scss");
 var _s = $RefreshSig$();
 const Pagination = ({ page: page1 , pages , changePage  })=>{
@@ -55833,7 +55835,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
             ]
         }, idx + 1, true, {
             fileName: "src/components/pagination/Pagination.jsx",
-            lineNumber: 20,
+            lineNumber: 21,
             columnNumber: 7
         }, undefined)
     );
@@ -55850,7 +55852,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                         children: startValue + idx + 1
                     }, startValue + idx + 1, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 35,
+                        lineNumber: 36,
                         columnNumber: 11
                     }, undefined)
                 ),
@@ -55858,7 +55860,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                     children: "..."
                 }, void 0, false, {
                     fileName: "src/components/pagination/Pagination.jsx",
-                    lineNumber: 43,
+                    lineNumber: 44,
                     columnNumber: 9
                 }, undefined),
                 /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
@@ -55867,7 +55869,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                     children: pages
                 }, void 0, false, {
                     fileName: "src/components/pagination/Pagination.jsx",
-                    lineNumber: 44,
+                    lineNumber: 45,
                     columnNumber: 9
                 }, undefined)
             ]
@@ -55882,21 +55884,21 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                         children: "1"
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 52,
+                        lineNumber: 53,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
                         children: "..."
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 55,
+                        lineNumber: 56,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
                         onClick: ()=>changePage(startValue + idx + 1)
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 56,
+                        lineNumber: 57,
                         columnNumber: 13
                     }, undefined),
                     [
@@ -55908,7 +55910,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                             children: startValue + idx + 1
                         }, startValue + idx + 1, false, {
                             fileName: "src/components/pagination/Pagination.jsx",
-                            lineNumber: 58,
+                            lineNumber: 59,
                             columnNumber: 15
                         }, undefined)
                     ),
@@ -55916,7 +55918,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                         children: "..."
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 66,
+                        lineNumber: 67,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
@@ -55925,7 +55927,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                         children: pages
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 67,
+                        lineNumber: 68,
                         columnNumber: 13
                     }, undefined)
                 ]
@@ -55939,14 +55941,14 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                         children: "1"
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 73,
+                        lineNumber: 74,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
                         children: "..."
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 76,
+                        lineNumber: 77,
                         columnNumber: 13
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
@@ -55955,7 +55957,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                         children: startValue
                     }, void 0, false, {
                         fileName: "src/components/pagination/Pagination.jsx",
-                        lineNumber: 77,
+                        lineNumber: 78,
                         columnNumber: 13
                     }, undefined),
                     [
@@ -55970,7 +55972,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                             children: startValue + idx + 1
                         }, startValue + idx + 1, false, {
                             fileName: "src/components/pagination/Pagination.jsx",
-                            lineNumber: 79,
+                            lineNumber: 80,
                             columnNumber: 15
                         }, undefined)
                     )
@@ -55990,7 +55992,7 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                 children: "\xab"
             }, void 0, false, {
                 fileName: "src/components/pagination/Pagination.jsx",
-                lineNumber: 99,
+                lineNumber: 100,
                 columnNumber: 9
             }, undefined),
             middlePagination,
@@ -56003,13 +56005,13 @@ const Pagination = ({ page: page1 , pages , changePage  })=>{
                 children: "\xbb"
             }, void 0, false, {
                 fileName: "src/components/pagination/Pagination.jsx",
-                lineNumber: 107,
+                lineNumber: 108,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/pagination/Pagination.jsx",
-        lineNumber: 98,
+        lineNumber: 99,
         columnNumber: 7
     }, undefined);
 };
@@ -56020,6 +56022,11 @@ _s(Pagination, "ViZireF3NaXPYrOdcBFxD4B7GHY=", false, function() {
     ];
 });
 _c = Pagination;
+Pagination.propTypes = {
+    page: _propTypesDefault.default.number,
+    pages: _propTypesDefault.default.number,
+    changePage: _propTypesDefault.default.func
+};
 exports.default = Pagination;
 var _c;
 $RefreshReg$(_c, "Pagination");
@@ -56029,7 +56036,7 @@ $RefreshReg$(_c, "Pagination");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"fdOAw","./pagination.scss":"2TTFV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2TTFV":[function() {},{}],"56ak6":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"fdOAw","./pagination.scss":"2TTFV","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"2TTFV":[function() {},{}],"56ak6":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$86bd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

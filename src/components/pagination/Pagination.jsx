@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {  useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
 import './pagination.scss';
 
@@ -115,5 +116,11 @@ const Pagination = ({ page, pages, changePage }) => {
     )
   );
 };
+
+Pagination.propTypes = {
+  page: PropTypes.number,
+  pages: PropTypes.number,
+  changePage: PropTypes.func
+}
 
 export default Pagination;
