@@ -28944,7 +28944,8 @@ var _reactRedux = require("react-redux");
 var _reactRouterDom = require("react-router-dom");
 var _routesCheck = require("./routes/routesCheck");
 var _routesPath = require("./routes/routesPath");
-var _appScss = require("./app.scss");
+var _propTypes = require("prop-types");
+var _propTypesDefault = parcelHelpers.interopDefault(_propTypes);
 var _welcome = require("./pages/auth/Welcome");
 var _welcomeDefault = parcelHelpers.interopDefault(_welcome);
 var _movies = require("./pages/movies/Movies");
@@ -28965,6 +28966,7 @@ var _genres = require("./pages/genres/Genres");
 var _genresDefault = parcelHelpers.interopDefault(_genres);
 var _director = require("./pages/director/Director");
 var _directorDefault = parcelHelpers.interopDefault(_director);
+var _appScss = require("./app.scss");
 const App = ({ user  })=>{
     return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
         className: "base-container",
@@ -28972,7 +28974,7 @@ const App = ({ user  })=>{
             user.isAuthenticated && /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_headerDefault.default, {
             }, void 0, false, {
                 fileName: "src/App.jsx",
-                lineNumber: 33,
+                lineNumber: 35,
                 columnNumber: 32
             }, undefined),
             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Routes, {
@@ -28987,7 +28989,7 @@ const App = ({ user  })=>{
                         exact: true
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 36,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -28999,7 +29001,7 @@ const App = ({ user  })=>{
                         exact: true
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 46,
+                        lineNumber: 47,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29011,7 +29013,7 @@ const App = ({ user  })=>{
                         exact: true
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 55,
+                        lineNumber: 56,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29023,7 +29025,7 @@ const App = ({ user  })=>{
                         exact: true
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 65,
+                        lineNumber: 66,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29035,7 +29037,7 @@ const App = ({ user  })=>{
                         exact: true
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 75,
+                        lineNumber: 76,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29046,7 +29048,7 @@ const App = ({ user  })=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 85,
+                        lineNumber: 86,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29057,7 +29059,7 @@ const App = ({ user  })=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 94,
+                        lineNumber: 95,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29068,7 +29070,7 @@ const App = ({ user  })=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 103,
+                        lineNumber: 104,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29079,7 +29081,7 @@ const App = ({ user  })=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 112,
+                        lineNumber: 113,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29090,7 +29092,7 @@ const App = ({ user  })=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 121,
+                        lineNumber: 122,
                         columnNumber: 9
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Route, {
@@ -29101,23 +29103,26 @@ const App = ({ user  })=>{
                         }, void 0, false, void 0, void 0)
                     }, void 0, false, {
                         fileName: "src/App.jsx",
-                        lineNumber: 130,
+                        lineNumber: 131,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/App.jsx",
-                lineNumber: 34,
+                lineNumber: 36,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/App.jsx",
-        lineNumber: 32,
+        lineNumber: 34,
         columnNumber: 5
     }, undefined));
 };
 _c = App;
+App.propTypes = {
+    user: _propTypesDefault.default.objectOf(_propTypesDefault.default.string)
+};
 const mapStateToProps = (state)=>{
     return {
         user: state.user
@@ -29132,7 +29137,7 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","react-router-dom":"fdOAw","./routes/routesCheck":"cbgzi","./routes/routesPath":"l6zZh","./app.scss":"atTOW","./pages/auth/Welcome":"2U5V8","./pages/movies/Movies":"fJMU0","./components/header/Header":"56ak6","./pages/favourites/Favourites":"GPyhb","./pages/profile/Profile":"l5B5V","./pages/movieDetails/MovieDetails":"crA2Q","./pages/actor/Actor":"bjKg0","./pages/home/Home":"aMM8g","./pages/genres/Genres":"2uXd6","./pages/director/Director":"i4MPW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"cbgzi":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-redux":"bdVon","react-router-dom":"fdOAw","./routes/routesCheck":"cbgzi","./routes/routesPath":"l6zZh","./app.scss":"atTOW","./pages/auth/Welcome":"2U5V8","./pages/movies/Movies":"fJMU0","./components/header/Header":"56ak6","./pages/favourites/Favourites":"GPyhb","./pages/profile/Profile":"l5B5V","./pages/movieDetails/MovieDetails":"crA2Q","./pages/actor/Actor":"bjKg0","./pages/home/Home":"aMM8g","./pages/genres/Genres":"2uXd6","./pages/director/Director":"i4MPW","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","prop-types":"7wKI2"}],"cbgzi":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$20fd = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

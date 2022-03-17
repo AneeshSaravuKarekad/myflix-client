@@ -14,8 +14,8 @@ import {
   GENRE_PATH,
   DIRECTOR_PATH,
 } from './routes/routesPath';
+import PropTypes from 'prop-types';
 
-import './app.scss';
 import Welcome from './pages/auth/Welcome';
 import Movies from './pages/movies/Movies';
 import Header from './components/header/Header';
@@ -27,12 +27,13 @@ import Home from './pages/home/Home';
 import Genres from './pages/genres/Genres';
 import Director from './pages/director/Director';
 
+import './app.scss';
+
 const App = ({ user }) => {
   return (
     <div className="base-container">
       {user.isAuthenticated && <Header />}
       <Routes>
-        {/* TODO: change logged in path to home path */}
         <Route
           path={LOGIN_PATH}
           element={
@@ -135,19 +136,13 @@ const App = ({ user }) => {
             </PrivateRoute>
           }
         />
-
-        {/* <Route
-          path={`${MOVIES_PATH}/search/:title`}
-          element={
-            <PrivateRoute>
-              <Movies />
-            </PrivateRoute>
-          }
-          exact
-        /> */}
       </Routes>
     </div>
   );
+};
+
+App.propTypes = {
+  user: PropTypes.objectOf(PropTypes.string),
 };
 
 const mapStateToProps = (state) => {
