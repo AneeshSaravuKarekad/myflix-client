@@ -28577,23 +28577,6 @@ const userReducer = (state = {
             return {
                 error: action.payload
             };
-        // FAVOURITES - GET
-        case _userConstants.USER_FAVOURITES_REQUEST:
-            return {
-                isLoading: true,
-                favourites: []
-            };
-        case _userConstants.USER_FAVOURITES_SUCCESS:
-            return {
-                isLoading: false,
-                count: action.payload.favourites.length,
-                favourites: action.payload.favourites
-            };
-        case _userConstants.USER_FAVOURITES_FAIL:
-            return {
-                isloading: false,
-                error: action.payload
-            };
         case _userConstants.DELETE_USER_SUCCESS:
             return {
                 ...state,
@@ -29367,7 +29350,7 @@ var _myFlixLogoPng = require("../../../public/myFlixLogo.png");
 var _myFlixLogoPngDefault = parcelHelpers.interopDefault(_myFlixLogoPng);
 var _login = require("./Login");
 var _loginDefault = parcelHelpers.interopDefault(_login);
-var _register = require("./register");
+var _register = require("./Register");
 var _registerDefault = parcelHelpers.interopDefault(_register);
 var _welcomeScss = require("./welcome.scss");
 var _s = $RefreshSig$();
@@ -29434,7 +29417,7 @@ $RefreshReg$(_c, "Welcome");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../../../public/myFlixLogo.png":"7sFk7","./register":"df2fV","./welcome.scss":"h56Bd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Login":"2CoLl"}],"3AD9A":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","../../../public/myFlixLogo.png":"7sFk7","./welcome.scss":"h56Bd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./Login":"2CoLl","./Register":"bptll"}],"3AD9A":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Accordion", ()=>_accordionDefault.default
@@ -42128,11 +42111,11 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"df2fV":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$52e2 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{}],"h56Bd":[function() {},{}],"2CoLl":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$a40a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$52e2.prelude(module);
+$parcel$ReactRefreshHelpers$a40a.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -42144,15 +42127,15 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _formik = require("formik");
 var _yup = require("yup");
+var _reactRedux = require("react-redux");
 var _showIconPng = require("../../../public/showIcon.png");
 var _showIconPngDefault = parcelHelpers.interopDefault(_showIconPng);
 var _hideIconPng = require("../../../public/hideIcon.png");
 var _hideIconPngDefault = parcelHelpers.interopDefault(_hideIconPng);
 var _authScss = require("./auth.scss");
 var _userAction = require("../../actions/userAction");
-var _reactRedux = require("react-redux");
 var _s = $RefreshSig$();
-const Register = ({ toggle , dispatchUserRegister  })=>{
+const Login = ({ toggle , dispatchUserLogin  })=>{
     _s();
     const [type, setType] = _react.useState('password');
     const [icon, setIcon] = _react.useState(_showIconPngDefault.default);
@@ -42161,7 +42144,7 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
     const { error  } = _reactRedux.useSelector((state)=>state.user
     );
     _react.useEffect(()=>{
-        if (error) setCustomError(error.message);
+        if (error === 'Unauthorized') setCustomError('Invalid Credentials');
     }, [
         dispatch,
         error
@@ -42178,26 +42161,21 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
     return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_formik.Formik, {
         initialValues: {
             email: '',
-            username: '',
-            password: '',
-            confirmPassword: '',
-            birthDate: ''
+            password: ''
         },
         onSubmit: (values, { setSubmitting  })=>{
             setTimeout(()=>{
-                dispatchUserRegister(values);
+                const { email , password  } = values;
+                dispatchUserLogin({
+                    email,
+                    password
+                });
                 setSubmitting(false);
             }, 500);
         },
         validationSchema: _yup.object().shape({
             email: _yup.string().email('Invalid Email').required('Email is required'),
-            password: _yup.string().required('Password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'),
-            confirmPassword: _yup.string().oneOf([
-                _yup.ref('password'),
-                null
-            ], 'Passwords must match'),
-            birthDate: _yup.date().required('Date is required'),
-            username: _yup.string().required('Username is required').min(5, 'Username should be between 5 to 15 characters').max(15, 'Username should be between 5 to 15 characters')
+            password: _yup.string().required('Password is required')
         }),
         children: (props)=>{
             const { values , touched , isValid , errors , isSubmitting , handleChange , handleBlur , handleSubmit ,  } = props;
@@ -42206,10 +42184,10 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                 children: [
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("h2", {
                         className: "form-header",
-                        children: "Register"
+                        children: "Login"
                     }, void 0, false, {
-                        fileName: "src/pages/auth/register.jsx",
-                        lineNumber: 91,
+                        fileName: "src/pages/auth/Login.jsx",
+                        lineNumber: 70,
                         columnNumber: 13
                     }, undefined),
                     customError && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42220,8 +42198,8 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                         },
                         children: customError
                     }, void 0, false, {
-                        fileName: "src/pages/auth/register.jsx",
-                        lineNumber: 93,
+                        fileName: "src/pages/auth/Login.jsx",
+                        lineNumber: 72,
                         columnNumber: 15
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
@@ -42238,22 +42216,22 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
                                         children: "Email"
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 109,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 87,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.email && touched.email && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                         className: "input-feedback",
                                         children: errors.email
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 111,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 89,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 102,
+                                fileName: "src/pages/auth/Login.jsx",
+                                lineNumber: 80,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -42267,61 +42245,13 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                     onBlur: handleBlur,
                                     className: errors.email && touched.email && 'error'
                                 }, void 0, false, {
-                                    fileName: "src/pages/auth/register.jsx",
-                                    lineNumber: 115,
+                                    fileName: "src/pages/auth/Login.jsx",
+                                    lineNumber: 93,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 114,
-                                columnNumber: 15
-                            }, undefined),
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                                style: {
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                },
-                                children: [
-                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
-                                        children: "Username"
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 135,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    errors.username && touched.username && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                                        className: "input-feedback",
-                                        children: errors.username
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 137,
-                                        columnNumber: 19
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 128,
-                                columnNumber: 15
-                            }, undefined),
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
-                                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.FormControl, {
-                                    name: "username",
-                                    placeholder: "Enter Email",
-                                    "aria-label": "email",
-                                    type: "text",
-                                    value: values.username,
-                                    onChange: handleChange,
-                                    onBlur: handleBlur,
-                                    className: errors.username && touched.username && 'error'
-                                }, void 0, false, {
-                                    fileName: "src/pages/auth/register.jsx",
-                                    lineNumber: 141,
-                                    columnNumber: 17
-                                }, undefined)
-                            }, void 0, false, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 140,
+                                fileName: "src/pages/auth/Login.jsx",
+                                lineNumber: 92,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42334,22 +42264,22 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
                                         children: "Password"
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 161,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 112,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.password && touched.password && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                         className: "input-feedback",
                                         children: errors.password
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 163,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 114,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 154,
+                                fileName: "src/pages/auth/Login.jsx",
+                                lineNumber: 105,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -42365,8 +42295,8 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         onBlur: handleBlur,
                                         className: errors.password && touched.password && 'error'
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 167,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 118,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -42375,197 +42305,91 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                         alt: "show/hide password",
                                         onClick: toggleEye
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 177,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 128,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 166,
-                                columnNumber: 15
-                            }, undefined),
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                                style: {
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                },
-                                children: [
-                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
-                                        children: "Confirm Password"
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 193,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    errors.confirmPassword && touched.confirmPassword && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                                        className: "input-feedback",
-                                        children: errors.confirmPassword
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 195,
-                                        columnNumber: 19
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 186,
-                                columnNumber: 15
-                            }, undefined),
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
-                                className: "password-input-group",
-                                children: [
-                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.FormControl, {
-                                        name: "confirmPassword",
-                                        placeholder: "Enter password",
-                                        "aria-label": "confirm password",
-                                        type: type,
-                                        value: values.confirmPassword,
-                                        onChange: handleChange,
-                                        onBlur: handleBlur,
-                                        className: errors.confirmPassword && touched.confirmPassword && 'error'
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 199,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
-                                        className: "eye-icon",
-                                        src: icon,
-                                        alt: "show/hide password",
-                                        onClick: toggleEye
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 211,
-                                        columnNumber: 17
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 198,
-                                columnNumber: 15
-                            }, undefined),
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                                style: {
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                },
-                                children: [
-                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
-                                        children: "Date of Birth"
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 227,
-                                        columnNumber: 17
-                                    }, undefined),
-                                    errors.birthDate && touched.birthDate && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                                        className: "input-feedback",
-                                        children: errors.birthDate
-                                    }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 229,
-                                        columnNumber: 19
-                                    }, undefined)
-                                ]
-                            }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 220,
-                                columnNumber: 15
-                            }, undefined),
-                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
-                                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.FormControl, {
-                                    name: "birthDate",
-                                    type: "Date",
-                                    value: values.birthDate,
-                                    onChange: handleChange,
-                                    onBlur: handleBlur,
-                                    className: errors.birthDate && touched.birthDate && 'error'
-                                }, void 0, false, {
-                                    fileName: "src/pages/auth/register.jsx",
-                                    lineNumber: 233,
-                                    columnNumber: 17
-                                }, undefined)
-                            }, void 0, false, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 232,
+                                fileName: "src/pages/auth/Login.jsx",
+                                lineNumber: 117,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Text, {
                                 className: "text-muted",
                                 children: [
-                                    "Already have an account?",
+                                    "Don't have an account yet?",
                                     ' ',
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Link, {
                                         to: "#",
                                         className: "register-login-link",
                                         onClick: ()=>toggle()
                                         ,
-                                        children: "Login"
+                                        children: "Register"
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/register.jsx",
-                                        lineNumber: 245,
+                                        fileName: "src/pages/auth/Login.jsx",
+                                        lineNumber: 137,
                                         columnNumber: 17
                                     }, undefined),
                                     ' ',
                                     "instead"
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 243,
+                                fileName: "src/pages/auth/Login.jsx",
+                                lineNumber: 135,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
                                 type: "submit",
                                 className: "submit-button",
                                 variant: "warning",
-                                children: "Register"
+                                disabled: isSubmitting,
+                                children: "Login"
                             }, void 0, false, {
-                                fileName: "src/pages/auth/register.jsx",
-                                lineNumber: 255,
+                                fileName: "src/pages/auth/Login.jsx",
+                                lineNumber: 147,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
-                        fileName: "src/pages/auth/register.jsx",
-                        lineNumber: 100,
+                        fileName: "src/pages/auth/Login.jsx",
+                        lineNumber: 79,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
-                fileName: "src/pages/auth/register.jsx",
-                lineNumber: 90,
+                fileName: "src/pages/auth/Login.jsx",
+                lineNumber: 69,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
-        fileName: "src/pages/auth/register.jsx",
-        lineNumber: 39,
+        fileName: "src/pages/auth/Login.jsx",
+        lineNumber: 38,
         columnNumber: 5
     }, undefined));
 };
-_s(Register, "C+1hUkZZRXz2GaL8If3np9vZ7JI=", false, function() {
+_s(Login, "C+1hUkZZRXz2GaL8If3np9vZ7JI=", false, function() {
     return [
         _reactRedux.useDispatch,
         _reactRedux.useSelector
     ];
 });
-_c = Register;
+_c = Login;
 const mapDispatchToProps = (dispatch)=>({
-        dispatchUserRegister: (userData)=>dispatch(_userAction.register(userData))
+        dispatchUserLogin: (email, password)=>dispatch(_userAction.login(email, password))
     })
 ;
-exports.default = _reactRedux.connect(null, mapDispatchToProps)(Register);
+exports.default = _reactRedux.connect(null, mapDispatchToProps)(Login);
 var _c;
-$RefreshReg$(_c, "Register");
+$RefreshReg$(_c, "Login");
 
-  $parcel$ReactRefreshHelpers$52e2.postlude(module);
+  $parcel$ReactRefreshHelpers$a40a.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","react-redux":"bdVon","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aefoQ":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","react-redux":"bdVon","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"aefoQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ErrorMessage", ()=>ErrorMessage
@@ -54785,11 +54609,11 @@ var utils = require('./../utils');
     return utils.isObject(payload) && payload.isAxiosError === true;
 };
 
-},{"./../utils":"5By4s"}],"h56Bd":[function() {},{}],"2CoLl":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$a40a = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"./../utils":"5By4s"}],"bptll":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$36ec = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$a40a.prelude(module);
+$parcel$ReactRefreshHelpers$36ec.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -54801,15 +54625,15 @@ var _reactBootstrap = require("react-bootstrap");
 var _reactRouterDom = require("react-router-dom");
 var _formik = require("formik");
 var _yup = require("yup");
-var _reactRedux = require("react-redux");
 var _showIconPng = require("../../../public/showIcon.png");
 var _showIconPngDefault = parcelHelpers.interopDefault(_showIconPng);
 var _hideIconPng = require("../../../public/hideIcon.png");
 var _hideIconPngDefault = parcelHelpers.interopDefault(_hideIconPng);
 var _authScss = require("./auth.scss");
 var _userAction = require("../../actions/userAction");
+var _reactRedux = require("react-redux");
 var _s = $RefreshSig$();
-const Login = ({ toggle , dispatchUserLogin  })=>{
+const Register = ({ toggle , dispatchUserRegister  })=>{
     _s();
     const [type, setType] = _react.useState('password');
     const [icon, setIcon] = _react.useState(_showIconPngDefault.default);
@@ -54818,7 +54642,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
     const { error  } = _reactRedux.useSelector((state)=>state.user
     );
     _react.useEffect(()=>{
-        if (error === 'Unauthorized') setCustomError('Invalid Credentials');
+        if (error) setCustomError(error.message);
     }, [
         dispatch,
         error
@@ -54835,21 +54659,26 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
     return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_formik.Formik, {
         initialValues: {
             email: '',
-            password: ''
+            username: '',
+            password: '',
+            confirmPassword: '',
+            birthDate: ''
         },
         onSubmit: (values, { setSubmitting  })=>{
             setTimeout(()=>{
-                const { email , password  } = values;
-                dispatchUserLogin({
-                    email,
-                    password
-                });
+                dispatchUserRegister(values);
                 setSubmitting(false);
             }, 500);
         },
         validationSchema: _yup.object().shape({
             email: _yup.string().email('Invalid Email').required('Email is required'),
-            password: _yup.string().required('Password is required')
+            password: _yup.string().required('Password is required').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/, 'Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character'),
+            confirmPassword: _yup.string().oneOf([
+                _yup.ref('password'),
+                null
+            ], 'Passwords must match'),
+            birthDate: _yup.date().required('Date is required'),
+            username: _yup.string().required('Username is required').min(5, 'Username should be between 5 to 15 characters').max(15, 'Username should be between 5 to 15 characters')
         }),
         children: (props)=>{
             const { values , touched , isValid , errors , isSubmitting , handleChange , handleBlur , handleSubmit ,  } = props;
@@ -54858,10 +54687,10 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                 children: [
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("h2", {
                         className: "form-header",
-                        children: "Login"
+                        children: "Register"
                     }, void 0, false, {
-                        fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 70,
+                        fileName: "src/pages/auth/Register.jsx",
+                        lineNumber: 91,
                         columnNumber: 13
                     }, undefined),
                     customError && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54872,8 +54701,8 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                         },
                         children: customError
                     }, void 0, false, {
-                        fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 72,
+                        fileName: "src/pages/auth/Register.jsx",
+                        lineNumber: 93,
                         columnNumber: 15
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
@@ -54890,22 +54719,22 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
                                         children: "Email"
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 87,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 109,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.email && touched.email && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                         className: "input-feedback",
                                         children: errors.email
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 89,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 111,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 80,
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 102,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54919,13 +54748,61 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                     onBlur: handleBlur,
                                     className: errors.email && touched.email && 'error'
                                 }, void 0, false, {
-                                    fileName: "src/pages/auth/Login.jsx",
-                                    lineNumber: 93,
+                                    fileName: "src/pages/auth/Register.jsx",
+                                    lineNumber: 115,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
-                                fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 92,
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 114,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+                                style: {
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                },
+                                children: [
+                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
+                                        children: "Username"
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 135,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    errors.username && touched.username && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+                                        className: "input-feedback",
+                                        children: errors.username
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 137,
+                                        columnNumber: 19
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 128,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
+                                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.FormControl, {
+                                    name: "username",
+                                    placeholder: "Enter Email",
+                                    "aria-label": "email",
+                                    type: "text",
+                                    value: values.username,
+                                    onChange: handleChange,
+                                    onBlur: handleBlur,
+                                    className: errors.username && touched.username && 'error'
+                                }, void 0, false, {
+                                    fileName: "src/pages/auth/Register.jsx",
+                                    lineNumber: 141,
+                                    columnNumber: 17
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 140,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -54938,22 +54815,22 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
                                         children: "Password"
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 112,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 161,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.password && touched.password && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                         className: "input-feedback",
                                         children: errors.password
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 114,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 163,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 105,
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 154,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -54969,8 +54846,8 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         onBlur: handleBlur,
                                         className: errors.password && touched.password && 'error'
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 118,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 167,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -54979,91 +54856,197 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         alt: "show/hide password",
                                         onClick: toggleEye
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 128,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 177,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 117,
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 166,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+                                style: {
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                },
+                                children: [
+                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
+                                        children: "Confirm Password"
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 193,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    errors.confirmPassword && touched.confirmPassword && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+                                        className: "input-feedback",
+                                        children: errors.confirmPassword
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 195,
+                                        columnNumber: 19
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 186,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
+                                className: "password-input-group",
+                                children: [
+                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.FormControl, {
+                                        name: "confirmPassword",
+                                        placeholder: "Enter password",
+                                        "aria-label": "confirm password",
+                                        type: type,
+                                        value: values.confirmPassword,
+                                        onChange: handleChange,
+                                        onBlur: handleBlur,
+                                        className: errors.confirmPassword && touched.confirmPassword && 'error'
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 199,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
+                                        className: "eye-icon",
+                                        src: icon,
+                                        alt: "show/hide password",
+                                        onClick: toggleEye
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 211,
+                                        columnNumber: 17
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 198,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+                                style: {
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center'
+                                },
+                                children: [
+                                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
+                                        children: "Date of Birth"
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 227,
+                                        columnNumber: 17
+                                    }, undefined),
+                                    errors.birthDate && touched.birthDate && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
+                                        className: "input-feedback",
+                                        children: errors.birthDate
+                                    }, void 0, false, {
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 229,
+                                        columnNumber: 19
+                                    }, undefined)
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 220,
+                                columnNumber: 15
+                            }, undefined),
+                            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
+                                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.FormControl, {
+                                    name: "birthDate",
+                                    type: "Date",
+                                    value: values.birthDate,
+                                    onChange: handleChange,
+                                    onBlur: handleBlur,
+                                    className: errors.birthDate && touched.birthDate && 'error'
+                                }, void 0, false, {
+                                    fileName: "src/pages/auth/Register.jsx",
+                                    lineNumber: 233,
+                                    columnNumber: 17
+                                }, undefined)
+                            }, void 0, false, {
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 232,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Text, {
                                 className: "text-muted",
                                 children: [
-                                    "Don't have an account yet?",
+                                    "Already have an account?",
                                     ' ',
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Link, {
                                         to: "#",
                                         className: "register-login-link",
                                         onClick: ()=>toggle()
                                         ,
-                                        children: "Register"
+                                        children: "Login"
                                     }, void 0, false, {
-                                        fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 137,
+                                        fileName: "src/pages/auth/Register.jsx",
+                                        lineNumber: 245,
                                         columnNumber: 17
                                     }, undefined),
                                     ' ',
                                     "instead"
                                 ]
                             }, void 0, true, {
-                                fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 135,
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 243,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
                                 type: "submit",
                                 className: "submit-button",
                                 variant: "warning",
-                                disabled: isSubmitting,
-                                children: "Login"
+                                children: "Register"
                             }, void 0, false, {
-                                fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 147,
+                                fileName: "src/pages/auth/Register.jsx",
+                                lineNumber: 255,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
-                        fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 79,
+                        fileName: "src/pages/auth/Register.jsx",
+                        lineNumber: 100,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
-                fileName: "src/pages/auth/Login.jsx",
-                lineNumber: 69,
+                fileName: "src/pages/auth/Register.jsx",
+                lineNumber: 90,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
-        fileName: "src/pages/auth/Login.jsx",
-        lineNumber: 38,
+        fileName: "src/pages/auth/Register.jsx",
+        lineNumber: 39,
         columnNumber: 5
     }, undefined));
 };
-_s(Login, "C+1hUkZZRXz2GaL8If3np9vZ7JI=", false, function() {
+_s(Register, "C+1hUkZZRXz2GaL8If3np9vZ7JI=", false, function() {
     return [
         _reactRedux.useDispatch,
         _reactRedux.useSelector
     ];
 });
-_c = Login;
+_c = Register;
 const mapDispatchToProps = (dispatch)=>({
-        dispatchUserLogin: (email, password)=>dispatch(_userAction.login(email, password))
+        dispatchUserRegister: (userData)=>dispatch(_userAction.register(userData))
     })
 ;
-exports.default = _reactRedux.connect(null, mapDispatchToProps)(Login);
+exports.default = _reactRedux.connect(null, mapDispatchToProps)(Register);
 var _c;
-$RefreshReg$(_c, "Login");
+$RefreshReg$(_c, "Register");
 
-  $parcel$ReactRefreshHelpers$a40a.postlude(module);
+  $parcel$ReactRefreshHelpers$36ec.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","react-redux":"bdVon","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"keg8g":[function() {},{}],"fJMU0":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-bootstrap":"3AD9A","react-router-dom":"fdOAw","formik":"aefoQ","yup":"b4KAh","../../../public/showIcon.png":"aB7cb","../../../public/hideIcon.png":"kPEMO","./auth.scss":"keg8g","../../actions/userAction":"cOT3n","react-redux":"bdVon","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"keg8g":[function() {},{}],"fJMU0":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2fc3 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
