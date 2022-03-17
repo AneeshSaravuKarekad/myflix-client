@@ -14,7 +14,7 @@
     justify-content: center;
     font-weight: bold;
   }
-  </style>
+</style>
 
 <div class='banner-container' id='top'>
   <img src='./public/myFlixLogo.png' alt='myFlix'/>
