@@ -29121,7 +29121,10 @@ const App = ({ user  })=>{
 };
 _c = App;
 App.propTypes = {
-    user: _propTypesDefault.default.objectOf(_propTypesDefault.default.string)
+    user: _propTypesDefault.default.shape({
+        details: _propTypesDefault.default.object,
+        isAuthenticated: _propTypesDefault.default.bool
+    })
 };
 const mapStateToProps = (state)=>{
     return {
@@ -42194,7 +42197,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                         children: "Login"
                     }, void 0, false, {
                         fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 71,
+                        lineNumber: 77,
                         columnNumber: 13
                     }, undefined),
                     customError && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42206,7 +42209,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                         children: customError
                     }, void 0, false, {
                         fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 73,
+                        lineNumber: 79,
                         columnNumber: 15
                     }, undefined),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
@@ -42224,7 +42227,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: "Email"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 88,
+                                        lineNumber: 94,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.email && touched.email && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42232,13 +42235,13 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: errors.email
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 90,
+                                        lineNumber: 96,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 81,
+                                lineNumber: 87,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -42253,12 +42256,12 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                     className: errors.email && touched.email && 'error'
                                 }, void 0, false, {
                                     fileName: "src/pages/auth/Login.jsx",
-                                    lineNumber: 94,
+                                    lineNumber: 100,
                                     columnNumber: 17
                                 }, undefined)
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 93,
+                                lineNumber: 99,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42272,7 +42275,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: "Password"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 113,
+                                        lineNumber: 119,
                                         columnNumber: 17
                                     }, undefined),
                                     errors.password && touched.password && /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -42280,13 +42283,13 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: errors.password
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 115,
+                                        lineNumber: 121,
                                         columnNumber: 19
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 106,
+                                lineNumber: 112,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.InputGroup, {
@@ -42303,7 +42306,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         className: errors.password && touched.password && 'error'
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 119,
+                                        lineNumber: 125,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
@@ -42313,13 +42316,13 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         onClick: toggleEye
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 129,
+                                        lineNumber: 135,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 118,
+                                lineNumber: 124,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Text, {
@@ -42335,7 +42338,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                         children: "Register"
                                     }, void 0, false, {
                                         fileName: "src/pages/auth/Login.jsx",
-                                        lineNumber: 138,
+                                        lineNumber: 144,
                                         columnNumber: 17
                                     }, undefined),
                                     ' ',
@@ -42343,7 +42346,7 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 136,
+                                lineNumber: 142,
                                 columnNumber: 15
                             }, undefined),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
@@ -42351,28 +42354,35 @@ const Login = ({ toggle , dispatchUserLogin  })=>{
                                 className: "submit-button",
                                 variant: "warning",
                                 disabled: isSubmitting,
-                                children: "Login"
+                                children: isSubmitting ? /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Spinner, {
+                                    animation: "border",
+                                    variant: "primary"
+                                }, void 0, false, {
+                                    fileName: "src/pages/auth/Login.jsx",
+                                    lineNumber: 161,
+                                    columnNumber: 19
+                                }, undefined) : 'Login'
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Login.jsx",
-                                lineNumber: 148,
+                                lineNumber: 154,
                                 columnNumber: 15
                             }, undefined)
                         ]
                     }, void 0, true, {
                         fileName: "src/pages/auth/Login.jsx",
-                        lineNumber: 80,
+                        lineNumber: 86,
                         columnNumber: 13
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/pages/auth/Login.jsx",
-                lineNumber: 70,
+                lineNumber: 76,
                 columnNumber: 11
             }, undefined));
         }
     }, void 0, false, {
         fileName: "src/pages/auth/Login.jsx",
-        lineNumber: 39,
+        lineNumber: 45,
         columnNumber: 5
     }, undefined));
 };
@@ -55014,7 +55024,14 @@ const Register = ({ toggle , dispatchUserRegister  })=>{
                                 type: "submit",
                                 className: "submit-button",
                                 variant: "warning",
-                                children: "Register"
+                                children: isSubmitting ? /*#__PURE__*/ _jsxDevRuntime.jsxDEV(Spinner, {
+                                    animation: "border",
+                                    variant: "primary"
+                                }, void 0, false, {
+                                    fileName: "src/pages/auth/Register.jsx",
+                                    lineNumber: 258,
+                                    columnNumber: 19
+                                }, undefined) : 'Register'
                             }, void 0, false, {
                                 fileName: "src/pages/auth/Register.jsx",
                                 lineNumber: 256,
@@ -56415,12 +56432,12 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _reactBootstrap = require("react-bootstrap");
 var _reactRedux = require("react-redux");
-var _userAction = require("../../actions/userAction");
 var _moment = require("moment");
 var _momentDefault = parcelHelpers.interopDefault(_moment);
 var _profileScss = require("./profile.scss");
 var _update = require("./Update");
 var _updateDefault = parcelHelpers.interopDefault(_update);
+var _userAction = require("../../actions/userAction");
 var _s = $RefreshSig$();
 const Profile = ()=>{
     _s();
@@ -56444,18 +56461,18 @@ const Profile = ()=>{
                     children: " Profile"
                 }, void 0, false, {
                     fileName: "src/pages/profile/Profile.jsx",
-                    lineNumber: 21,
+                    lineNumber: 22,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/profile/Profile.jsx",
-                lineNumber: 20,
+                lineNumber: 21,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("hr", {
             }, void 0, false, {
                 fileName: "src/pages/profile/Profile.jsx",
-                lineNumber: 24,
+                lineNumber: 25,
                 columnNumber: 7
             }, undefined),
             !isLoading && user ? /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Container, {
@@ -56479,12 +56496,12 @@ const Profile = ()=>{
                                                     children: "Email"
                                                 }, void 0, false, {
                                                     fileName: "src/pages/profile/Profile.jsx",
-                                                    lineNumber: 33,
+                                                    lineNumber: 34,
                                                     columnNumber: 21
                                                 }, undefined)
                                             }, void 0, false, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 32,
+                                                lineNumber: 33,
                                                 columnNumber: 19
                                             }, undefined),
                                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
@@ -56492,13 +56509,13 @@ const Profile = ()=>{
                                                 children: user.email
                                             }, void 0, false, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 35,
+                                                lineNumber: 36,
                                                 columnNumber: 19
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/pages/profile/Profile.jsx",
-                                        lineNumber: 31,
+                                        lineNumber: 32,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
@@ -56510,12 +56527,12 @@ const Profile = ()=>{
                                                     children: "Name"
                                                 }, void 0, false, {
                                                     fileName: "src/pages/profile/Profile.jsx",
-                                                    lineNumber: 39,
+                                                    lineNumber: 40,
                                                     columnNumber: 21
                                                 }, undefined)
                                             }, void 0, false, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 38,
+                                                lineNumber: 39,
                                                 columnNumber: 19
                                             }, undefined),
                                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
@@ -56523,13 +56540,13 @@ const Profile = ()=>{
                                                 children: user.username
                                             }, void 0, false, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 41,
+                                                lineNumber: 42,
                                                 columnNumber: 19
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/pages/profile/Profile.jsx",
-                                        lineNumber: 37,
+                                        lineNumber: 38,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
@@ -56542,14 +56559,14 @@ const Profile = ()=>{
                                                         children: "Birth Date"
                                                     }, void 0, false, {
                                                         fileName: "src/pages/profile/Profile.jsx",
-                                                        lineNumber: 45,
+                                                        lineNumber: 46,
                                                         columnNumber: 21
                                                     }, undefined),
                                                     ' '
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 44,
+                                                lineNumber: 45,
                                                 columnNumber: 19
                                             }, undefined),
                                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
@@ -56557,13 +56574,13 @@ const Profile = ()=>{
                                                 children: user.birthDate
                                             }, void 0, false, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 47,
+                                                lineNumber: 48,
                                                 columnNumber: 19
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/pages/profile/Profile.jsx",
-                                        lineNumber: 43,
+                                        lineNumber: 44,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
@@ -56576,14 +56593,14 @@ const Profile = ()=>{
                                                         children: "Member Since"
                                                     }, void 0, false, {
                                                         fileName: "src/pages/profile/Profile.jsx",
-                                                        lineNumber: 51,
+                                                        lineNumber: 52,
                                                         columnNumber: 21
                                                     }, undefined),
                                                     ' '
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 50,
+                                                lineNumber: 51,
                                                 columnNumber: 19
                                             }, undefined),
                                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
@@ -56591,24 +56608,24 @@ const Profile = ()=>{
                                                 children: _momentDefault.default(user.createdAt).startOf('second').fromNow()
                                             }, void 0, false, {
                                                 fileName: "src/pages/profile/Profile.jsx",
-                                                lineNumber: 53,
+                                                lineNumber: 54,
                                                 columnNumber: 19
                                             }, undefined)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/pages/profile/Profile.jsx",
-                                        lineNumber: 49,
+                                        lineNumber: 50,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/profile/Profile.jsx",
-                                lineNumber: 30,
+                                lineNumber: 31,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/pages/profile/Profile.jsx",
-                            lineNumber: 29,
+                            lineNumber: 30,
                             columnNumber: 13
                         }, undefined),
                         /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
@@ -56624,7 +56641,7 @@ const Profile = ()=>{
                                         children: "Update Profile"
                                     }, void 0, false, {
                                         fileName: "src/pages/profile/Profile.jsx",
-                                        lineNumber: 61,
+                                        lineNumber: 62,
                                         columnNumber: 17
                                     }, undefined),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_updateDefault.default, {
@@ -56633,42 +56650,42 @@ const Profile = ()=>{
                                         prevUsername: user.username
                                     }, void 0, false, {
                                         fileName: "src/pages/profile/Profile.jsx",
-                                        lineNumber: 67,
+                                        lineNumber: 68,
                                         columnNumber: 17
                                     }, undefined)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/pages/profile/Profile.jsx",
-                                lineNumber: 60,
+                                lineNumber: 61,
                                 columnNumber: 15
                             }, undefined)
                         }, void 0, false, {
                             fileName: "src/pages/profile/Profile.jsx",
-                            lineNumber: 59,
+                            lineNumber: 60,
                             columnNumber: 13
                         }, undefined)
                     ]
                 }, void 0, true, {
                     fileName: "src/pages/profile/Profile.jsx",
-                    lineNumber: 28,
+                    lineNumber: 29,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/pages/profile/Profile.jsx",
-                lineNumber: 27,
+                lineNumber: 28,
                 columnNumber: 9
             }, undefined) : /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Spinner, {
                 animation: "border",
                 variant: "warning"
             }, void 0, false, {
                 fileName: "src/pages/profile/Profile.jsx",
-                lineNumber: 77,
+                lineNumber: 78,
                 columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/pages/profile/Profile.jsx",
-        lineNumber: 19,
+        lineNumber: 20,
         columnNumber: 5
     }, undefined));
 };

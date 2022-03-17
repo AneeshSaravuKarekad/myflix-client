@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Col, Container, Row, Spinner } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadProfile } from '../../actions/userAction';
 import moment from 'moment';
 
 import './profile.scss';
+
 import Update from './Update';
+import { loadProfile } from '../../actions/userAction';
 
 const Profile = () => {
   const dispatch = useDispatch();

@@ -142,7 +142,10 @@ const App = ({ user }) => {
 };
 
 App.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string),
+  user: PropTypes.shape({
+    details: PropTypes.object,
+    isAuthenticated: PropTypes.bool,
+  }),
 };
 
 const mapStateToProps = (state) => {

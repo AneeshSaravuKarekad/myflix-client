@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, FormControl, InputGroup } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  FormControl,
+  InputGroup,
+  Spinner,
+} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, connect, useSelector } from 'react-redux';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import showIcon from '../../../public/showIcon.png';
 import hideIcon from '../../../public/hideIcon.png';
@@ -151,7 +157,11 @@ const Login = ({ toggle, dispatchUserLogin }) => {
                 variant="warning"
                 disabled={isSubmitting}
               >
-                Login
+                {isSubmitting ? (
+                  <Spinner animation="border" variant="primary" />
+                ) : (
+                  'Login'
+                )}
               </Button>
             </Form>
           </div>
@@ -163,8 +173,8 @@ const Login = ({ toggle, dispatchUserLogin }) => {
 
 Login.propTypes = {
   toggle: PropTypes.func,
-  dispatchUserLogin: PropTypes.func
-}
+  dispatchUserLogin: PropTypes.func,
+};
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchUserLogin: (email, password) => dispatch(login(email, password)),
